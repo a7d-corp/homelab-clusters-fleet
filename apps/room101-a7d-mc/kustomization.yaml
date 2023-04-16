@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ../base/dex
+- ../base/external-dns
+- ../base/oauth2-proxy
+patches:
+- path: dex/dex-k8s-authenticator-values.yaml
+- path: dex/dex-secret-dex-config.yaml
+- path: dex/dex-secret-dex-github-secret.yaml
+- path: dex/dex-secret-dex-k8s-authenticator-credentials.yaml
+- path: dex/dex-values.yaml
+- path: external-dns/external-dns-secrets.yaml
+- path: external-dns/external-dns-values.yaml
+- path: oauth2-proxy/ingress-oauth2-proxy-a7d-dev.yaml
+- path: oauth2-proxy/ingress-oauth2-proxy-analbeard-com.yaml
+- path: oauth2-proxy/oauth2-proxy-a7d-dev-values.yaml
+- path: oauth2-proxy/oauth2-proxy-analbeard-com-values.yaml
+- path: oauth2-proxy/secret-oauth2-proxy-a7d-dev-credentials.yaml
+- path: oauth2-proxy/secret-oauth2-proxy-analbeard-com-credentials.yaml

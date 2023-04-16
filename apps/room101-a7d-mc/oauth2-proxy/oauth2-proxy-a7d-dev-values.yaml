@@ -1,0 +1,22 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: oauth2-proxy-a7d-dev
+  namespace: oauth2-proxy
+spec:
+  chart:
+    spec:
+      chart: oauth2-proxy
+      sourceRef:
+        kind: HelmRepository
+        name: oauth2-proxy
+      version: ">=6.0.0 <7.0.0"
+  values:
+    config:
+      cookieName: _oauth2_a7d_dev_room101_a7d_mc
+      existingSecret: oauth2-proxy-a7d-dev-credentials
+    extraArgs:
+      cookie-domain: ".a7d.dev"
+      github-org: "a7d-corp"
+      provider: "github"
+      redirect-url: "https://oauth2-proxy.room101-a7d-mc.lab.a7d.dev/oauth2/callback"

@@ -1,0 +1,19 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: dex
+  namespace: dex
+spec:
+  chart:
+    spec:
+      chart: dex
+      sourceRef:
+        kind: HelmRepository
+        name: dex
+  interval: 10m0s
+  values:
+    ingress:
+      className: nginx
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt
+        kubernetes.io/tls-acme: "true"

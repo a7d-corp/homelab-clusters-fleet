@@ -1,0 +1,39 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: dex
+  namespace: dex
+spec:
+  releaseName: dex
+  chart:
+    spec:
+      version: ">=0.14.0 <1.0.0"
+  values:
+    configSecret:
+      create: false
+      name: dex-config
+    envVars:
+      - name: GITHUB_CLIENT_ID
+        valueFrom:
+          secretKeyRef:
+            name: dex-github-secret
+            key: clientID
+      - name: GITHUB_CLIENT_SECRET
+        valueFrom:
+          secretKeyRef:
+            name: dex-github-secret
+            key: clientSecret
+    ingress:
+      enabled: true
+      annotations:
+        external-dns.alpha.kubernetes.io/hostname: dex.room101-a7d-mc.lab.a7d.dev
+        external-dns.alpha.kubernetes.io/target: ingress.lab.a7d.dev
+      hosts:
+        - host: dex.room101-a7d-mc.lab.a7d.dev
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
+      tls:
+        - secretName: dex-tls
+          hosts:
+            - dex.room101-a7d-mc.lab.a7d.dev
