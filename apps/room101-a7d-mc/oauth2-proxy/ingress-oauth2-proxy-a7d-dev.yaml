@@ -20,5 +20,5 @@ spec:
               number: 80
   tls:
   - hosts:
-    - oauth2-proxy.room101-a7d-mc.lab.a7d-dev
+    - oauth2-proxy.room101-a7d-mc.lab.a7d.dev
     secretName: oauth2-proxy-a7d-dev-tls
