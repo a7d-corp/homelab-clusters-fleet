@@ -1,0 +1,25 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: dex-k8s-authenticator
+  namespace: dex
+spec:
+  releaseName: dex-k8s-authenticator
+  chart:
+    spec:
+      chart: dex-k8s-authenticator
+      sourceRef:
+        kind: HelmRepository
+        name: sagikazarmark
+  interval: 1m0s
+  values:
+    envFrom:
+      - secretRef:
+          name: dex-k8s-authenticator-credentials
+    ingress:
+      enabled: true
+      className: nginx
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt
+        external-dns.alpha.kubernetes.io/target: ingress.lab.a7d.dev
+        kubernetes.io/tls-acme: "true"
