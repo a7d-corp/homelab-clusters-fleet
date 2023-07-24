@@ -4,6 +4,8 @@ metadata:
   name: infrastructure-controllers
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: infrastructure-cni
   interval: 1h
   retryInterval: 1m
   timeout: 5m
