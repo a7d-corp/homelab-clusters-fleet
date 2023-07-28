@@ -17,3 +17,6 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  kubeConfig:
+    secretRef:
+      name: bootstrap-kubeconfig

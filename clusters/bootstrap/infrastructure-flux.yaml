@@ -12,12 +12,15 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/flux/bootstrap
+  path: ./clusters/bootstrap/flux-bootstrap
   prune: true
   decryption:
     provider: sops
     secretRef:
       name: sops-age
+  kubeConfig:
+    secretRef:
+      name: bootstrap-kubeconfig
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -40,3 +43,6 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  kubeConfig:
+    secretRef:
+      name: bootstrap-kubeconfig
