@@ -37,7 +37,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/flux/deploy
+  path: ./infrastructure/flux
   prune: true
   decryption:
     provider: sops
@@ -46,3 +46,12 @@ spec:
   kubeConfig:
     secretRef:
       name: bootstrap-kubeconfig
+  patches:
+    - patch: |
+        spec:
+          values:
+            kustomization:
+              path: "./clusters/room101-a7d-mc"
+      target:
+        kind: HelmRelease
+        name: flux-sync
