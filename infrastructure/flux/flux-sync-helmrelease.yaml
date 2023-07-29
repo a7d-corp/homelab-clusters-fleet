@@ -20,3 +20,9 @@ spec:
         ref:
           branch: "main"
         secretRef: "flux-github-auth"
+    kustomization:
+      spec:
+        decryption:
+          provider: sops
+          secretRef:
+            name: sops-age
