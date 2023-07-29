@@ -12,7 +12,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/flux/bootstrap
+  path: ./clusters/room101-a7d-mc/flux-bootstrap
   prune: true
   decryption:
     provider: sops
@@ -34,9 +34,18 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/flux/deploy
+  path: ./infrastructure/flux
   prune: true
   decryption:
     provider: sops
     secretRef:
       name: sops-age
+  patches:
+    - patch: |
+        spec:
+          values:
+            kustomization:
+              path: "./clusters/room101-a7d-mc"
+      target:
+        kind: HelmRelease
+        name: flux-sync
