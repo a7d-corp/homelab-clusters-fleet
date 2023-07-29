@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - flux-github-auth.yaml
   - namespace.yaml
+  - sops-age-secret.yaml
