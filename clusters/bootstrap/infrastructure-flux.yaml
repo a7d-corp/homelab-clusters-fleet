@@ -1,0 +1,57 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: infrastructure-flux-bootstrap
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: infrastructure-cni
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./clusters/bootstrap/flux-bootstrap
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  kubeConfig:
+    secretRef:
+      name: bootstrap-kubeconfig
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: infrastructure-flux
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: infrastructure-cni
+    - name: infrastructure-flux-bootstrap
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/flux
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  kubeConfig:
+    secretRef:
+      name: bootstrap-kubeconfig
+  patches:
+    - patch: |
+        spec:
+          values:
+            kustomization:
+              path: "./clusters/room101-a7d-mc"
+      target:
+        kind: HelmRelease
+        name: flux-sync

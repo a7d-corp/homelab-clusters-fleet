@@ -1,0 +1,6 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - flux-github-auth.yaml
+  - namespace.yaml
+  - sops-age-secret.yaml
