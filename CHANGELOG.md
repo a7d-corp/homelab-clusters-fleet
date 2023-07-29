@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial addition of base structure.
 - Initial addition of config for `room101-a7d-mc` cluster.
+- Initial addition of bootstrap cluster to remotely bootstrap `room101-a7d-mc`cluster.
 
 [Unreleased]: https://github.com/a7d-corp/homelab-clusters-fleet/tree/main
 
