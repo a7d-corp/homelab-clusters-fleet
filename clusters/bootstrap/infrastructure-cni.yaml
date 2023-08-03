@@ -20,6 +20,10 @@ spec:
   patches:
     - patch: |
         - op: add
+          path: /spec/kubeConfig
+          value:
+            secretRef: {}
+        - op: add
           path: /spec/kubeConfig/secretRef
           value: 
             name: bootstrap-kubeconfig
