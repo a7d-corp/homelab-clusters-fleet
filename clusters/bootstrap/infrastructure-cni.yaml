@@ -19,12 +19,10 @@ spec:
       name: sops-age
   patches:
     - patch: |
-        metadata:
-          name: cilium
-        spec:
-          kubeConfig:
-            secretRef:
-              name: bootstrap-kubeconfig
+        - op: add
+          path: /spec/kubeConfig/secretRef
+          value: 
+            name: bootstrap-kubeconfig
       target:
         kind: HelmRelease
         name: cilium
