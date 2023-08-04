@@ -13,6 +13,9 @@ spec:
   path: ./clusters/bootstrap/cilium-bootstrap
   prune: true
   wait: true
+  kubeConfig:
+    secretRef:
+      name: bootstrap-kubeconfig
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
