@@ -21,20 +21,4 @@ spec:
     secretRef:
       name: bootstrap-kubeconfig
   patches:
-    - patch: |
-        - op: add
-          path: /spec
-            value:
-              storageNamespace: room101-a7d-mc
-        - op: add
-          path: /spec/kubeConfig
-          value:
-            secretRef: {}
-        - op: add
-          path: /spec/kubeConfig/secretRef
-          value: 
-            name: bootstrap-kubeconfig
-      target:
-        kind: HelmRelease
-        name: cilium
-  suspend: true
+  suspend: false
