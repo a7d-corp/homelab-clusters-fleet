@@ -61,9 +61,6 @@ spec:
           path: /spec/kubeConfig/secretRef
           value:
             name: bootstrap-kubeconfig
-        - op: add
-          path: /spec/suspend
-          value: true
       target:
         kind: HelmRelease
         name: cilium
