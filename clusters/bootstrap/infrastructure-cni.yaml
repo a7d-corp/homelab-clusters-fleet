@@ -38,4 +38,11 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  suspend: false
+  patches:
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: room101-a7d-mc
+      target:
+        kind: HelmRepository
+        name: cilium
