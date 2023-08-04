@@ -37,3 +37,4 @@ spec:
       target:
         kind: HelmRelease
         name: cilium
+  suspend: true
