@@ -2,7 +2,7 @@ apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
   name: cilium
-  namespace: cilium
+  namespace: room101-a7d-mc
 spec:
   interval: 1m0s
   url: https://helm.cilium.io/
