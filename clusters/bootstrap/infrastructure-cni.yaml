@@ -51,6 +51,9 @@ spec:
           path: /metadata/namespace
           value: room101-a7d-mc
         - op: add
+          path: /spec/storageNamespace
+          value: cilium
+        - op: add
           path: /spec/targetNamespace
           value: cilium
         - op: add
