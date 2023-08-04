@@ -20,6 +20,8 @@ metadata:
   name: infrastructure-cni
   namespace: flux-system
 spec:
+  dependsOn:
+    - infrastructure-flux-bootstrap
   interval: 1h
   retryInterval: 1m
   timeout: 5m
