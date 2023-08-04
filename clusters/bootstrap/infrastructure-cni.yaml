@@ -46,3 +46,24 @@ spec:
       target:
         kind: HelmRepository
         name: cilium
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: room101-a7d-mc
+        - op: add
+          path: /spec/targetNamespace
+          value: cilium
+        - op: add
+          path: /spec/kubeConfig
+          value:
+            secretRef: {}
+        - op: add
+          path: /spec/kubeConfig/secretRef
+          value:
+            name: bootstrap-kubeconfig
+        - op: add
+          path: /spec/suspend
+          value: true
+      target:
+        kind: HelmRelease
+        name: cilium
