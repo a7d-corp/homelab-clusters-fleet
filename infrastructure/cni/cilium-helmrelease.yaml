@@ -11,7 +11,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: cilium
-      version: ">=1.13.0 <1.14.0"
+      version: ">=1.14.0 <1.15.0"
   interval: 10m0s
   values:
     bgp:
@@ -24,5 +24,30 @@ spec:
       integration: auto
     preflight:
       enabled: true
-
-# TODO: cilium node-port support?
+    ipam:
+      mode: kubernetes
+    kubeProxyReplacement: true
+    securityContext: 
+      capabilities: 
+        ciliumAgent: 
+          - CHOWN
+          - KILL
+          - NET_ADMIN
+          - NET_RAW
+          - IPC_LOCK
+          - SYS_ADMIN
+          - SYS_RESOURCE
+          - DAC_OVERRIDE
+          - FOWNER
+          - SETGID
+          - SETUID
+        cleanCiliumState:
+          - NET_ADMIN
+          - SYS_ADMIN
+          - SYS_RESOURCE
+    cgroup:
+      autoMount:
+        enabled: false
+      hostRoot: "/sys/fs/cgroup"
+    k8sServiceHost: "${KUBERNETES_API_SERVER_ADDRESS}"
+    k8sServicePort: 6443
