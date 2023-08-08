@@ -2,7 +2,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: infrastructure-cni-bootstrap
-  namespace: flux-system
+  namespace: cluster-room101-a7d-mc
 spec:
   interval: 1h
   retryInterval: 1m
@@ -10,6 +10,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
+    namespace: flux-system
   path: ./clusters/bootstrap/cilium-bootstrap
   prune: true
   wait: true
@@ -21,7 +22,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: infrastructure-cni
-  namespace: flux-system
+  namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
     - name: infrastructure-cni-bootstrap
@@ -31,6 +32,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
+    namespace: flux-system
   path: ./infrastructure/cni
   prune: true
   wait: true
@@ -42,14 +44,14 @@ spec:
     - patch: |
         - op: replace
           path: /metadata/namespace
-          value: room101-a7d-mc
+          value: cluster-room101-a7d-mc
       target:
         kind: HelmRepository
         name: cilium
     - patch: |
         - op: replace
           path: /metadata/namespace
-          value: room101-a7d-mc
+          value: cluster-room101-a7d-mc
         - op: add
           path: /spec/storageNamespace
           value: cilium
