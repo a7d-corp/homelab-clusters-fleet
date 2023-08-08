@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Deploy flux CRDs to management cluster.
 - Add kubeconfig to Cilium HelmRelease for remote deployment.
 - Deploy Cilium BGP config to MC.
+- Bump Cilium to 1.14.0 and add config for running on Talos.
 
 [Unreleased]: https://github.com/a7d-corp/homelab-clusters-fleet/tree/main
 
