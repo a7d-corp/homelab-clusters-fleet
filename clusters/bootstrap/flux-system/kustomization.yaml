@@ -3,4 +3,3 @@ kind: Kustomization
 resources:
 - gotk-components.yaml
 - gotk-sync.yaml
-- flux-crds-2.0.1.yaml
