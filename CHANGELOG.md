@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bump Cilium to 1.14.0 and add config for running on Talos.
 - Move cluster kustomizations to remote cluster namespace.
 - Drop flux CRD installation to remote cluster.
+- Disable preflight mode for Cilium.
 
 [Unreleased]: https://github.com/a7d-corp/homelab-clusters-fleet/tree/main
 
