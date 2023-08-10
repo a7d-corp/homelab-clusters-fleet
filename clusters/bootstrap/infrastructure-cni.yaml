@@ -66,6 +66,9 @@ spec:
           path: /spec/kubeConfig/secretRef
           value:
             name: bootstrap-kubeconfig
+        - op: replace
+          path: /spec/values/k8sServiceHost
+          value: 172.25.100.18
       target:
         kind: HelmRelease
         name: cilium
