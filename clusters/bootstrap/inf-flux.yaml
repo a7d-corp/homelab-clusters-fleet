@@ -14,7 +14,7 @@ spec:
     name: flux-system
     namespace: flux-system
   path: ./clusters/bootstrap/flux-bootstrap
-  prune: false
+  prune: true
   decryption:
     provider: sops
     secretRef:
@@ -41,7 +41,7 @@ spec:
     name: flux-system
     namespace: flux-system
   path: ./infrastructure/flux
-  prune: false
+  prune: true
   decryption:
     provider: sops
     secretRef:
