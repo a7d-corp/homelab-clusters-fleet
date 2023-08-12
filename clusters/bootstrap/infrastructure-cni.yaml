@@ -1,7 +1,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: infrastructure-cni-bootstrap
+  name: inf-cni-prereqs
   namespace: cluster-room101-a7d-mc
 spec:
   interval: 1h
@@ -21,11 +21,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: infrastructure-cni
+  name: inf-cni
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: infrastructure-cni-bootstrap
+    - name: inf-cni-prereqs
   interval: 1h
   retryInterval: 1m
   timeout: 5m
