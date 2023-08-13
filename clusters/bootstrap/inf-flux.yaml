@@ -22,7 +22,7 @@ spec:
   kubeConfig:
     secretRef:
       name: bootstrap-kubeconfig
-  suspend: false
+  suspend: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
