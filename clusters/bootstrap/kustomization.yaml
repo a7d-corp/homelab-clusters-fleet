@@ -3,5 +3,5 @@ kind: Kustomization
 resources:
 - flux-prereqs
 - flux-sync
-- infrastructure-cni.yaml
-- infrastructure-flux.yaml
+- inf-cni.yaml
+- inf-flux.yaml
