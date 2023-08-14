@@ -1,11 +1,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: infrastructure-controllers
-  namespace: flux-system
+  name: inf-controllers
+  namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: infrastructure-cni
+    - name: inf-cni
   interval: 1h
   retryInterval: 1m
   timeout: 5m
@@ -19,3 +19,4 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  suspend: true
