@@ -6,7 +6,7 @@ metadata:
 spec:
   interval: 10m0s
   dependsOn:
-    - name: infrastructure-configs
+    - name: inf-configs
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -18,3 +18,4 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  suspend: true
