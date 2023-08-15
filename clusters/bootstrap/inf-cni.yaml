@@ -11,7 +11,29 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./clusters/bootstrap/cilium-prereqs
+  path: ./infrastructure/cni/prereqs
+  prune: true
+  wait: true
+  kubeConfig:
+    secretRef:
+      name: bootstrap-kubeconfig
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: inf-cni-configs
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: inf-cni-prereqs
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./clusters/room101-a7d-mc/cilium-configs
   prune: true
   wait: true
   kubeConfig:
@@ -25,7 +47,7 @@ metadata:
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: inf-cni-prereqs
+    - name: inf-cni-configs
   interval: 1h
   retryInterval: 1m
   timeout: 5m
