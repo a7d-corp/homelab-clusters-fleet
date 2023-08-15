@@ -75,10 +75,9 @@ spec:
       name: bootstrap-kubeconfig
   patches:
     - patch: |
-        spec:
-          values:
-            kustomization:
-              path: "./clusters/room101-a7d-mc"
+        - op: add
+          path: /spec/values/kustomization/path
+          value: "./clusters/room101-a7d-mc"
       target:
         kind: HelmRelease
         name: flux-sync
