@@ -70,15 +70,57 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  kubeConfig:
-    secretRef:
-      name: bootstrap-kubeconfig
   patches:
     - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: HelmRepository
+        name: fluxcd-community
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+        - op: add
+          path: /spec/storageNamespace
+          value: flux-system
+        - op: add
+          path: /spec/targetNamespace
+          value: flux-system
+        - op: add
+          path: /spec/kubeConfig
+          value:
+            secretRef: {}
+        - op: add
+          path: /spec/kubeConfig/secretRef
+          value:
+            name: bootstrap-kubeconfig
         - op: add
           path: /spec/values/kustomization/path
           value: "./clusters/room101-a7d-mc"
       target:
         kind: HelmRelease
         name: flux-sync
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+        - op: add
+          path: /spec/storageNamespace
+          value: flux-system
+        - op: add
+          path: /spec/targetNamespace
+          value: flux-system
+        - op: add
+          path: /spec/kubeConfig
+          value:
+            secretRef: {}
+        - op: add
+          path: /spec/kubeConfig/secretRef
+          value:
+            name: bootstrap-kubeconfig
+      target:
+        kind: HelmRelease
+        name: flux
   suspend: true
