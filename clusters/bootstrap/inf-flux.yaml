@@ -123,4 +123,3 @@ spec:
       target:
         kind: HelmRelease
         name: flux
-  suspend: true
