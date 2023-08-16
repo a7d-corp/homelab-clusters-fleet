@@ -55,7 +55,7 @@ metadata:
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: inf-cni
+    - name: cluster-prereqs
     - name: inf-flux-configs
   interval: 1h
   retryInterval: 1m
