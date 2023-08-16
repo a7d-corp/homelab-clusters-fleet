@@ -19,7 +19,8 @@ spec:
         url: "ssh://git@github.com/a7d-corp/homelab-clusters-fleet"
         ref:
           branch: "main"
-        secretRef: "flux-github-auth"
+        secretRef:
+          name: "flux-github-auth"
     kustomization:
       spec:
         decryption:
