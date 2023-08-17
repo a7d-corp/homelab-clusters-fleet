@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Drop flux CRD installation to remote cluster.
 - Disable preflight mode for Cilium.
 - Tidy up room101-a7d-mc cluster dir to match bootstrap cluster.
+- Completely rework apps dir.
 
 [Unreleased]: https://github.com/a7d-corp/homelab-clusters-fleet/tree/main
 
