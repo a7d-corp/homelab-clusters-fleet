@@ -5,7 +5,7 @@ resources:
 namespace: "dex"
 namePrefix: "app-"
 patchesStrategicMerge:
-  - path: dex-k8s-authenticator-values.yaml
+- path: dex-k8s-authenticator-values.yaml
   target:
     kind: HelmRelease
 - path: dex-secret-dex-config.yaml
