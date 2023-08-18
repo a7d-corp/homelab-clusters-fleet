@@ -5,8 +5,8 @@ resources:
 namespace: "dex"
 namePrefix: "app-"
 patchesStrategicMerge:
-- path: dex-k8s-authenticator-values.yaml
-- path: dex-secret-dex-config.yaml
-- path: dex-secret-dex-github-secret.yaml
-- path: dex-secret-dex-k8s-authenticator-credentials.yaml
-- path: dex-values.yaml
+- dex-k8s-authenticator-values.yaml
+- dex-secret-dex-config.yaml
+- dex-secret-dex-github-secret.yaml
+- dex-secret-dex-k8s-authenticator-credentials.yaml
+- dex-values.yaml
