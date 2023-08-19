@@ -97,7 +97,7 @@ spec:
           value:
             name: bootstrap-kubeconfig
         - op: add
-          path: /spec/values/kustomization/path
+          path: /spec/values/kustomization/spec/path
           value: "./clusters/room101-a7d-mc"
       target:
         kind: HelmRelease
