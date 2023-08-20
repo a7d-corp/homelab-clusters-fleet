@@ -6,4 +6,3 @@ resources:
 - inf-configs.yaml
 - inf-controllers.yaml
 - inf-flux.yaml
-- test.yaml
