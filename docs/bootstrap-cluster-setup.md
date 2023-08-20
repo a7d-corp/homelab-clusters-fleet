@@ -8,3 +8,6 @@ sops -e -i --output-type yaml flux-github-auth.yaml
 ```
 
 Copy generated public key and add it as a deploy key to the flux repo.
+
+- install sidero
+- pivot crs
