@@ -4,4 +4,3 @@ resources:
   - cluster.yaml
   - inf-cni.yaml
   - inf-flux.yaml
-  - test.yaml
