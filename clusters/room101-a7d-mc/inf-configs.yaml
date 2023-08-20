@@ -11,7 +11,7 @@ spec:
   timeout: 5m
   sourceRef:
     kind: GitRepository
-    name: flux-sync
+    name: flux-system
     namespace: flux-system
   path: ./infrastructure/configs
   prune: true
