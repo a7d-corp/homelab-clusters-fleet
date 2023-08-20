@@ -11,7 +11,7 @@ spec:
   timeout: 5m
   sourceRef:
     kind: GitRepository
-    name: flux-sync
+    name: flux-system
     namespace: flux-system
   path: ./infrastructure/flux/prereqs
   prune: true
@@ -34,7 +34,7 @@ spec:
   timeout: 5m
   sourceRef:
     kind: GitRepository
-    name: flux-sync
+    name: flux-system
     namespace: flux-system
   path: ./clusters/room101-a7d-mc/flux-configs
   prune: true
@@ -58,7 +58,7 @@ spec:
   timeout: 5m
   sourceRef:
     kind: GitRepository
-    name: flux-sync
+    name: flux-system
     namespace: flux-system
   path: ./infrastructure/flux
   prune: true
@@ -89,7 +89,7 @@ spec:
           value: "./clusters/room101-a7d-mc"
       target:
         kind: HelmRelease
-        name: flux-sync
+        name: flux-system
     - patch: |
         - op: replace
           path: /metadata/namespace

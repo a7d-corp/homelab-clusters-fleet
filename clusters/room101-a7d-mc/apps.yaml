@@ -9,7 +9,7 @@ spec:
     - name: inf-configs
   sourceRef:
     kind: GitRepository
-    name: flux-sync
+    name: flux-system
     namespace: flux-system
   path: ./apps/room101-a7d-mc
   prune: true
