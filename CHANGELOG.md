@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Tidy up room101-a7d-mc cluster dir to match bootstrap cluster.
 - Completely rework apps dir.
 - Rename flux sync release to flux--system.
+- Add `cluster-api-operator`.
 
 [Unreleased]: https://github.com/a7d-corp/homelab-clusters-fleet/tree/main
 

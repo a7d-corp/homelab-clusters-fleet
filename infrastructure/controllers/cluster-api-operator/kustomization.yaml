@@ -1,0 +1,7 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- cluster-api-operator-helmrelease.yaml
+- cluster-api-operator-helmrepository.yaml
+- cluster-api-operator-namespace.yaml
+- infrastructureprovider-sidero.yaml
