@@ -17,4 +17,4 @@ spec:
     controlPlane: "talos"
     # infrastructure: "sidero" don't configure the infra provider as we set this manually in the cluster config dir
     secretName: "sidero-config"
-    secretName: "sidero-system"
+    secretNamespace: "sidero-system"
