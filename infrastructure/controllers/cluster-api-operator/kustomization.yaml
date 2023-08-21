@@ -5,3 +5,5 @@ resources:
 - cluster-api-operator-helmrepository.yaml
 - cluster-api-operator-namespace.yaml
 - infrastructureprovider-sidero.yaml
+- namespace-sidero-system.yaml
+- sidero-config-secret.yaml
