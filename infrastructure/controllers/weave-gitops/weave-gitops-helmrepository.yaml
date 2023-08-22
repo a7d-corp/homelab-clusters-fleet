@@ -2,7 +2,7 @@ apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
   name: weaveworks
-  namespace: flux-system
+  namespace: weave-gitops
 spec:
   type: oci
   interval: 60m0s
