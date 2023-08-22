@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Rename flux sync release to flux--system.
 - Add `cluster-api-operator`.
 - Add bootstrap kubeconfig to bootstrap cluster.
+- Split custom resources out from controllers.
 
 [Unreleased]: https://github.com/a7d-corp/homelab-clusters-fleet/tree/main
 
