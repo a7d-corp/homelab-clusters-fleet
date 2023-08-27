@@ -53,8 +53,7 @@ echo $json_template
 }
 
 curl_api() {
-        #curl -k -u "api_key":"api_secret" https://opnsense_address/api/core/firmware/status
-    echo curl -k \
+    curl -k \
         -X POST -H "Content-type: application/json" \
         -d ${json_payload} \
         -u ${api_key}:${api_secret} \
@@ -71,10 +70,8 @@ main() {
         json_payload=$(gen_json_payload)
         unset $neighbour_ip
 
-        # curl api
-        #echo ${json_payload} | jq .
+        # post request to opnsense api
         curl_api
-        echo -e "\n\n"
     done
 }
 
