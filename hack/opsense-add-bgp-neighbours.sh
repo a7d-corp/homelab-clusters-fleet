@@ -58,6 +58,13 @@ curl_api() {
         -d ${json_payload} \
         -u ${api_key}:${api_secret} \
         https://${opnsense_address}/api/quagga/bgp/addNeighbor
+    _return=${?}
+
+    if [[ ${_return} -gt 0 ]]; then
+        echo "ERR: failed to create BGP neighbour for ${neighbour_ip}"
+    else
+        echo "INF: created BGP neighbour for ${neighbour_ip}"
+    fi
 }
 
 main() {
@@ -68,10 +75,12 @@ main() {
     for last_octet in `seq $first_ip_last_octet $last_ip_last_octet` ; do
         neighbour_ip="${first_three_octets}.${last_octet}"
         json_payload=$(gen_json_payload)
-        unset $neighbour_ip
 
         # post request to opnsense api
         curl_api
+
+        # tidy up
+        unset $neighbour_ip
     done
 }
 
