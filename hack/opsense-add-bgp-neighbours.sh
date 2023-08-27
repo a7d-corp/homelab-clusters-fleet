@@ -19,10 +19,12 @@ All flags are required.
 
 gen_json_payload() {
 
-json_template="'{
+    post_body_temp=$(mktemp "/tmp/opnsense-bgp-neighbour.XXXXXXXX.json")
+
+    echo "{
   \"neighbor\": {
     \"enabled\": \"1\",
-    \"description\": \"${neighbour_ip} (${post_description})\",
+    \"description\": \"${neighbour_ip} ${post_description}\",
     \"address\": \"${neighbour_ip}\",
     \"remoteas\": \"${asn}\",
     \"password\": \"\",
@@ -47,9 +49,9 @@ json_template="'{
     \"linkedRoutemapIn\": \"\",
     \"linkedRoutemapOut\": \"\"
   }
-}'"
+}" > ${post_body_temp}
 
-echo $json_template
+echo ${post_body_temp}
 }
 
 curl_api() {
@@ -64,6 +66,7 @@ curl_api() {
         echo "ERR: failed to create BGP neighbour for ${neighbour_ip}"
     else
         echo "INF: created BGP neighbour for ${neighbour_ip}"
+        rm ${payload_file}
     fi
 }
 
@@ -74,7 +77,7 @@ main() {
 
     for last_octet in `seq $first_ip_last_octet $last_ip_last_octet` ; do
         neighbour_ip="${first_three_octets}.${last_octet}"
-        json_payload=$(gen_json_payload)
+        payload_file=$(gen_json_payload)
 
         # post request to opnsense api
         curl_api
