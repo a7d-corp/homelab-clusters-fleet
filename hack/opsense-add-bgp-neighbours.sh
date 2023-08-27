@@ -57,13 +57,14 @@ echo ${post_body_temp}
 curl_api() {
     curl -k \
         -X POST -H "Content-type: application/json" \
-        -d ${json_payload} \
-        -u ${api_key}:${api_secret} \
-        https://${opnsense_address}/api/quagga/bgp/addNeighbor
+        --data-binary "@${payload_file}" \
+        -u "${api_key}":"${api_secret}" \
+        "https://${opnsense_address}:443/api/quagga/bgp/addNeighbor"
     _return=${?}
 
     if [[ ${_return} -gt 0 ]]; then
-        echo "ERR: failed to create BGP neighbour for ${neighbour_ip}"
+        echo -e "ERR: failed to create BGP neighbour for ${neighbour_ip}\n"
+        echo "ERR: payload file at ${payload_file}"
     else
         echo "INF: created BGP neighbour for ${neighbour_ip}"
         rm ${payload_file}
