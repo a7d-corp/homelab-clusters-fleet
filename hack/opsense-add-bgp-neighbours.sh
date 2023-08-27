@@ -1,11 +1,21 @@
 #!/usr/bin/env bash
 
-
 print_help() {
-    echo "This is not much help"
-    #update-source=opt1
-}
+    echo "
+# Usage
 
+All flags are required.
+
+--opnsense-address      IP address of hostname of OPNsense firewall.
+--api-key               API key to access OPNsense.
+--api-secret            API key secret to access OPNsense.
+--asn                   Remote AS number of neighbour.
+--first-ip              First IP address in range of neighbours.
+--last-ip               Last IP address in range of neighbours.
+--update-source         OPNsense interface facing remote peer.
+--post-description      Text string to add to neighbour description.
+"
+}
 
 gen_json_payload() {
 
