@@ -1,0 +1,17 @@
+{
+  "signing": {
+    "default": {
+      "expiry": "87600h"
+    },
+    "profiles": {
+      "kubernetes": {
+        "usages": ["signing", "key encipherment", "client auth"],
+        "expiry": "87600h"
+      },
+      "talos": {
+        "usages": ["signing", "client auth"],
+        "expiry": "87600h"
+      }
+    }
+  }
+}
