@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add bootstrap kubeconfig to bootstrap cluster.
 - Split custom resources out from controllers.
 - Add `opsense-add-bgp-neighbours.sh` to `/hacks/`.
+- Add PKI details.
 
 [Unreleased]: https://github.com/a7d-corp/homelab-clusters-fleet/tree/main
 
