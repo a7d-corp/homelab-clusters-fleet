@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Completely rework apps dir.
 - Rename flux sync release to flux--system.
 - Split custom resources out from controllers.
+- Install cert-manager before other controllers.
 
 ### Removed
 
