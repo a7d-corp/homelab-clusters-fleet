@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add PKI details.
 - Add Sidero resources.
 - Add config and resources to create a cluster.
+- Enable kubeprism.
 
 ### Changed
 
