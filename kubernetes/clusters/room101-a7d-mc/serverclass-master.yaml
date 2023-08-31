@@ -1,0 +1,44 @@
+apiVersion: metal.sidero.dev/v1alpha1
+kind: ServerClass
+metadata:
+  name: room101-a7d-mc-master
+spec:
+  selector:
+    matchLabels:
+      cluster: room101-a7d-mc
+  qualifiers:
+    systemInformation:
+      - skuNumber: master
+  configPatches:
+  - op: replace
+    path: /machine/kubelet/extraArgs
+    value:
+      rotate-server-certificates: true
+  - op: replace
+    path: /machine/network/nameservers
+    value:
+      - 10.101.0.2
+      - 10.101.0.3
+  - op: replace
+    path: /machine/install/disk
+    value: /dev/vda
+  - op: replace
+    path: /machine/install/extensions
+    value:
+      - image: ghcr.io/siderolabs/qemu-guest-agent:8.0.2
+  - op: replace
+    path: /cluster/clusterName
+    value: room101-a7d-mc
+  - op: replace
+    path: /cluster/controlPlane/endpoint
+    value: "https://k8s.room101-a7d-mc.lab.a7d.dev:6443"
+  - op: replace
+    path: /cluster/network/cni/name
+    value: none
+  - op: replace
+    path: /cluster/apiServer/certSANs
+    value:
+      - k8s.room101-a7d-mc.lab.a7d.dev
+  - op: replace
+    path: /cluster/proxy/disabled
+    value: true
