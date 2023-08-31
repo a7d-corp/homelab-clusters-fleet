@@ -15,18 +15,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Deploy flux CRDs to management cluster.
 - Add kubeconfig to Cilium HelmRelease for remote deployment.
 - Deploy Cilium BGP config to MC.
-- Bump Cilium to 1.14.0 and add config for running on Talos.
-- Move cluster kustomizations to remote cluster namespace.
-- Drop flux CRD installation to remote cluster.
-- Disable preflight mode for Cilium.
-- Tidy up room101-a7d-mc cluster dir to match bootstrap cluster.
-- Completely rework apps dir.
-- Rename flux sync release to flux--system.
 - Add `cluster-api-operator`.
 - Add bootstrap kubeconfig to bootstrap cluster.
-- Split custom resources out from controllers.
 - Add `opsense-add-bgp-neighbours.sh` to `/hacks/`.
 - Add PKI details.
+- Add Sidero resources.
+
+### Changed
+
+- Bump Cilium to 1.14.0 and add config for running on Talos.
+- Move cluster kustomizations to remote cluster namespace.
+- Tidy up room101-a7d-mc cluster dir to match bootstrap cluster.
+- Disable preflight mode for Cilium.
+- Completely rework apps dir.
+- Rename flux sync release to flux--system.
+- Split custom resources out from controllers.
+
+### Removed
+
+- Drop flux CRD installation to remote cluster.
 
 [Unreleased]: https://github.com/a7d-corp/homelab-clusters-fleet/tree/main
 
