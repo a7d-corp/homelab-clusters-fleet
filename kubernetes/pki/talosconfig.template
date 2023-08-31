@@ -1,6 +1,6 @@
-context: ${CLUSTER_NAME}
+context: ${CLUSTER}
 contexts:
-  ${CLUSTER_NAME}:
+  ${CLUSTER}:
     endpoints:
     - ${ENDPOINT}
     ca: ${CA_B64}
