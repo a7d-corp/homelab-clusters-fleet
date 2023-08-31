@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `opsense-add-bgp-neighbours.sh` to `/hacks/`.
 - Add PKI details.
 - Add Sidero resources.
+- Add config and resources to create a cluster.
 
 ### Changed
 

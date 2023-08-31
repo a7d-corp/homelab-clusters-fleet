@@ -1,0 +1,124 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-config
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: inf-controllers
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./kubernetes/clusters/room101-a7d-mc
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-resources
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: cluster-config
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./kubernetes/resources
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: true
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
+  patches:
+    - patch: |
+        - op: replace
+          path: /metadata/name
+          value: room101-a7d-mc
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: Cluster
+        name: changeme
+    - patch: |
+        - op: replace
+          path: /metadata/name
+          value: room101-a7d-mc-workers
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: MachineDeployment
+        name: changeme
+    - patch: |
+        - op: replace
+          path: /metadata/name
+          value: room101-a7d-mc
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+        - op: replace
+          path: /spec/controlPlaneEndpoint/host
+          value: 172.25.100.18
+      target:
+        kind: MetalCluster
+        name: changeme
+    - patch: |
+        - op: replace
+          path: /metadata/name
+          value: room101-a7d-mc-cp
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: MetalMachineTemplate
+        name: changeme-cp
+    - patch: |
+        - op: replace
+          path: /metadata/name
+          value: room101-a7d-mc-workers
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: MetalMachineTemplate
+        name: changeme-workers
+    - patch: |
+        - op: replace
+          path: /metadata/name
+          value: room101-a7d-mc-workers
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: TalosConfigTemplate
+        name: changeme
+    - patch: |
+        - op: replace
+          path: /metadata/name
+          value: room101-a7d-mc-cp
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: TalosControlPlane
+        name: changeme
