@@ -1,0 +1,8 @@
+context: ${CLUSTER_NAME}
+contexts:
+  ${CLUSTER_NAME}:
+    endpoints:
+    - ${ENDPOINT}
+    ca: ${CA_B64}
+    crt: ${CRT_B64}
+    key: ${KEY_B64}
