@@ -1,0 +1,24 @@
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
+kind: MetalMachineTemplate
+metadata:
+  name: changeme-cp
+  namespace: default
+spec:
+  template:
+    spec:
+      serverClassRef:
+        apiVersion: metal.sidero.dev/v1alpha1
+        kind: ServerClass
+        name: ${CLUSTER}-master
+---
+kind: MetalMachineTemplate
+metadata:
+  name: changeme-workers
+  namespace: default
+spec:
+  template:
+    spec:
+      serverClassRef:
+        apiVersion: metal.sidero.dev/v1alpha1
+        kind: ServerClass
+        name: ${CLUSTER}-worker

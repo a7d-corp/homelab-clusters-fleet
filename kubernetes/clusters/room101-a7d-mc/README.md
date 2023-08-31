@@ -5,12 +5,12 @@
 Override repo-level SOPs configuration to encrypt the secret:
 
 ```
-sops --encrypted-regex="bundle" -e -i talos-cluster-secrets.yaml
+sops --encrypted-regex="bundle" -e -i talos-secrets.yaml
 ```
 
 Decrypt the file:
 
 ```
 export SOPS_AGE_KEY=AGE-SECRET-KEY-1W6S4HT...
-sops -d -i talos-cluster-secrets.yaml
+sops -d -i talos-secrets.yaml
 ```
