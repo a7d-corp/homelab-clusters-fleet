@@ -22,6 +22,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add Sidero resources.
 - Add config and resources to create a cluster.
 - Enable kubeprism.
+- Set static IPs for all masters.
+- Install CAPI operator and cert-manager in bootstrap cluster with Flux.
 
 ### Changed
 
