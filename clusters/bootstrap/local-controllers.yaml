@@ -4,6 +4,8 @@ metadata:
   name: local-controllers-cert-manager
   namespace: cluster-room101-a7d-mc
 spec:
+  dependsOn:
+    - name: local-prereqs
   interval: 1h
   retryInterval: 1m
   timeout: 5m
