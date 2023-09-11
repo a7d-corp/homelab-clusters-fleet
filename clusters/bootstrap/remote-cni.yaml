@@ -16,7 +16,7 @@ spec:
   wait: true
   kubeConfig:
     secretRef:
-      name: bootstrap-kubeconfig
+      name: room101-a7d-mc-kubeconfig
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -38,7 +38,7 @@ spec:
   wait: true
   kubeConfig:
     secretRef:
-      name: bootstrap-kubeconfig
+      name: room101-a7d-mc-kubeconfig
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -87,7 +87,7 @@ spec:
         - op: add
           path: /spec/kubeConfig/secretRef
           value:
-            name: bootstrap-kubeconfig
+            name: room101-a7d-mc-kubeconfig
         - op: replace
           path: /spec/values/k8sServiceHost
           value: 172.25.100.18
