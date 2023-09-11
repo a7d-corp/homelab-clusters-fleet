@@ -2,7 +2,8 @@
 
 ## Cluster creation
 
-VMs should be created first (will bootloop until Sidero is running).
+- VMs should be created first (will bootloop until Sidero is running).
+- Create A record `sidero.room101-a7d-mc.lab.a7d.dev` pointing to bootstrap node.
 
 ## Bootstrap cluster configuration
 
@@ -32,3 +33,7 @@ VMs should be created first (will bootloop until Sidero is running).
 2. Creation of `cilium` BGP config.
 3. Installation of `cilium`.
 4. Installation of `flux` (which takes over managing all resources).
+
+## Post-setup
+
+- Re-point `sidero.room101-a7d-mc.lab.a7d.dev` to new MC cluster.
