@@ -3,5 +3,6 @@ kind: Kustomization
 resources:
   - local-cluster.yaml
   - local-controllers.yaml
+  - local-prereqs.yaml
   - remote-cni.yaml
   - remote-flux.yaml
