@@ -35,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Rename flux sync release to flux--system.
 - Split custom resources out from controllers.
 - Install cert-manager before other controllers.
+- Install CAPI operator with raw yamls rather than helm.
 
 ### Removed
 

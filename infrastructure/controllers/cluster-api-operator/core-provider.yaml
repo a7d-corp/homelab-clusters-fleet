@@ -1,0 +1,7 @@
+apiVersion: operator.cluster.x-k8s.io/v1alpha1
+kind: CoreProvider
+metadata:
+  namespace: capi-system
+  name: cluster-api
+spec:
+  version: v1.4.3

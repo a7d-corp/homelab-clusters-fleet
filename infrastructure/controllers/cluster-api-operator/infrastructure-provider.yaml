@@ -1,0 +1,13 @@
+apiVersion: operator.cluster.x-k8s.io/v1alpha1
+kind: InfrastructureProvider
+metadata:
+  namespace: sidero-system
+  name: sidero
+spec:
+  version: v0.6.0
+  secretName: sidero-config
+  deployment:
+    replicas: 1
+    nodeSelector:
+      node-role.kubernetes.io/control-plane: ""
+    containers: []
