@@ -1,0 +1,7 @@
+apiVersion: operator.cluster.x-k8s.io/v1alpha1
+kind: BootstrapProvider
+metadata:
+  namespace: cabpt-system
+  name: talos
+spec:
+  version: v0.6.1
