@@ -11,3 +11,9 @@ resources:
   - namespace-capi-system.yaml
   - namespace-sidero-system.yaml
   - sidero-config-secret.yaml
+patches:
+  - path: patches/namespace-capi-operator-system.json
+    target:
+      version: v1
+      kind: Namespace
+      name: capi-operator-system

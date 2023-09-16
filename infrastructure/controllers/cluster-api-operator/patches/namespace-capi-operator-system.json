@@ -1,0 +1,7 @@
+[
+    {
+        "op": "add",
+        "path": "/metadata/labels",
+        "value": { "pod-security.kubernetes.io/enforce": "privileged" }
+    }
+]

@@ -36,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Split custom resources out from controllers.
 - Install cert-manager before other controllers.
 - Install CAPI operator with raw yamls rather than helm.
+- Patch `capi-operator-system` namespace to pass PSS.
 
 ### Removed
 
