@@ -13,7 +13,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./infrastructure/controllers/cert-manager
+  path: ./infrastructure/controllers/base/cert-manager
   prune: true
   wait: true
   decryption:
