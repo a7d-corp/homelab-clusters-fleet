@@ -4,5 +4,3 @@ kind: BootstrapProvider
 metadata:
   namespace: cabpt-system
   name: talos
-spec:
-  version: v0.6.2
