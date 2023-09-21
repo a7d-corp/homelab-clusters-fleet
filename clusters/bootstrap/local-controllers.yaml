@@ -70,6 +70,35 @@ spec:
     secretRef:
       name: sops-age
   suspend: true
+  patches:
+    - patch: |
+        - op: add
+          path: /spec/version
+          value: v0.6.2
+      target:
+        kind: BootstrapProvider
+        name: talos
+    - patch: |
+        - op: add
+          path: /spec/version
+          value: v0.5.3
+      target:
+        kind: ControlPlaneProvider
+        name: talos
+    - patch: |
+        - op: add
+          path: /spec/version
+          value: v1.5.1
+      target:
+        kind: CoreProvider
+        name: cluster-api
+    - patch: |
+        - op: add
+          path: /spec/version
+          value: v0.6.0
+      target:
+        kind: ControlPlaneProvider
+        name: sidero
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization

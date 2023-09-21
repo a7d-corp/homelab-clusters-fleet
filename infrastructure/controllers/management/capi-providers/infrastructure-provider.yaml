@@ -5,7 +5,6 @@ metadata:
   namespace: sidero-system
   name: sidero
 spec:
-  version: v0.6.0
   secretName: sidero-config
   deployment:
     replicas: 1
