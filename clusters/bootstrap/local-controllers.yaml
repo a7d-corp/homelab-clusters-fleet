@@ -45,7 +45,7 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  suspend: true
+  suspend: false
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -69,7 +69,7 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  suspend: true
+  suspend: false
   patches:
     - patch: |
         - op: add
@@ -126,4 +126,4 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  suspend: true
+  suspend: false
