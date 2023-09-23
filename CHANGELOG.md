@@ -39,6 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Patch `capi-operator-system` namespace to pass PSS.
 - Split up infrastructure dir to reflect usage.
 - Install capi providers after capi-operator is running.
+- Rename and tidy all bootstrap kustomizations.
 
 ### Removed
 
