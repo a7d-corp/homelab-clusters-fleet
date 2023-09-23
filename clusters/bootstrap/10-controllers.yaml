@@ -1,11 +1,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: local-controllers-cert-manager
+  name: 10-controllers-cert-manager
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: local-prereqs
+    - name: 01-prereqs
       namespace: flux-system
   interval: 1h
   retryInterval: 1m
@@ -26,11 +26,12 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: local-controllers-cluster-api-operator
+  name: 11-controllers-cluster-api-operator
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: local-controllers-cert-manager
+    - name: 10-controllers-cert-manager
+      namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
   timeout: 5m
@@ -50,11 +51,12 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: local-controllers-capi-providers
+  name: 12-controllers-capi-providers
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: local-controllers-cluster-api-operator
+    - name: 11-controllers-cluster-api-operator
+      namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
   timeout: 5m

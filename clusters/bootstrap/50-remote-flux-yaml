@@ -1,9 +1,12 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: inf-cni-prereqs
+  name: 50-remote-flux-prereqs
   namespace: cluster-room101-a7d-mc
 spec:
+  dependsOn:
+    - name: 42-cni
+      namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
   timeout: 5m
@@ -11,9 +14,12 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./infrastructure/cni/prereqs
+  path: ./infrastructure/flux/prereqs
   prune: true
-  wait: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   kubeConfig:
     secretRef:
       name: room101-a7d-mc-kubeconfig
@@ -21,11 +27,12 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: inf-cni-configs
+  name: 51-remote-flux-configs
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: inf-cni-prereqs
+    - name: 50-remote-flux-prereqs
+      namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
   timeout: 5m
@@ -33,9 +40,12 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./clusters/room101-a7d-mc/cilium-configs
+  path: ./clusters/room101-a7d-mc/flux-configs
   prune: true
-  wait: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   kubeConfig:
     secretRef:
       name: room101-a7d-mc-kubeconfig
@@ -43,11 +53,14 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: inf-cni
+  name: 52-remote-flux
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: inf-cni-configs
+    - name: 30-remote-prereqs
+      namespace: cluster-room101-a7d-mc
+    - name: 51-remote-flux-configs
+      namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
   timeout: 5m
@@ -55,9 +68,8 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./infrastructure/cni
+  path: ./infrastructure/flux
   prune: true
-  wait: true
   decryption:
     provider: sops
     secretRef:
@@ -69,17 +81,17 @@ spec:
           value: cluster-room101-a7d-mc
       target:
         kind: HelmRepository
-        name: cilium
+        name: fluxcd-community
     - patch: |
         - op: replace
           path: /metadata/namespace
           value: cluster-room101-a7d-mc
         - op: add
           path: /spec/storageNamespace
-          value: cilium
+          value: flux-system
         - op: add
           path: /spec/targetNamespace
-          value: cilium
+          value: flux-system
         - op: add
           path: /spec/kubeConfig
           value:
@@ -88,9 +100,30 @@ spec:
           path: /spec/kubeConfig/secretRef
           value:
             name: room101-a7d-mc-kubeconfig
-        - op: replace
-          path: /spec/values/k8sServiceHost
-          value: 172.25.100.18
+        - op: add
+          path: /spec/values/kustomization/spec/path
+          value: "./clusters/room101-a7d-mc"
       target:
         kind: HelmRelease
-        name: cilium
+        name: flux-system
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+        - op: add
+          path: /spec/storageNamespace
+          value: flux-system
+        - op: add
+          path: /spec/targetNamespace
+          value: flux-system
+        - op: add
+          path: /spec/kubeConfig
+          value:
+            secretRef: {}
+        - op: add
+          path: /spec/kubeConfig/secretRef
+          value:
+            name: room101-a7d-mc-kubeconfig
+      target:
+        kind: HelmRelease
+        name: flux
