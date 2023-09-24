@@ -1,7 +1,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 40-cni-prereqs
+  name: 40-remote-cni-prereqs
   namespace: cluster-room101-a7d-mc
 spec:
   interval: 1h
@@ -21,11 +21,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 41-cni-configs
+  name: 41-remote-cni-configs
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 40-cni-prereqs
+    - name: 40-remote-cni-prereqs
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -44,11 +44,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 42-cni
+  name: 42-remote-cni
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 41-cni-configs
+    - name: 41-remote-cni-configs
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
