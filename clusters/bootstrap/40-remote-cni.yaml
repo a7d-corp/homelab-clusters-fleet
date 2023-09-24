@@ -25,7 +25,7 @@ metadata:
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 340-cni-prereqs
+    - name: 40-cni-prereqs
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
