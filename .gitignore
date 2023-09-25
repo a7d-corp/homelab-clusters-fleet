@@ -1,2 +1,3 @@
 sops-key.txt
 hack/pki
+tmp/
