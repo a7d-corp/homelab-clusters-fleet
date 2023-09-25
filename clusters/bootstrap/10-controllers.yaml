@@ -14,7 +14,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./infrastructure/controllers/default/cert-manager
+  path: ./workloads/controllers/default/cert-manager
   prune: true
   wait: true
   decryption:
@@ -39,7 +39,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./infrastructure/controllers/management/cluster-api-operator
+  path: ./workloads/controllers/management/cluster-api-operator
   prune: true
   wait: true
   decryption:
@@ -64,7 +64,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./infrastructure/controllers/management/capi-providers
+  path: ./workloads/controllers/management/capi-providers
   prune: true
   wait: true
   decryption:

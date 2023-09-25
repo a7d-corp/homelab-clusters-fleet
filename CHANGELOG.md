@@ -40,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Split up infrastructure dir to reflect usage.
 - Install capi providers after capi-operator is running.
 - Rename and tidy all bootstrap kustomizations.
+- Rename `infrastructure` dir to `workloads`.
 
 ### Removed
 

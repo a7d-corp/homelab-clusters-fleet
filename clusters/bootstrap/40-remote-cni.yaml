@@ -11,7 +11,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./infrastructure/cni/prereqs
+  path: ./workloads/cni/prereqs
   prune: true
   wait: true
   kubeConfig:
@@ -57,7 +57,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./infrastructure/cni
+  path: ./workloads/cni
   prune: true
   wait: true
   decryption:

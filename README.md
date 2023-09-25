@@ -6,9 +6,9 @@
 
 The clusters dir is the base directory which is reconciled by Flux. Here we use the `dependsOn` value to ensure that the resources are installed in a predictable order (CNI, controllers, config, apps).
 
-`infrastructure/`:
+`workloads/`:
 
-The infrastructure dir contains the core tooling needed to create a basic working cluster in order to be able to deploy apps.
+The workloads dir contains the core tooling needed to create a basic working cluster in order to be able to deploy apps.
 
 `apps/`:
 
