@@ -11,8 +11,8 @@
 
 - Create remote cluster namespace (`cluster-room101-a7d-mc`)
 - Apply SOPs secret to flux/cluster namespaces:
-  - `vault read -field=data cluster-room101-a7d-mc/sops-age | base64 -d | kubectl apply -n flux-system -f -`
-  - `vault read -field=data cluster-room101-a7d-mc/sops-age | base64 -d | kubectl apply -n cluster-room101-a7d-mc -f -`
+  - `vault kv get -mount=cluster-room101-a7d-mc -field=data sops-age | base64 -d | kubectl apply -n flux-system -f -`
+  - `vault kv get -mount=cluster-room101-a7d-mc -field=data sops-age | base64 -d | kubectl apply -n cluster-room101-a7d-mc -f -`
 - Flux is bootstrapped manually using path `clusters/bootstrap`.
 
 ### Local cluster prereqs
