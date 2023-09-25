@@ -13,7 +13,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./infrastructure/controllers/base/cert-manager
+  path: ./workloads/controllers/base/cert-manager
   prune: true
   wait: true
   decryption:
@@ -37,7 +37,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./infrastructure/controllers
+  path: ./workloads/controllers
   prune: true
   wait: true
   decryption:
@@ -61,7 +61,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./infrastructure/custom-resources
+  path: ./workloads/custom-resources
   prune: true
   wait: true
   decryption:

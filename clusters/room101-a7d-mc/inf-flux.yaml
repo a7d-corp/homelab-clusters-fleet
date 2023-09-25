@@ -13,7 +13,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./infrastructure/flux/prereqs
+  path: ./workloads/flux/prereqs
   prune: true
   decryption:
     provider: sops
@@ -60,7 +60,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./infrastructure/flux
+  path: ./workloads/flux
   prune: true
   decryption:
     provider: sops
