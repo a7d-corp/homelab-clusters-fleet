@@ -92,7 +92,7 @@ spec:
             name: room101-a7d-mc-kubeconfig
         - op: replace
           path: /spec/values/k8sServiceHost
-          value: 172.25.100.18
+          value: k8s.room101-a7d-mc.lab.a7d.dev
       target:
         kind: HelmRelease
         name: cilium
