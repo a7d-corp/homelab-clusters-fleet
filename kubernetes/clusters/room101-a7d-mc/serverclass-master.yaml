@@ -37,13 +37,14 @@ spec:
   - op: replace
     path: /cluster/controlPlane/endpoint
     value: "https://k8s.room101-a7d-mc.lab.a7d.dev:6443"
-  - op: replace
-    path: /cluster/network/cni/name
-    value: none
+  - op: add
+    path: /cluster/network/cni
+    value:
+      name: "none"
   - op: replace
     path: /cluster/apiServer/certSANs
     value:
       - k8s.room101-a7d-mc.lab.a7d.dev
-  - op: replace
+  - op: add
     path: /cluster/proxy/disabled
     value: true
