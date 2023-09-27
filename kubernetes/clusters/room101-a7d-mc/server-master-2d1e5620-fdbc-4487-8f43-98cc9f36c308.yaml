@@ -8,6 +8,7 @@ metadata:
   name: 2d1e5620-fdbc-4487-8f43-98cc9f36c308
 spec:
   accepted: true
+  hostname: 2d1e5620-fdbc-4487-8f43-98cc9f36c308
   configPatches:
   - op: replace
     path: /machine/network/interfaces
