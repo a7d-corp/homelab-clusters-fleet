@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enable kubeprism.
 - Set static IPs for all masters.
 - Install CAPI operator and cert-manager in bootstrap cluster with Flux.
+- Add server manifests for MC cluster workers
 
 ### Changed
 
