@@ -1,7 +1,7 @@
 apiVersion: metal.sidero.dev/v1alpha1
 kind: ServerClass
 metadata:
-  name: room101-a7d-mc-woorker
+  name: room101-a7d-mc-worker
 spec:
   selector:
     matchLabels:
