@@ -4,7 +4,7 @@ metadata:
   labels:
     cluster: room101-a7d-mc
     kustomize.toolkit.fluxcd.io/prune: disabled
-    kustomize.toolkit.fluxcd.io/ssa: merge
+    kustomize.toolkit.fluxcd.io/ssa: override
   name: 7eb6cf89-d07f-40a5-bfb0-c3003045e013
 spec:
   accepted: false
