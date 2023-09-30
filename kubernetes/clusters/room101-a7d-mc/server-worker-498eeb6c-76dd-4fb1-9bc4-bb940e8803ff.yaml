@@ -1,0 +1,17 @@
+apiVersion: metal.sidero.dev/v1alpha2
+kind: Server
+metadata:
+  labels:
+    cluster: room101-a7d-mc
+    kustomize.toolkit.fluxcd.io/prune: disabled
+    kustomize.toolkit.fluxcd.io/ssa: merge
+  name: 498eeb6c-76dd-4fb1-9bc4-bb940e8803ff
+spec:
+  accepted: false
+  hostname: 498eeb6c-76dd-4fb1-9bc4-bb940e8803ff
+  configPatches:
+  - op: replace
+    path: /machine/network/interfaces
+    value:
+      - interface: eth0
+        dhcp: true
