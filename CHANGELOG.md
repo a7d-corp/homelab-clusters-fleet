@@ -44,6 +44,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Rename and tidy all bootstrap kustomizations.
 - Rename `infrastructure` dir to `workloads`.
 - Correct missing apiversion from cluster resources.
+- Update ServerClasses to v1alpha2.
 
 ### Removed
 
