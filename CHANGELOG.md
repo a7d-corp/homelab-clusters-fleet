@@ -45,6 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Rename `infrastructure` dir to `workloads`.
 - Correct missing apiversion from cluster resources.
 - Update capi provider version and correct installation of infra provider.
+- Update CAPI provider manifests to v1alpha2.
 
 ### Removed
 
