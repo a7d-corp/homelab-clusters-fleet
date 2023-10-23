@@ -99,9 +99,8 @@ spec:
         name: cluster-api
     - patch: |
         - op: add
-          path: /spec
-          value:
-            version: v0.6.1
+          path: /spec/version
+          value: v0.6.1
       target:
         kind: InfrastructureProvider
         name: sidero
