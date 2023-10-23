@@ -5,7 +5,9 @@ metadata:
   namespace: sidero-system
   name: sidero
 spec:
-  secretName: sidero-config
+  configSecret:
+    name: sidero-config
+    namespace: sidero-system
   deployment:
     replicas: 1
     nodeSelector:
