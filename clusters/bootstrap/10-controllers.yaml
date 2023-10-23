@@ -93,7 +93,7 @@ spec:
         - op: add
           path: /spec
           value:
-            version: v1.5.1
+            version: v1.5.2
       target:
         kind: CoreProvider
         name: cluster-api
@@ -101,7 +101,7 @@ spec:
         - op: add
           path: /spec
           value:
-            version: v0.6.0
+            version: v0.6.1
       target:
-        kind: ControlPlaneProvider
+        kind: InfrastructureProvider
         name: sidero
