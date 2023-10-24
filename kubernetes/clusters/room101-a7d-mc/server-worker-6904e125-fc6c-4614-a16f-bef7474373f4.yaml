@@ -7,7 +7,7 @@ metadata:
     kustomize.toolkit.fluxcd.io/ssa: merge
   name: 6904e125-fc6c-4614-a16f-bef7474373f4
 spec:
-  accepted: false
+  accepted: true
   hostname: 6904e125-fc6c-4614-a16f-bef7474373f4
   configPatches:
   - op: replace
