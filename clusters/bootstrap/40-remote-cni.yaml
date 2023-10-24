@@ -14,6 +14,7 @@ spec:
   path: ./workloads/cni/prereqs
   prune: true
   wait: true
+  suspend: true
   kubeConfig:
     secretRef:
       name: room101-a7d-mc-kubeconfig
@@ -37,6 +38,7 @@ spec:
   path: ./clusters/room101-a7d-mc/cilium-configs
   prune: true
   wait: true
+  suspend: true
   kubeConfig:
     secretRef:
       name: room101-a7d-mc-kubeconfig
@@ -60,6 +62,7 @@ spec:
   path: ./workloads/cni
   prune: true
   wait: true
+  suspend: true
   decryption:
     provider: sops
     secretRef:
