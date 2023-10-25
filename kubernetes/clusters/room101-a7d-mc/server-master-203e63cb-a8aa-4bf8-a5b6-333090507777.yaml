@@ -3,11 +3,16 @@ kind: Server
 metadata:
   labels:
     cluster: room101-a7d-mc
-    kustomize.toolkit.fluxcd.io/prune: disabled
-    kustomize.toolkit.fluxcd.io/ssa: merge
   name: 203e63cb-a8aa-4bf8-a5b6-333090507777
 spec:
   accepted: true
+  hardware:
+    system:
+      family: room101a7dmc
+      manufacturer: QEMU
+      productName: Standard PC (i440FX + PIIX, 1996)
+      skuNumber: master
+      uuid: 203e63cb-a8aa-4bf8-a5b6-333090507777
   hostname: 203e63cb-a8aa-4bf8-a5b6-333090507777
   configPatches:
   - op: replace
