@@ -1,13 +1,23 @@
-apiVersion: metal.sidero.dev/v1alpha1
+apiVersion: metal.sidero.dev/v1alpha2
 kind: Server
 metadata:
   labels:
-    cluster: room101-a7d-mc
-    kustomize.toolkit.fluxcd.io/prune: disabled
-    kustomize.toolkit.fluxcd.io/ssa: merge
+    metal.sidero.dev/cluster: room101-a7d-mc
+    metal.sidero.dev/machine.type: controlplane
   name: 7eb6cf89-d07f-40a5-bfb0-c3003045e013
 spec:
   accepted: true
+  hardware:
+    compute:
+      processors:
+      - manufacturer: QEMU
+        productName: pc-i440fx-7.2
+    system:
+      family: room101a7dmc
+      manufacturer: QEMU
+      productName: Standard PC (i440FX + PIIX, 1996)
+      skuNumber: master
+      uuid: 7eb6cf89-d07f-40a5-bfb0-c3003045e013
   hostname: 7eb6cf89-d07f-40a5-bfb0-c3003045e013
   configPatches:
   - op: replace
