@@ -5,10 +5,12 @@ metadata:
 spec:
   selector:
     matchLabels:
-      cluster: room101-a7d-mc
+      metal.sidero.dev/cluster: room101-a7d-mc
+      metal.sidero.dev/machine.type: worker
   qualifiers:
-    systemInformation:
-      - skuNumber: worker
+    hardware:
+    - system:
+        skuNumber: worker
   configPatches:
   - op: add
     path: /machine/features/kubePrism
