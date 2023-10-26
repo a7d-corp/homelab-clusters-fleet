@@ -7,7 +7,7 @@ metadata:
   name: 6904e125-fc6c-4614-a16f-bef7474373f4
 spec:
   accepted: true
-    hardware:
+  hardware:
     compute:
       processors:
       - manufacturer: QEMU
