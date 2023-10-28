@@ -21,6 +21,9 @@ spec:
   hostname: 7eb6cf89-d07f-40a5-bfb0-c3003045e013
   configPatches:
   - op: replace
+    path: /machine/network/hostname
+    value: 7eb6cf89-d07f-40a5-bfb0-c3003045e013
+  - op: replace
     path: /machine/network/interfaces
     value:
       - interface: eth0
