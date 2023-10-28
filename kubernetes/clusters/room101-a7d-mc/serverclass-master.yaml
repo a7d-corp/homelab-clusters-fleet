@@ -34,6 +34,9 @@ spec:
     value:
       - image: ghcr.io/siderolabs/qemu-guest-agent:8.0.2
   - op: replace
+    path: /machine/install/wipe
+    value: true
+  - op: replace
     path: /cluster/clusterName
     value: room101-a7d-mc
   - op: replace
