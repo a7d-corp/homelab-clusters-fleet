@@ -18,7 +18,7 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  suspend: true
+  suspend: false
   kubeConfig:
     secretRef:
       name: room101-a7d-mc-kubeconfig
