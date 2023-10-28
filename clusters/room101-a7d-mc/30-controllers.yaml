@@ -1,11 +1,12 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: inf-controllers-cert-manager
+  name: 30-controllers-default
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: inf-cni
+    - name: 12-cni
+      namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
   timeout: 5m
@@ -13,7 +14,32 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/controllers/base/cert-manager
+  path: ./workloads/controllers/default
+  prune: true
+  wait: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 31-controllers-cluster-api-operator
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: 30-controllers-default
+      namespace: cluster-room101-a7d-mc
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./workloads/controllers/management/cluster-api-operator
   prune: true
   wait: true
   decryption:
@@ -25,11 +51,12 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: inf-controllers
+  name: 32-controllers-capi-providers
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: inf-controllers-cert-manager
+    - name: 31-controllers-cluster-api-operator
+      namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
   timeout: 5m
@@ -37,31 +64,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/controllers
-  prune: true
-  wait: true
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
-  suspend: false
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: inf-controllers-crs
-  namespace: cluster-room101-a7d-mc
-spec:
-  dependsOn:
-    - name: inf-controllers
-  interval: 1h
-  retryInterval: 1m
-  timeout: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  path: ./workloads/custom-resources
+  path: ./workloads/controllers/management/capi-providers
   prune: true
   wait: true
   decryption:

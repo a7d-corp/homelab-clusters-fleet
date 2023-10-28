@@ -1,11 +1,9 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: inf-configs
+  name: 01-cluster-prereqs
   namespace: cluster-room101-a7d-mc
 spec:
-  dependsOn:
-    - name: inf-controllers
   interval: 1h
   retryInterval: 1m
   timeout: 5m
@@ -13,10 +11,11 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/configs
+  path: ./clusters/room101-a7d-mc/cluster-prereqs
   prune: true
+  wait: true
   decryption:
     provider: sops
     secretRef:
       name: sops-age
-  suspend: true
+  suspend: false

@@ -1,11 +1,9 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: inf-flux-prereqs
+  name: 10-cni-prereqs
   namespace: cluster-room101-a7d-mc
 spec:
-  dependsOn:
-    - name: inf-cni
   interval: 1h
   retryInterval: 1m
   timeout: 5m
@@ -13,22 +11,20 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/flux/prereqs
+  path: ./workloads/cni/prereqs
   prune: true
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
-  suspend: true
+  wait: true
+  suspend: false
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: inf-flux-configs
+  name: 11-cni-configs
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: inf-flux-prereqs
+    - name: 10-cni-prereqs
+      namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
   timeout: 5m
@@ -36,23 +32,20 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./clusters/room101-a7d-mc/flux-configs
+  path: ./clusters/room101-a7d-mc/cilium-configs
   prune: true
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
-  suspend: true
+  wait: true
+  suspend: false
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: inf-flux
+  name: 12-cni
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: cluster-prereqs
-    - name: inf-flux-configs
+    - name: 11-cni-configs
+      namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
   timeout: 5m
@@ -60,8 +53,9 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/flux
+  path: ./workloads/cni
   prune: true
+  wait: true
   decryption:
     provider: sops
     secretRef:
@@ -73,34 +67,21 @@ spec:
           value: cluster-room101-a7d-mc
       target:
         kind: HelmRepository
-        name: fluxcd-community
+        name: cilium
     - patch: |
         - op: replace
           path: /metadata/namespace
           value: cluster-room101-a7d-mc
         - op: add
           path: /spec/storageNamespace
-          value: flux-system
+          value: cilium
         - op: add
           path: /spec/targetNamespace
-          value: flux-system
-        - op: add
-          path: /spec/values/kustomization/path
-          value: "./clusters/room101-a7d-mc"
-      target:
-        kind: HelmRelease
-        name: flux-system
-    - patch: |
+          value: cilium
         - op: replace
-          path: /metadata/namespace
-          value: cluster-room101-a7d-mc
-        - op: add
-          path: /spec/storageNamespace
-          value: flux-system
-        - op: add
-          path: /spec/targetNamespace
-          value: flux-system
+          path: /spec/values/k8sServiceHost
+          value: k8s.room101-a7d-mc.lab.a7d.dev
       target:
         kind: HelmRelease
-        name: flux
-  suspend: true
+        name: cilium
+  suspend: false

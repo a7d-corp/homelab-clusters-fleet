@@ -1,20 +1,21 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: apps
+  name: 50-cluster-configs
   namespace: cluster-room101-a7d-mc
 spec:
-  interval: 10m0s
   dependsOn:
-    - name: inf-configs
+    - name: 30-controllers-default
+      namespace: cluster-room101-a7d-mc
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./apps/room101-a7d-mc
+  path: ./workloads/configs
   prune: true
-  wait: true
-  timeout: 5m0s
   decryption:
     provider: sops
     secretRef:
