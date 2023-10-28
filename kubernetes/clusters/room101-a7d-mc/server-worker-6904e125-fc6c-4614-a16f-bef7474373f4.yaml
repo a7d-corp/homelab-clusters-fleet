@@ -3,7 +3,7 @@ kind: Server
 metadata:
   labels:
     metal.sidero.dev/cluster: room101-a7d-mc
-    metal.sidero.dev/machine.type: controlplane
+    metal.sidero.dev/machine.type: worker
   name: 6904e125-fc6c-4614-a16f-bef7474373f4
 spec:
   accepted: true
