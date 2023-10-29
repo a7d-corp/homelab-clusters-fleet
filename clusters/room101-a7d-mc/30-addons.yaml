@@ -1,11 +1,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 50-cluster-configs
+  name: 30-addons
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 30-controllers-default
+    - name: 12-cni
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -14,8 +14,9 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/configs
+  path: ./workloads/addons
   prune: true
+  wait: true
   decryption:
     provider: sops
     secretRef:

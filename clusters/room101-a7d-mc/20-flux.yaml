@@ -1,33 +1,9 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 20-flux-prereqs
+  name: 20-flux-configs
   namespace: cluster-room101-a7d-mc
 spec:
-  interval: 1h
-  retryInterval: 1m
-  timeout: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  path: ./workloads/flux/prereqs
-  prune: true
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
-  suspend: false
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: 21-flux-configs
-  namespace: cluster-room101-a7d-mc
-spec:
-  dependsOn:
-    - name: 20-flux-prereqs
-      namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
   timeout: 5m
@@ -46,13 +22,13 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 22-flux
+  name: 21-flux
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
     - name: 01-cluster-prereqs
       namespace: cluster-room101-a7d-mc
-    - name: 21-flux-configs
+    - name: 20-flux-configs
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m

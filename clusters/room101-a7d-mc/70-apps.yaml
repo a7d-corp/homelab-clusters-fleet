@@ -6,7 +6,8 @@ metadata:
 spec:
   interval: 10m0s
   dependsOn:
-    - name: 50-cluster-configs
+    - name: 60-cluster-configs
+      namespace: cluster-room101-a7d-mc
   sourceRef:
     kind: GitRepository
     name: flux-system
