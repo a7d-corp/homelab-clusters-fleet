@@ -64,7 +64,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/controllers/management-cluster/capi-providers
+  path: ./workloads/controllers/management-cluster/cluster-api-operator/capi-providers
   prune: true
   wait: true
   decryption:
