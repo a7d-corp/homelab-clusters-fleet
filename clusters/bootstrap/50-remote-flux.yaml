@@ -23,7 +23,7 @@ spec:
   kubeConfig:
     secretRef:
       name: room101-a7d-mc-kubeconfig
-  suspend: true
+  suspend: false
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -102,4 +102,4 @@ spec:
       target:
         kind: HelmRelease
         name: flux-system
-  suspend: true
+  suspend: false
