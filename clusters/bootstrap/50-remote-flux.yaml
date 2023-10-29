@@ -107,7 +107,7 @@ spec:
           value: "./clusters/room101-a7d-mc"
       target:
         kind: HelmRelease
-        name: flux-system
+        name: flux-sync
     - patch: |
         - op: replace
           path: /metadata/namespace
@@ -128,5 +128,5 @@ spec:
             name: room101-a7d-mc-kubeconfig
       target:
         kind: HelmRelease
-        name: flux
+        name: flux-system
   suspend: false

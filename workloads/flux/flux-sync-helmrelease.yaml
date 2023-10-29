@@ -1,7 +1,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: flux-system-sync
+  name: flux-sync
   namespace: flux-system
 spec:
   releaseName: flux-system
