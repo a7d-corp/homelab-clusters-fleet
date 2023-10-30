@@ -43,41 +43,42 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  suspend: false
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 22-flux-gitrepo
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: 21-flux
+      namespace: cluster-room101-a7d-mc
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./workloads/flux/gitrepo
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: false
   patches:
     - patch: |
         - op: replace
-          path: /metadata/namespace
-          value: cluster-room101-a7d-mc
-      target:
-        kind: HelmRepository
-        name: fluxcd-community
-    - patch: |
+          path: /spec/ref/branch
+          value: main
         - op: replace
-          path: /metadata/namespace
-          value: cluster-room101-a7d-mc
-        - op: add
-          path: /spec/storageNamespace
-          value: flux-system
-        - op: add
-          path: /spec/targetNamespace
-          value: flux-system
-        - op: add
-          path: /spec/values/kustomization/path
-          value: "./clusters/room101-a7d-mc"
+          path: /spec/secretRef/name
+          value: flux-github-auth
+        - op: replace
+          path: /spec/url
+          value: ssh://git@github.com/a7d-corp/homelab-clusters-fleet
       target:
-        kind: HelmRelease
+        kind: GitRepository
         name: flux-system
-    - patch: |
-        - op: replace
-          path: /metadata/namespace
-          value: cluster-room101-a7d-mc
-        - op: add
-          path: /spec/storageNamespace
-          value: flux-system
-        - op: add
-          path: /spec/targetNamespace
-          value: flux-system
-      target:
-        kind: HelmRelease
-        name: flux
-  suspend: false
