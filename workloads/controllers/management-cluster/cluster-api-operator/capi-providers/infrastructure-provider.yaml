@@ -10,6 +10,4 @@ spec:
     namespace: sidero-system
   deployment:
     replicas: 1
-    nodeSelector:
-      node-role.kubernetes.io/control-plane: ""
     containers: []
