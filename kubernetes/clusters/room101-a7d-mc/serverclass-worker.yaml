@@ -13,6 +13,10 @@ spec:
         skuNumber: worker
   configPatches:
   - op: add
+    path: /machine/nodeLabels
+    value:
+      metal.sidero.dev/serverclass: worker
+  - op: add
     path: /machine/features/kubePrism
     value:
       enabled: true
