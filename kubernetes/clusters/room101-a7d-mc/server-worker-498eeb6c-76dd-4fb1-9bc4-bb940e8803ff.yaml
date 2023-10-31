@@ -6,7 +6,7 @@ metadata:
     metal.sidero.dev/machine.type: worker
   name: 498eeb6c-76dd-4fb1-9bc4-bb940e8803ff
 spec:
-  accepted: false
+  accepted: true
   hardware:
     compute:
       processors:
