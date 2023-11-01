@@ -6,7 +6,6 @@ resources:
   - namespace-cacppt-system.yaml
   - namespace-capi-system.yaml
   - namespace-sidero-system.yaml
-  - sidero-config-secret.yaml
 patches:
   - path: patches/namespace-capi-operator-system.json
     target:

@@ -26,11 +26,36 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 11-controllers-cluster-api-operator
+  name: 11-controllers-cluster-api-operator-sidero-prereqs
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
     - name: 10-addons-cert-manager
+      namespace: cluster-room101-a7d-mc
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./clusters/bootstrap/sidero-prereqs
+  prune: true
+  wait: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: false
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 12-controllers-cluster-api-operator
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name:11-controllers-cluster-api-operator-sidero-prereqs
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -51,11 +76,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 12-controllers-capi-providers
+  name: 13-controllers-capi-providers
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 11-controllers-cluster-api-operator
+    - name: 12-controllers-cluster-api-operator
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
