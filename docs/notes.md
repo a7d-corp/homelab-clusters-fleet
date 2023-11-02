@@ -1,4 +1,4 @@
-# room101-a7d-mc cluster configuration
+# Miscellanous notes
 
 ## `talos-cluster-secrets.yaml`
 
@@ -8,9 +8,9 @@ Override repo-level SOPs configuration to encrypt the secret:
 sops --encrypted-regex="bundle" -e -i talos-secrets.yaml
 ```
 
-Decrypt the file:
+Decrypt a SOPS-encrypted file:
 
 ```
-export SOPS_AGE_KEY=AGE-SECRET-KEY-1W6S4HT...
-sops -d -i talos-secrets.yaml
+export SOPS_AGE_KEY=$(vault kv get -mount=cluster-room101-a7d-mc -field=data sops-age-secret)
+sops -d -i secret.yaml
 ```

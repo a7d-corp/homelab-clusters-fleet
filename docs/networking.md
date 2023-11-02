@@ -1,6 +1,6 @@
 # Sidero clusters
 
-## Networking
+## Cluster networking
 
 - Each cluster is in it's own VLAN with a `/27` subnet.
 - The first two IPs in the subnet are reserved.
@@ -19,3 +19,10 @@ Using the management cluster as an example:
   - Control plane instance #3.
 - `172.25.100.6` - `172.25.100.30`:
   - DHCP allocated to worker instances.
+
+## Loadbalancer services
+
+- Each cluster is allocated a `/27` service subnet (e.g. `172.27.0.0/27`).
+- BGP is used to advertise IPs which are allocated by Cilium to Loadbalancer services.
+- IPs in service subnets are not routed unless allocated to a Loadbalancer.
+- As any node in the cluster's subnet can advertise a route to service IPs, Opnsense must be configured to allow any IP in the cluster's subnet to announce. This is handled by the [opsense-add-bgp-neighbours.sh](hack/opsense-add-bgp-neighbours.sh) script.
