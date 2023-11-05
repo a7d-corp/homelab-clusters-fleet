@@ -1,11 +1,36 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 30-addons
+  name: 30-addon-configs
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
     - name: 12-cni
+      namespace: cluster-room101-a7d-mc
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./workloads/addons/addon-configs/room101-a7d-mc
+  prune: true
+  wait: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: false
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 31-addons
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: 30-addon-configs
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
