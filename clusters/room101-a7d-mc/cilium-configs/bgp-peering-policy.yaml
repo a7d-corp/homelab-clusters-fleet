@@ -1,0 +1,20 @@
+apiVersion: cilium.io/v2alpha1
+kind: CiliumBGPPeeringPolicy
+metadata:
+ name: bgp-peering-policy
+spec:
+ nodeSelector:
+   matchLabels:
+     metal.sidero.dev/serverclass: worker
+ virtualRouters:
+ - localASN: 65502
+   neighbors:
+    - peerAddress: '172.25.0.1'
+      peerASN: 65401
+      eBGPMultihopTTL: 10
+      connectRetryTimeSeconds: 120
+      holdTimeSeconds: 90
+      keepAliveTimeSeconds: 30
+      gracefulRestart:
+        enabled: true
+        restartTimeSeconds: 120

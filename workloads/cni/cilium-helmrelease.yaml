@@ -14,10 +14,8 @@ spec:
       version: ">=1.14.0 <1.15.0"
   interval: 10m0s
   values:
-    bgp:
+    bgpControlPlane:
       enabled: true
-      announce:
-        loadbalancerIP: true
     cni:
       uninstall: false
     containerRuntime:

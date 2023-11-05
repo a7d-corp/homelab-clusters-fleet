@@ -19,32 +19,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 11-cni-configs
+  name: 11-cni
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
     - name: 10-cni-prereqs
-      namespace: cluster-room101-a7d-mc
-  interval: 1h
-  retryInterval: 1m
-  timeout: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  path: ./clusters/room101-a7d-mc/cilium-configs
-  prune: true
-  wait: true
-  suspend: false
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: 12-cni
-  namespace: cluster-room101-a7d-mc
-spec:
-  dependsOn:
-    - name: 11-cni-configs
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -84,4 +63,25 @@ spec:
       target:
         kind: HelmRelease
         name: cilium
+  suspend: false
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 12-cni-configs
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: 11-cni
+      namespace: cluster-room101-a7d-mc
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./clusters/room101-a7d-mc/cilium-configs
+  prune: true
+  wait: true
   suspend: false
