@@ -9,7 +9,7 @@ spec:
  virtualRouters:
  - localASN: 65502
    neighbors:
-    - peerAddress: '172.25.0.1'
+    - peerAddress: '172.25.0.1/32'
       peerASN: 65401
       eBGPMultihopTTL: 10
       connectRetryTimeSeconds: 120
