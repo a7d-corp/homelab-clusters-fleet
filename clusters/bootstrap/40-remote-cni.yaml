@@ -22,35 +22,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 41-remote-cni-configs
+  name: 41-remote-cni
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
     - name: 40-remote-cni-prereqs
-      namespace: cluster-room101-a7d-mc
-  interval: 1h
-  retryInterval: 1m
-  timeout: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  path: ./clusters/room101-a7d-mc/cilium-configs
-  prune: true
-  wait: true
-  suspend: false
-  kubeConfig:
-    secretRef:
-      name: room101-a7d-mc-kubeconfig
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: 42-remote-cni
-  namespace: cluster-room101-a7d-mc
-spec:
-  dependsOn:
-    - name: 41-remote-cni-configs
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
