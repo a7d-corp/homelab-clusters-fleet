@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: udp-services
-  namespace: kube-system
-data:
-  69: "sidero-system/sidero-tftp:69"
-  51821: "sidero-system/sidero-siderolink:51821"

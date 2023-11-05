@@ -1,31 +1,6 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 30-addon-configs
-  namespace: cluster-room101-a7d-mc
-spec:
-  dependsOn:
-    - name: 12-cni
-      namespace: cluster-room101-a7d-mc
-  interval: 1h
-  retryInterval: 1m
-  timeout: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  path: ./workloads/addons/addon-configs/room101-a7d-mc
-  prune: true
-  wait: true
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
-  suspend: false
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
   name: 31-addons
   namespace: cluster-room101-a7d-mc
 spec:
@@ -47,3 +22,17 @@ spec:
     secretRef:
       name: sops-age
   suspend: false
+  patches:
+    - patch: |
+        - op: add
+          path: /spec/values/tcp
+          value:
+            "8081": "sidero-system/sidero-http:8081"
+        - op: add
+          path: /spec/values/udp
+          value:
+            "69": "sidero-system/sidero-tftp:69"
+            "51821": "sidero-system/sidero-siderolink:51821"
+      target:
+        kind: HelmRelease
+        name: ingress-nginx
