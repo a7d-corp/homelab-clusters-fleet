@@ -5,7 +5,7 @@ metadata:
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 30-addon-configs
+    - name: 12-cni
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
