@@ -60,7 +60,10 @@ Bootstrap cluster initialisation will stop before creating [Talos resources](/cl
 When ready, run the following and commit the changes:
 
 ```
-sed -i 's/suspend: true/suspend: false/g' clusters/bootstrap/20-talos-cluster.yaml
+sed -i 's/suspend: true/suspend: false/g' clusters/bootstrap/20-talos-cluster.yaml && \
+    git add clusters/bootstrap/20-talos-cluster.yaml && \
+    git commit -m "resume reconciliation of bootstrap cluster Talos resources" && \
+    git push
 ```
 
 ## Post setup
