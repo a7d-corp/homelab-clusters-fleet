@@ -47,8 +47,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update capi provider version and correct installation of infra provider.
 - Update CAPI provider manifests to v1alpha2.
 - Correct server-side-apply method for Server resources.
-- update k8s 1.27.4 > 1.28.3
-- update sidero infraprovider 1.5.2 > 1.5.5
+- Update k8s 1.27.4 > 1.28.3.
+- Update sidero infraprovider 1.5.2 > 1.5.5.
+- Update MC talos version v1.4.7 > v1.5.5.
 
 ### Removed
 
