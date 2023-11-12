@@ -17,21 +17,12 @@ sops -d -i secret.yaml
 
 ## Sidero + ClusterAPI
 
-Talos version to use is configured via the `cluster-api-operator` `CoreProvider`. Usually patched by kustomization:
+Talos and Kubernetes versions to deploy are configured per cluster via substitution vars:
 
 ```
-    - patch: |
-        - op: add
-          path: /spec
-          value:
-            version: v1.5.5
-      target:
-        kind: CoreProvider
-        name: cluster-api
+➜  grep TALOS_VERSION kubernetes/clusters/room101-a7d-mc/cluster-vars-configmap.yaml
+  TALOS_VERSION: "v1.5.5"
+➜  grep K8S_VERSION kubernetes/clusters/room101-a7d-mc/cluster-vars-configmap.yaml
+  K8S_VERSION: "1.28.3"
 ```
 
-Kubernetes version to deploy is configured per cluster via substitution vars:
-
-```
-kubernetes/clusters/room101-a7d-mc/cluster-vars-configmap.yaml
-```
