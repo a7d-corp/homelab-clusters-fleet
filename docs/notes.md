@@ -20,9 +20,8 @@ sops -d -i secret.yaml
 Talos and Kubernetes versions to deploy are configured per cluster via substitution vars:
 
 ```
-➜  grep TALOS_VERSION kubernetes/clusters/room101-a7d-mc/cluster-vars-configmap.yaml
-  TALOS_VERSION: "v1.5.5"
-➜  grep K8S_VERSION kubernetes/clusters/room101-a7d-mc/cluster-vars-configmap.yaml
+grep -E 'K8S_VERSION|TALOS_VERSION' kubernetes/clusters/room101-a7d-mc/cluster-vars-configmap.yaml
   K8S_VERSION: "1.28.3"
+  TALOS_VERSION: "v1.5.5"
 ```
 
