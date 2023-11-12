@@ -118,7 +118,7 @@ spec:
         - op: add
           path: /spec
           value:
-            version: v1.5.2
+            version: v1.5.5
       target:
         kind: CoreProvider
         name: cluster-api
