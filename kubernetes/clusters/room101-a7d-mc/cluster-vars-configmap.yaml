@@ -7,5 +7,5 @@ data:
   CLUSTER: "room101-a7d-mc"
   WORKER_COUNT: "3"
   MASTER_COUNT: "3"
-  K8S_VERSION: "1.27.4"
+  K8S_VERSION: "1.28.3"
   TALOS_VERSION: "v1.4.7"
