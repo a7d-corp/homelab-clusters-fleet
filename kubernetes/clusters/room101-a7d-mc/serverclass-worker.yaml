@@ -19,7 +19,7 @@ spec:
   - op: add
     path: /machine/features/kubePrism
     value:
-      enabled: true
+      enabled: false
       port: 6543
   - op: replace
     path: /machine/kubelet/extraArgs
