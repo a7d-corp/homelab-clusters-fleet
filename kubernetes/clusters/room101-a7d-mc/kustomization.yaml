@@ -10,4 +10,4 @@ resources:
   - server-worker-fc25565c-e70d-4e6f-9e60-bf966ea330f3.yaml
   - serverclass-master.yaml
   - serverclass-worker.yaml
-  - talos-secrets.yaml
+#  - talos-secrets.yaml

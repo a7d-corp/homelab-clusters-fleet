@@ -2,4 +2,4 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - namespace.yaml
-  - room101-a7d-mc-kubeconfig.yaml
+#  - room101-a7d-mc-kubeconfig.yaml
