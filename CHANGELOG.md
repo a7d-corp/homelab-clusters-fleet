@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Install CAPI operator and cert-manager in bootstrap cluster with Flux.
 - Add server manifests for MC cluster workers
 - Add hostnames to all `room101-a7d-mc` `Servers`.
+- Add `kubelet-csr-approver`.
 
 ### Changed
 
