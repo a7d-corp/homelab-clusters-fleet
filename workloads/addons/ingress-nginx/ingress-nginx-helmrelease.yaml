@@ -38,3 +38,6 @@ spec:
         default: true
       minReadySeconds: 10
       replicaCount: 2
+      service:
+        labels:
+          cilium.bgp.announce/enabled: true

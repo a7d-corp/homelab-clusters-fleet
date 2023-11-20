@@ -5,9 +5,14 @@ metadata:
 spec:
  nodeSelector:
    matchLabels:
+     # only nodes with the following label will announce routes
      metal.sidero.dev/serverclass: worker
  virtualRouters:
  - localASN: 65502
+   serviceSelector:
+     matchLabels:
+       # services must have the following label to be announced
+       cilium.bgp.announce/enabled: true
    neighbors:
     - peerAddress: '172.25.0.1/32'
       peerASN: 65401
