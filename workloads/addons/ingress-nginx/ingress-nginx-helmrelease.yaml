@@ -40,4 +40,4 @@ spec:
       replicaCount: 2
       service:
         labels:
-          cilium.bgp.announce/enabled: true
+          io.cilium/bgp-announce: true

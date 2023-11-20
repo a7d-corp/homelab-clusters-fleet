@@ -12,7 +12,7 @@ spec:
    serviceSelector:
      matchExpressions:
        # services must have the following label to be announced
-       - {key: "cilium.bgp.announce/enabled", operator: In, values: ['true']}
+       - {key: "io.cilium/bgp-announce", operator: In, values: ['true']}
    neighbors:
     - peerAddress: '172.25.0.1/32'
       peerASN: 65401
