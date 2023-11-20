@@ -10,9 +10,9 @@ spec:
  virtualRouters:
  - localASN: 65502
    serviceSelector:
-     matchLabels:
+     matchExpressions:
        # services must have the following label to be announced
-       cilium.bgp.announce/enabled: true
+       - {key: "cilium.bgp.announce/enabled", operator: In, values: ['true']}
    neighbors:
     - peerAddress: '172.25.0.1/32'
       peerASN: 65401
