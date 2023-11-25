@@ -47,6 +47,3 @@ spec:
       hostRoot: "/sys/fs/cgroup"
     k8sServiceHost: "${KUBERNETES_API_SERVER_ADDRESS}"
     k8sServicePort: 6443
-    debug:
-      enabled: true
-      verbose: datapath
