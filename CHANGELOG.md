@@ -52,6 +52,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update sidero infraprovider 1.5.2 > 1.5.5.
 - Update MC talos version v1.4.7 > v1.5.5.
 - Switch `/addons` dir to bases pattern to easier differentiate between cluster types.
+- Switch `/workloads/controllers` dir to bases pattern to easier differentiate between cluster types.
+
 ### Removed
 
 - Drop flux CRD installation to remote cluster.

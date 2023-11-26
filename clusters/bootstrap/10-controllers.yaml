@@ -26,7 +26,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 11-controllers-cluster-api-operator
+  name: 11-controllers
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
@@ -39,7 +39,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/controllers/management-cluster/cluster-api-operator
+  path: ./workloads/controllers/bootstrap-cluster
   prune: true
   wait: true
   decryption:
@@ -55,7 +55,7 @@ metadata:
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 11-controllers-cluster-api-operator
+    - name: 11-controllers
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -89,7 +89,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/controllers/management-cluster/cluster-api-operator/capi-providers
+  path: ./workloads/controllers/base/cluster-api-operator/capi-providers
   prune: true
   wait: true
   decryption:
