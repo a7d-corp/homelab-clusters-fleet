@@ -14,3 +14,8 @@ spec:
   interval: 1m0s
   values:
     annotationFilter: "external-dns.alpha.kubernetes.io/exclude notin (true)"
+    cloudflare:
+      proxied: false
+      secretName: external-dns-cf-auth
+    policy: sync
+    provider: cloudflare
