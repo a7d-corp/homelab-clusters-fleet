@@ -44,3 +44,10 @@ spec:
       target:
         kind: HelmRelease
         name: kubelet-csr-approver
+    - patch: |
+        - op: add
+          path: /spec/values/txtOwnerId
+          value: "room101a7dmc"
+      target:
+        kind: HelmRelease
+        name: external-dns
