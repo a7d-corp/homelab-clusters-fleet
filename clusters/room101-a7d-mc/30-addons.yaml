@@ -48,6 +48,17 @@ spec:
         - op: add
           path: /spec/values/txtOwnerId
           value: "room101a7dmc"
+        - op: add
+          path: /spec/values/sources
+          value:
+            - crd
+            - ingress
+        - op: add
+          path: /spec/values/crd
+          value:
+            create: true
+            apiversion: "externaldns.k8s.io/v1alpha1"
+            kind: "DNSEndpoint"
       target:
         kind: HelmRelease
         name: external-dns
