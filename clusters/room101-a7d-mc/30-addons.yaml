@@ -14,7 +14,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/addons
+  path: ./workloads/addons/capi-cluster
   prune: true
   wait: true
   decryption:
