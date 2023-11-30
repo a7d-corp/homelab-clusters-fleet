@@ -25,9 +25,6 @@ spec:
             key: clientSecret
     ingress:
       enabled: true
-      annotations:
-        external-dns.alpha.kubernetes.io/hostname: dex.room101-a7d-mc.lab.a7d.dev
-        external-dns.alpha.kubernetes.io/target: ingress.lab.a7d.dev
       hosts:
         - host: dex.room101-a7d-mc.lab.a7d.dev
           paths:
