@@ -53,6 +53,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update MC talos version v1.4.7 > v1.5.5.
 - Switch `/addons` dir to bases pattern to easier differentiate between cluster types.
 - Switch `/workloads/controllers` dir to bases pattern to easier differentiate between cluster types.
+- Tidy dex infra and only expose ingresses internally.
 
 ### Removed
 
