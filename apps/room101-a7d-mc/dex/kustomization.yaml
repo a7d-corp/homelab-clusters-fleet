@@ -2,11 +2,11 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
 - ../../base/dex
-namespace: "dex"
-namePrefix: "app-"
-patchesStrategicMerge:
-- dex-k8s-authenticator-values.yaml
-- dex-secret-dex-config.yaml
-- dex-secret-dex-github-secret.yaml
-- dex-secret-dex-k8s-authenticator-credentials.yaml
-- dex-values.yaml
+namespace: dex
+namePrefix: app-
+patches:
+- path: dex-k8s-authenticator-values.yaml
+- path: dex-secret-dex-config.yaml
+- path: dex-secret-dex-github-secret.yaml
+- path: dex-secret-dex-k8s-authenticator-credentials.yaml
+- path: dex-values.yaml

@@ -3,9 +3,6 @@ kind: Ingress
 metadata:
   name: oauth2-proxy-analbeard-com
   namespace: oauth2-proxy
-  annotations:
-    external-dns.alpha.kubernetes.io/hostname: "oauth2-proxy.room101-a7d-mc.lab.analbeard.com"
-    external-dns.alpha.kubernetes.io/target: "ingress.lab.a7d.dev"
 spec:
   rules:
   - host: oauth2-proxy.room101-a7d-mc.lab.analbeard.com
