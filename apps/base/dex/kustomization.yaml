@@ -6,4 +6,5 @@ resources:
   - dex-helmrepository.yaml
   - dex-k8s-authenticator-helmrelease.yaml
   - dex-k8s-authenticator-helmrepository.yaml
+  - namespace.yaml
   - secrets.yaml
