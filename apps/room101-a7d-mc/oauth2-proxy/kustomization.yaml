@@ -4,7 +4,13 @@ resources:
 - ../../base/oauth2-proxy
 patches:
 - path: ingress-oauth2-proxy-a7d-dev.yaml
+  target:
+    kind: Ingress
+    name: oauth2-proxy-a7d-dev
 - path: ingress-oauth2-proxy-analbeard-com.yaml
+  target:
+    kind: Ingress
+    name: oauth2-proxy-analbeard-com
 - path: oauth2-proxy-a7d-dev-values.yaml
 - path: oauth2-proxy-analbeard-com-values.yaml
 - path: secret-oauth2-proxy-a7d-dev-credentials.yaml
