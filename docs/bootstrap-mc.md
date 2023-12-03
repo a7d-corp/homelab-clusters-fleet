@@ -2,12 +2,9 @@
 
 The bootstrap cluster is used to bootstrap Flux into the management cluster. Flux is installed by hand in the bootstrap cluster (sing  le node Talos cluster running Sidero components) which then creates a management cluster with Sidero on VMs. Flux deploys a CNI into the MC, creates the required Flux config and then deploys Flux (which is automatically configured to start reconciling the MC directory in `clusters`). The deployed Flux then starts managing itself (as well as the rest of the cluster) and the bootstrap machine can be destroyed as it is no longer required.
 
-## Cluster creation
-
-- VMs should be created first (will bootloop until Sidero is running).
-- Create A record `sidero.room101-a7d-mc.lab.a7d.dev` pointing to bootstrap node.
-
 ## Proxmox VM creation
+
+VMs should be created first (will bootloop until Sidero is running).
 
 Use Terraform repo (e.g. [this one for the MC](https://github.com/a7d-corp/homelab-k8s-cluster-room101-a7d-mc/)) to create the VMs. Ensure they are all started and bootlooping.
 
@@ -69,4 +66,6 @@ sed -i 's/suspend: true/suspend: false/g' clusters/bootstrap/20-talos-cluster.ya
 ## Post setup
 
 - Remove DNS records created for Kubernetes API FQDN.
-- Re-point `sidero.room101-a7d-mc.lab.a7d.dev` to new MC cluster.
+- Re-point `sidero.room101-a7d-mc.lab.a7d.dev` to new MC ingress IP.
+- Update OPNsense PXE `next-server` to point to new MC ingress IP.
+- Shut down bootstrap VM.
