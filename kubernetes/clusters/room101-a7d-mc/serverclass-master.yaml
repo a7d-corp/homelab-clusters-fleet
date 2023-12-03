@@ -47,6 +47,13 @@ spec:
     value:
       name: "none"
   - op: replace
+    path: /cluster/apiServer/extraArgs
+    value:
+      oidc-issuer-url: "https://dex.room101-a7d-mc.lab.a7d.dev"
+      oidc-client-id: 9aba9b32-e761-4507-8445-cea11a6b15da
+      oidc-username-claim: email
+      oidc-groups-claim: groups
+  - op: replace
     path: /cluster/apiServer/certSANs
     value:
       - k8s.room101-a7d-mc.lab.a7d.dev
