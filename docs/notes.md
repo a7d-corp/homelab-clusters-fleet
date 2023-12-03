@@ -1,5 +1,23 @@
 # Miscellanous notes
 
+## Talos secrets
+
+### Recreating cluster secrets (K8S PKI, Talos PKI etc)
+
+#### Generate new secrets
+
+```
+talosctl gen secrets
+mv secrets.yaml kubernetes/clusters/room101-a7d-mc/talos-secrets.yaml
+sops -i -e kubernetes/clusters/room101-a7d-mc/talos-secrets.yaml
+```
+
+#### Generate new kubeconfig & talosconfig
+
+See [PKI notes](/hack/pki/README.md).
+
+Copy the new kubeconfig to the correct location (e.g. `clusters/bootstrap/cluster-prereqs/room101-a7d-mc-kubeconfig.yaml`).
+
 ## `talos-cluster-secrets.yaml`
 
 Override repo-level SOPs configuration to encrypt the secret:
