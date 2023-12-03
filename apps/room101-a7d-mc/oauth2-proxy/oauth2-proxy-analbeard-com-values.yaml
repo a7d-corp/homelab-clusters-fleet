@@ -15,7 +15,7 @@ spec:
   values:
     config:
       cookieName: _oauth2_analbeard_com_room101_a7d_mc
-      existingSecret: oauth2-proxy-credentials
+      existingSecret: oauth2-proxy-analbeard-com-credentials
     extraArgs:
       cookie-domain: ".analbeard.com"
       github-org: "simonweald"
