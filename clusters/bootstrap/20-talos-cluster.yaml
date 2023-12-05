@@ -64,6 +64,16 @@ spec:
     - patch: |
         - op: replace
           path: /metadata/name
+          value: room101-a7d-mc
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: Environment
+        name: changeme
+    - patch: |
+        - op: replace
+          path: /metadata/name
           value: room101-a7d-mc-workers
         - op: replace
           path: /metadata/namespace
