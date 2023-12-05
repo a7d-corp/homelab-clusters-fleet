@@ -3,6 +3,9 @@ kind: ServerClass
 metadata:
   name: room101-a7d-mc-worker
 spec:
+  environmentRef:
+    name: room101-a7d-mc
+    namespace: cluster-room101-a7d-mc
   selector:
     matchLabels:
       metal.sidero.dev/cluster: room101-a7d-mc
