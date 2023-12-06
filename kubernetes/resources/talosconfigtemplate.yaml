@@ -7,4 +7,3 @@ spec:
   template:
     spec:
       generateType: join
-      talosVersion: ${TALOS_VERSION}
