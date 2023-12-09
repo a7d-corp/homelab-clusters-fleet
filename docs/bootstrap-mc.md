@@ -63,6 +63,42 @@ sed -i 's/suspend: true/suspend: false/g' clusters/bootstrap/20-talos-cluster.ya
     git push
 ```
 
+## Pivot to MC
+
+### Pivot CAPI resources
+
+#### Ensure encryption secret is moved
+
+This is necessary as the secret isn't created by the CAPI controllers; adding the owner reference ensures it will be pivoted to the MC.
+
+```
+CLUSTER_UID=$(kubectl get cluster room101-a7d-mc -o yaml | yq -r .metadata.uid) \
+    && kubectl patch secret room101-a7d-mc-talos -n cluster-room101-a7d-mc \
+    -p '{"metadata": {"ownerReferences":[{"apiVersion": "cluster.x-k8s.io/v1beta1", "blockOwnerDeletion": true, "controller": true, "kind": "Cluster", "name": "room101-a7d-mc", "uid": "'${CLUSTER_UID}'"}]}}'
+```
+
+### Scale down Flux
+
+Ensure Flux in the bootstrap cluster doesn't recreate moved resources
+
+```
+k scale deploy kustomize-controller -n flux-system --replicas 0
+```
+
+### Move using clusterctl
+
+Sanity check with a dry run:
+
+```
+clusterctl move --to-kubeconfig path/to/mc.kubeconfig --dry-run -v 5
+```
+
+Actually move the resources:
+
+```
+clusterctl move --to-kubeconfig path/to/mc.kubeconfig
+```
+
 ## Post setup
 
 - Remove DNS records created for Kubernetes API FQDN.
