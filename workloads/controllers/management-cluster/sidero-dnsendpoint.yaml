@@ -9,4 +9,4 @@ spec:
     recordTTL: 180
     recordType: A
     targets:
-    - 172.27.0.46
+    - 172.27.0.61
