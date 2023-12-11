@@ -72,8 +72,10 @@ sed -i 's/suspend: true/suspend: false/g' clusters/bootstrap/20-talos-cluster.ya
 This is necessary as the secret isn't created by the CAPI controllers; adding the owner reference ensures it will be pivoted to the MC.
 
 ```
-CLUSTER_UID=$(kubectl get cluster room101-a7d-mc -o yaml | yq -r .metadata.uid) \
-    && kubectl patch secret room101-a7d-mc-talos -n cluster-room101-a7d-mc \
+export CLUSTER_UID=$(kubectl get cluster room101-a7d-mc -o yaml | yq -r .metadata.uid)
+kubectl patch secret room101-a7d-mc-talos -n cluster-room101-a7d-mc \
+    -p '{"metadata": {"ownerReferences":[{"apiVersion": "cluster.x-k8s.io/v1beta1", "blockOwnerDeletion": true, "controller": true, "kind": "Cluster", "name": "room101-a7d-mc", "uid": "'${CLUSTER_UID}'"}]}}'
+kubectl patch secret room101-a7d-mc-kubeconfig -n cluster-room101-a7d-mc \
     -p '{"metadata": {"ownerReferences":[{"apiVersion": "cluster.x-k8s.io/v1beta1", "blockOwnerDeletion": true, "controller": true, "kind": "Cluster", "name": "room101-a7d-mc", "uid": "'${CLUSTER_UID}'"}]}}'
 ```
 
