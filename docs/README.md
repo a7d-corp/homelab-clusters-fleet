@@ -27,7 +27,7 @@ Configs to install and manage Flux and all core components in a cluster; all clu
 
 `/workloads/addons/`
 
-Additional applications which are required to support a cluster. Can be installed as a single Kustomization or individually if required.
+Additional applications which are required to support a cluster.
 
 `/kubernetes/resources/`
 
@@ -36,7 +36,6 @@ Template manifests for CAPI components used by Sidero to create a cluster.
 `/kubernetes/clusters/`
 
 Subdirs contain manifests for various Sidero-specific components in order to customise the cluster deployment. Kubernetes nodes are configured at this level (networking, low-level Kubernetes settings such as kubelet args etc).
-
 
 `/apps/`
 
