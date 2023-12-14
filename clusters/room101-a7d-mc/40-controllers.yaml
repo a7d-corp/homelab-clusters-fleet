@@ -22,6 +22,22 @@ spec:
     secretRef:
       name: sops-age
   suspend: false
+  patches:
+    - patch: |
+        - op: replace
+          path: /spec/endpoints/0/dnsName
+          value: sidero.room101-a7d-mc.lab.a7d.dev
+      target:
+        kind: DNSEndpoint
+        name: sidero
+    - patch: |
+        - op: replace
+          path: /spec/endpoints/0/targets
+          value:
+            - 172.27.0.52
+      target:
+        kind: DNSEndpoint
+        name: sidero
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization

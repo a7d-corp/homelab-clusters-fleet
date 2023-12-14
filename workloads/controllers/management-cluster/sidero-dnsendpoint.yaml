@@ -5,8 +5,8 @@ metadata:
   namespace: sidero-system
 spec:
   endpoints:
-  - dnsName: sidero.room101-a7d-mc.lab.a7d.dev
+  - dnsName: sidero.domain.com
     recordTTL: 180
     recordType: A
     targets:
-    - 172.27.0.61
+    - 1.1.1.1
