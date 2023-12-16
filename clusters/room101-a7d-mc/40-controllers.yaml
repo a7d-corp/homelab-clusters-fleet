@@ -21,6 +21,11 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
   suspend: false
   patches:
     - patch: |
@@ -34,7 +39,7 @@ spec:
         - op: replace
           path: /spec/endpoints/0/targets
           value:
-            - 172.27.0.52
+            - "${NGINX_LB_IP}"
       target:
         kind: DNSEndpoint
         name: sidero
