@@ -1,1 +1,12 @@
-../../room101-a7d-mc/cluster-prereqs/cluster-vars-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-vars
+  namespace: cluster-room101-a7d-mc
+data:
+  CLUSTER: "room101-a7d-mc"
+  WORKER_COUNT: "2"
+  MASTER_COUNT: "1"
+  K8S_VERSION: "1.28.3"
+  TALOS_VERSION: "v1.5.5"
+  NGINX_SVC_IP: "172.27.0.62"
