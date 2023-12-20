@@ -1,0 +1,21 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: proxmox-operator
+  namespace: proxmox-operator
+spec:
+  releaseName: proxmox-operator
+  chart:
+    spec:
+      chart: proxmox-operator
+      sourceRef:
+        kind: HelmRepository
+        name: proxmox-operator
+        namespace: proxmox-operator
+      version: ">=v1.0.0 < v2.0.0"
+  interval: 60m
+  install:
+    remediation:
+      retries: 3
+  values:
+    existingConfigSecret: proxmox-operator-auth
