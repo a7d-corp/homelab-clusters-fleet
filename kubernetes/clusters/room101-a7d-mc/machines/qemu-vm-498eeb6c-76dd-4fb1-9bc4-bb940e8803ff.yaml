@@ -1,0 +1,46 @@
+apiVersion: proxmox.xfix.org/v1alpha1
+kind: Qemu
+metadata:
+  name: qemu-vm-498eeb6c-76dd-4fb1-9bc4-bb940e8803ff
+  finalizers:
+    - resources-finalizer.proxmox-operator.xfix.org
+spec:
+  cluster: virt-lab
+  node: host-01
+  vmid: 417
+  pool: room101-a7d-mc
+  autostart: true
+  autostop: true
+  cpu:
+    type: custom-talos-kvm64
+    sockets: 1
+    cores: 2
+  memory:
+    size: 3072
+    balloon: 3072
+  network:
+    net0:
+      model: virtio
+      bridge: vmbr0
+      tag: 1100
+  disk:
+    virtio0:
+      storage: local-lvm
+      size: 30G
+  tags:
+    - room101-a7d-mc
+    - management-cluster
+    - worker
+  options:
+    ostype: "l26"
+    bios: "seabios"
+    smbios1: "uuid=498eeb6c-76dd-4fb1-9bc4-bb940e8803ff,sku=Y29udHJvbHBsYW5lCg==,family=d29ya2VyCg==,base64=1"
+    scsihw: "virtio-scsi-pci"
+    boot: "order=virtio0,net0"
+    hotplug: "network,disk,usb"
+    tablet: 1
+    onboot: 1
+    kvm: 1
+    agent: 1
+    numa: 1
+    protection: 0
