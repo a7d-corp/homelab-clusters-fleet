@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add hostnames to all `room101-a7d-mc` `Servers`.
 - Add `kubelet-csr-approver`.
 - Add Environment and configure all serverclasses to consume it.
+- Use `proxmox-operator` to provision MC machines.
 
 ### Changed
 

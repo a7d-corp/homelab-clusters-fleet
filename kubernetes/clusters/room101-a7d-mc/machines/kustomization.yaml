@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+kustomization.yaml
+  - qemu-vm-6904e125-fc6c-4614-a16f-bef7474373f4.yaml
+  - qemu-vm-7eb6cf89-d07f-40a5-bfb0-c3003045e013.yaml
+  - qemu-vm-fc25565c-e70d-4e6f-9e60-bf966ea330f3.yaml
+# machines below disabled to reduce cluster size
+#  -qemu-vm-203e63cb-a8aa-4bf8-a5b6-333090507777.yaml
+#  -qemu-vm-2d1e5620-fdbc-4487-8f43-98cc9f36c308.yaml
+#  -qemu-vm-498eeb6c-76dd-4fb1-9bc4-bb940e8803ff.yaml
