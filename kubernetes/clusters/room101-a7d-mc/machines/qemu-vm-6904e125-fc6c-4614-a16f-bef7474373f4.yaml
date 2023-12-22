@@ -37,10 +37,7 @@ spec:
     smbios1: "uuid=6904e125-fc6c-4614-a16f-bef7474373f4,sku=Y29udHJvbHBsYW5lCg==,family=d29ya2VyCg==,base64=1"
     scsihw: "virtio-scsi-pci"
     boot: "order=virtio0;net0"
-    hotplug: "network,disk,usb"
-    tablet: 1
     onboot: 1
     kvm: 1
     agent: 1
-    numa: 1
     protection: 0
