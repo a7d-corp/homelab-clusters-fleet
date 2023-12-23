@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add Environment and configure all serverclasses to consume it.
 - Use `proxmox-operator` to provision MC machines.
 - Add `kyverno` in standalone mode.
+- Add ClusterPolicy to mutate `proxmox-operator` with proxy env vars.
 
 ### Changed
 

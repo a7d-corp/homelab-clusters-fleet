@@ -4,3 +4,4 @@ resources:
   - ../base/cluster-api-operator/
   - ../base/kyverno/
   - ../base/proxmox-operator/
+  - configmap-proxmox-operator-proxy-env-vars.yaml
