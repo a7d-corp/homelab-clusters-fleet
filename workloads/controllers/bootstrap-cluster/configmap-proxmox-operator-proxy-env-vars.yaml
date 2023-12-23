@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: proxmox-operator-proxy-env-config
+  namespace: kyverno
+data:
+  vars: |
+    controlPlaneEndpoint: "k8s.room101-a7d-mc.lab.a7d.dev"
+    clusterDomain: "cluster.local"
+    podSubnet:
+    serviceSubnet: "10.96.0.0/12"
