@@ -7,5 +7,5 @@ data:
   vars: |
     controlPlaneEndpoint: "k8s.room101-a7d-mc.lab.a7d.dev"
     clusterDomain: "cluster.local"
-    podSubnet:
+    podSubnet: "10.244.0.0/16"
     serviceSubnet: "10.96.0.0/12"
