@@ -1,0 +1,62 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: proxmox-operator-proxy-env
+spec:
+  background: true
+  rules:
+  - name: proxmox-operator-proxy-env
+    context:
+    - configMap:
+        name: proxmox-operator-proxy-env-config
+        namespace: kyverno
+      name: proxyEnvConfig
+    - name: vars
+      variable:
+        value: '{{ proxyEnvConfig.data.vars | parse_yaml(@) }}'
+    - name: apiEndpoint
+      variable:
+        value: '{{ vars.controlPlaneEndpoint }}'
+    - name: clusterDomain
+      variable:
+        value: '{{ vars.clusterDomain }}'
+    - name: podSubnet
+      variable:
+        value: '{{ vars.podSubnet }}'
+    - name: serviceSubnet
+      variable:
+        value: '{{ vars.serviceSubnet }}'
+    - name: concatNoProxy
+      variable:
+        value: '{{apiEndpoint}},{{clusterDomain}},{{podSubnet}},{{serviceSubnet}}'
+    - name: completeNoProxy
+      variable:
+        value: svc,127.0.0.1,localhost,{{concatNoProxy}}
+    match:
+      all:
+      - resources:
+          kinds:
+          - Deployment
+          names:
+          - proxmox-operator
+    mutate:
+      patchStrategicMerge:
+        spec:
+          template:
+            spec:
+              containers:
+              - (name): '*'
+                env:
+                - name: HTTP_PROXY
+                  value: http://10.101.0.55:3128
+                - name: http_proxy
+                  value: http://10.101.0.55:3128
+                - name: HTTPS_PROXY
+                  value: http://10.101.0.55:3128
+                - name: https_proxy
+                  value: http://10.101.0.55:3128
+                - name: NO_PROXY
+                  value: '{{ completeNoProxy }}'
+                - name: no_proxy
+                  value: '{{ completeNoProxy }}'
+  validationFailureAction: Enforce
