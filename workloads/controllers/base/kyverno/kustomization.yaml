@@ -4,4 +4,3 @@ resources:
   - kyverno-helmrelease.yaml
   - kyverno-helmrepository.yaml
   - namespace-kyverno.yaml
-  - policies/clusterpolicy-proxmox-operator-proxy-env-vars.yaml
