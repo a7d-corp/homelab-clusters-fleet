@@ -26,7 +26,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 11-misc-resources
+  name: 11-controllers
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
@@ -39,7 +39,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/misc-resources/clusters/bootstrap
+  path: ./workloads/controllers/bootstrap-cluster
   prune: true
   wait: true
   decryption:
@@ -51,11 +51,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 12-controllers
+  name: 12-misc-resources
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 11-misc-resources
+    - name: 11-controllers
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -64,7 +64,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/controllers/bootstrap-cluster
+  path: ./workloads/misc-resources/clusters/bootstrap
   prune: true
   wait: true
   decryption:
