@@ -26,7 +26,8 @@ spec:
   - op: replace
     path: /machine/network/interfaces
     value:
-      - interface: eth0
+      - deviceSelector:
+          busPath: "0*" # match first NIC
         dhcp: false
         addresses:
           - 172.25.100.5/27
