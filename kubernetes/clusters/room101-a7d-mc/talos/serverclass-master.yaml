@@ -30,10 +30,12 @@ spec:
       - 10.101.0.2
       - 10.101.0.3
   - op: replace
-    path: /machine/time/servers
+    path: /machine/time
     value:
-      - 10.101.0.2
-      - 10.101.0.3
+      servers:
+        - 10.101.0.2
+        - 10.101.0.3
+      bootTimeout: 1m0s
   - op: replace
     path: /machine/install/disk
     value: /dev/vda
