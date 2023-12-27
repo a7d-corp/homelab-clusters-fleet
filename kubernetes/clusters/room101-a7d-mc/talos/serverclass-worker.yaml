@@ -34,6 +34,11 @@ spec:
       - 10.101.0.2
       - 10.101.0.3
   - op: replace
+    path: /machine/time/servers
+    value:
+      - 10.101.0.2
+      - 10.101.0.3
+  - op: replace
     path: /machine/install/disk
     value: /dev/vda
   - op: replace
