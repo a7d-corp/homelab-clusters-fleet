@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: proxmox-operator-proxy-env-config
-  namespace: kyverno
+  namespace: kube-system
 data:
   vars: |
     controlPlaneEndpoint: "k8s.room101-a7d-mc.lab.a7d.dev"
