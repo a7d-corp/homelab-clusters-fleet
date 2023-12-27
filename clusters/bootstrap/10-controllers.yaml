@@ -1,11 +1,37 @@
+# 10-misc-config - supporting config for controllers which needs to exist ahead of controller deployment
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 10-addons
+  name: 10-addons-pre-install
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
     - name: 01-prereqs
+      namespace: flux-system
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./workloads/config/addons/pre-install/clusters/bootstrap
+  prune: true
+  wait: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: false
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 11-addons
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: 10-addons-pre-install
       namespace: flux-system
   interval: 1h
   retryInterval: 1m
@@ -26,11 +52,45 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 11-controllers
+  name: 12-controllers-pre-install
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 10-addons
+    - name: 11-addons
+      namespace: cluster-room101-a7d-mc
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./workloads/config/controllers/pre-install/clusters/bootstrap
+  prune: true
+  wait: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: kyverno
+      namespace: kyverno-admission-controller
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: kyverno
+      namespace: kyverno-background-controller
+  suspend: false
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 13-controllers
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: 12-controllers-pre-install
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -51,36 +111,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 12-misc-resources
+  name: 14-controllers-infrastructure-provider-prereqs
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 11-controllers
-      namespace: cluster-room101-a7d-mc
-  interval: 1h
-  retryInterval: 1m
-  timeout: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  path: ./workloads/misc-resources/clusters/bootstrap
-  prune: true
-  wait: true
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
-  suspend: false
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: 13-controllers-infrastructure-provider-prereqs
-  namespace: cluster-room101-a7d-mc
-spec:
-  dependsOn:
-    - name: 12-misc-resources
+    - name: 13-controllers
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -101,11 +136,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 14-controllers-capi-providers
+  name: 15-controllers-capi-providers
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 13-controllers-infrastructure-provider-prereqs
+    - name: 14-controllers-infrastructure-provider-prereqs
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m

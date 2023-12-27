@@ -62,6 +62,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Migrate misc cluster configs to separate dir.
 - Recreate accidentally-exposed secrets.
 - Set IP for nginx LB service and sidero DNSEndpoint.
+- Rework controller config deployment.
 
 ### Removed
 

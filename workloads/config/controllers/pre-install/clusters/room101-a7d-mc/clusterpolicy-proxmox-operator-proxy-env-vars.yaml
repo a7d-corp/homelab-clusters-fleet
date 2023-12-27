@@ -9,7 +9,7 @@ spec:
     context:
     - configMap:
         name: proxmox-operator-proxy-env-config
-        namespace: kyverno
+        namespace: kube-system
       name: proxyEnvConfig
     - name: vars
       variable:
