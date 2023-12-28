@@ -73,7 +73,7 @@ spec:
         - op: replace
           path: /spec/endpoints/0/targets
           value:
-            - "${NGINX_LB_IP}"
+            - "${NGINX_SVC_IP}"
       target:
         kind: DNSEndpoint
         name: sidero
