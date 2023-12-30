@@ -4,7 +4,7 @@ metadata:
   labels:
     metal.sidero.dev/cluster: room101-a7d-mc
     metal.sidero.dev/machine.type: worker
-  name: worker2-room101-a7d-mc
+  name: ${MASTER2_UUID}
 spec:
   accepted: true
   hardware:

@@ -4,7 +4,7 @@ metadata:
   labels:
     metal.sidero.dev/cluster: room101-a7d-mc
     metal.sidero.dev/machine.type: controlplane
-  name: master3-room101-a7d-mc
+  name: ${MASTER3_UUID}
 spec:
   accepted: true
   hardware:
