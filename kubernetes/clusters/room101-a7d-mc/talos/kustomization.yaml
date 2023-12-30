@@ -1,12 +1,13 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - server-master-203e63cb-a8aa-4bf8-a5b6-333090507777.yaml
-  - server-master-2d1e5620-fdbc-4487-8f43-98cc9f36c308.yaml
-  - server-master-7eb6cf89-d07f-40a5-bfb0-c3003045e013.yaml
-  - server-worker-498eeb6c-76dd-4fb1-9bc4-bb940e8803ff.yaml
-  - server-worker-6904e125-fc6c-4614-a16f-bef7474373f4.yaml
-  - server-worker-fc25565c-e70d-4e6f-9e60-bf966ea330f3.yaml
+  - server-master1-room101-a7d-mc.yaml
+  - server-worker1-room101-a7d-mc.yaml
+  - server-worker2-room101-a7d-mc.yaml
+  # disabled to reduce cluster size
+  #- server-master2-room101-a7d-mc.yaml
+  #- server-master3-room101-a7d-mc.yaml
+  #- server-worker3-room101-a7d-mc.yaml
   - serverclass-master.yaml
   - serverclass-worker.yaml
   - talos-secrets.yaml

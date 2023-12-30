@@ -3,8 +3,8 @@ kind: Server
 metadata:
   labels:
     metal.sidero.dev/cluster: room101-a7d-mc
-    metal.sidero.dev/machine.type: worker
-  name: 498eeb6c-76dd-4fb1-9bc4-bb940e8803ff
+    metal.sidero.dev/machine.type: controlplane
+  name: master2-room101-a7d-mc
 spec:
   accepted: true
   hardware:
@@ -16,13 +16,13 @@ spec:
       family: room101a7dmc
       manufacturer: QEMU
       productName: Standard PC (i440FX + PIIX, 1996)
-      skuNumber: worker
-      uuid: 498eeb6c-76dd-4fb1-9bc4-bb940e8803ff
-  hostname: 498eeb6c-76dd-4fb1-9bc4-bb940e8803ff
+      skuNumber: master
+      uuid: ${MASTER2_UUID}
+  hostname: ${MASTER2_UUID}
   configPatches:
   - op: replace
     path: /machine/network/hostname
-    value: 498eeb6c-76dd-4fb1-9bc4-bb940e8803ff
+    value: ${MASTER2_UUID}
   - op: replace
     path: /machine/network/interfaces
     value:

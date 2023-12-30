@@ -4,7 +4,7 @@ metadata:
   labels:
     metal.sidero.dev/cluster: room101-a7d-mc
     metal.sidero.dev/machine.type: controlplane
-  name: 2d1e5620-fdbc-4487-8f43-98cc9f36c308
+  name: master3-room101-a7d-mc
 spec:
   accepted: true
   hardware:
@@ -17,12 +17,12 @@ spec:
       manufacturer: QEMU
       productName: Standard PC (i440FX + PIIX, 1996)
       skuNumber: master
-      uuid: 2d1e5620-fdbc-4487-8f43-98cc9f36c308
-  hostname: 2d1e5620-fdbc-4487-8f43-98cc9f36c308
+      uuid: ${MASTER3_UUID}
+  hostname: ${MASTER3_UUID}
   configPatches:
   - op: replace
     path: /machine/network/hostname
-    value: 2d1e5620-fdbc-4487-8f43-98cc9f36c308
+    value: ${MASTER3_UUID}
   - op: replace
     path: /machine/network/interfaces
     value:
