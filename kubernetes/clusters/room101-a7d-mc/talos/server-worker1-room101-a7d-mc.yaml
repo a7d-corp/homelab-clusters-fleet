@@ -4,7 +4,7 @@ metadata:
   labels:
     metal.sidero.dev/cluster: room101-a7d-mc
     metal.sidero.dev/machine.type: worker
-  name: fc25565c-e70d-4e6f-9e60-bf966ea330f3
+  name: worker1-room101-a7d-mc
 spec:
   accepted: true
   hardware:
@@ -17,12 +17,12 @@ spec:
       manufacturer: QEMU
       productName: Standard PC (i440FX + PIIX, 1996)
       skuNumber: worker
-      uuid: fc25565c-e70d-4e6f-9e60-bf966ea330f3
-  hostname: fc25565c-e70d-4e6f-9e60-bf966ea330f3
+      uuid: ${WORKER1_UUID}
+  hostname: ${WORKER1_UUID}
   configPatches:
   - op: replace
     path: /machine/network/hostname
-    value: fc25565c-e70d-4e6f-9e60-bf966ea330f3
+    value: ${WORKER1_UUID}
   - op: replace
     path: /machine/network/interfaces
     value:

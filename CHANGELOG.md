@@ -64,6 +64,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Set IP for nginx LB service and sidero DNSEndpoint.
 - Rework controller config deployment.
 - Rework qemu resources and add static MAC addresses.
+- Reduce repetitive UUIDs by using cluster vars intead.
 
 ### Removed
 

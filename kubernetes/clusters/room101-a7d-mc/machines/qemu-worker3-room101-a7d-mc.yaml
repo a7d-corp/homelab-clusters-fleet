@@ -3,7 +3,7 @@ kind: Qemu
 metadata:
   name: worker3-room101-a7d-mc
   labels:
-    qemu.xfix.org/uuid: "498eeb6c-76dd-4fb1-9bc4-bb940e8803ff"
+    qemu.xfix.org/uuid: "${WORKER3_UUID}"
   finalizers:
     - resources-finalizer.proxmox-operator.xfix.org
 spec:
@@ -37,7 +37,7 @@ spec:
   options:
     ostype: "l26"
     bios: "seabios"
-    smbios1: "uuid=498eeb6c-76dd-4fb1-9bc4-bb940e8803ff,sku=Y29udHJvbHBsYW5lCg==,family=d29ya2VyCg==,base64=1"
+    smbios1: "uuid=${WORKER3_UUID},sku=Y29udHJvbHBsYW5lCg==,family=d29ya2VyCg==,base64=1"
     scsihw: "virtio-scsi-pci"
     boot: "order=virtio0;net0"
     onboot: 1
