@@ -28,11 +28,4 @@ spec:
     value:
       - deviceSelector:
           busPath: "0*" # match first NIC
-        dhcp: false
-        addresses:
-          - 172.25.100.3/27
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 172.25.100.1
-            metric: 1024
-
+        dhcp: true
