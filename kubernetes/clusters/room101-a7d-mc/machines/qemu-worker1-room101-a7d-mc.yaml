@@ -3,7 +3,7 @@ kind: Qemu
 metadata:
   name: worker1-room101-a7d-mc
   labels:
-    qemu.xfix.org/uuid: "{WORKER1_UUID}"
+    qemu.xfix.org/uuid: "${WORKER1_UUID}"
   finalizers:
     - resources-finalizer.proxmox-operator.xfix.org
 spec:
