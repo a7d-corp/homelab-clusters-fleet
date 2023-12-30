@@ -3,7 +3,7 @@ kind: Qemu
 metadata:
   name: master3-room101-a7d-mc
   labels:
-    qemu.xfix.org/uuid: "2d1e5620-fdbc-4487-8f43-98cc9f36c308"
+    qemu.xfix.org/uuid: "${MASTER3_UUID}"
   finalizers:
     - resources-finalizer.proxmox-operator.xfix.org
 spec:
@@ -37,7 +37,7 @@ spec:
   options:
     ostype: "l26"
     bios: "seabios"
-    smbios1: "uuid=2d1e5620-fdbc-4487-8f43-98cc9f36c308,sku=Y29udHJvbHBsYW5lCg==,family=cm9vbTEwMWE3ZG1jCg==,base64=1"
+    smbios1: "uuid=${MASTER3_UUID},sku=Y29udHJvbHBsYW5lCg==,family=cm9vbTEwMWE3ZG1jCg==,base64=1"
     scsihw: "virtio-scsi-pci"
     boot: "order=virtio0;net0"
     onboot: 1
