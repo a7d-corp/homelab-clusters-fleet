@@ -1,13 +1,15 @@
 apiVersion: proxmox.xfix.org/v1alpha1
 kind: Qemu
 metadata:
-  name: qemu-vm-2d1e5620-fdbc-4487-8f43-98cc9f36c308
+  name: master1-room101-a7d-mc
+  labels:
+    qemu.xfix.org/uuid: "7eb6cf89-d07f-40a5-bfb0-c3003045e013"
   finalizers:
     - resources-finalizer.proxmox-operator.xfix.org
 spec:
   cluster: virt-lab
-  node: host-03
-  vmid: 412
+  node: host-01
+  vmid: 410
   pool: room101-a7d-mc
   autostart: true
   autostop: true
@@ -34,7 +36,7 @@ spec:
   options:
     ostype: "l26"
     bios: "seabios"
-    smbios1: "uuid=2d1e5620-fdbc-4487-8f43-98cc9f36c308,sku=Y29udHJvbHBsYW5lCg==,family=cm9vbTEwMWE3ZG1jCg==,base64=1"
+    smbios1: "uuid=7eb6cf89-d07f-40a5-bfb0-c3003045e013,sku=Y29udHJvbHBsYW5lCg==,family=cm9vbTEwMWE3ZG1jCg==,base64=1"
     scsihw: "virtio-scsi-pci"
     boot: "order=virtio0;net0"
     onboot: 1

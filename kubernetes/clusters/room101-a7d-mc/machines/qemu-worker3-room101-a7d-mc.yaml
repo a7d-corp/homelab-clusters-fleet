@@ -1,7 +1,9 @@
 apiVersion: proxmox.xfix.org/v1alpha1
 kind: Qemu
 metadata:
-  name: qemu-vm-498eeb6c-76dd-4fb1-9bc4-bb940e8803ff
+  name: worker3-room101-a7d-mc
+  labels:
+    qemu.xfix.org/uuid: "498eeb6c-76dd-4fb1-9bc4-bb940e8803ff"
   finalizers:
     - resources-finalizer.proxmox-operator.xfix.org
 spec:
