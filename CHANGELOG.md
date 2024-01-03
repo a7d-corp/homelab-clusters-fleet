@@ -65,6 +65,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Rework controller config deployment.
 - Rework qemu resources and add static MAC addresses.
 - Reduce repetitive UUIDs by using cluster vars intead.
+- Update workflows now the `hub` cli is gone.
 
 ### Removed
 
