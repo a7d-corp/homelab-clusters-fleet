@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2024-01-03
+
 ### Added
 
 - Initial addition of base structure.
@@ -72,5 +74,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Drop flux CRD installation to remote cluster.
 - Remove misc CR kustomization.
 
-[Unreleased]: https://github.com/a7d-corp/homelab-clusters-fleet/tree/main
-
+[Unreleased]: https://github.com/a7d-corp/homelab-clusters-fleet/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/a7d-corp/homelab-clusters-fleet/releases/tag/v1.0.0
