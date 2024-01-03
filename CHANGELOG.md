@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Scale up MC to 3 masters.
+
 ### Added
 
 - Initial addition of base structure.
