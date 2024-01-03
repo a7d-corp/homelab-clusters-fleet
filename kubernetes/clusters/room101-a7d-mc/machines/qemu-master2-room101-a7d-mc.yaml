@@ -22,7 +22,7 @@ spec:
     balloon: 3072
   network:
     net0:
-      mac: "91:60:DD:1D:88:C8"
+      mac: "8a:39:fb:1d:10:bb"
       model: virtio
       bridge: vmbr0
       tag: 1100
