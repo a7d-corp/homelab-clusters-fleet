@@ -1,6 +1,6 @@
 # DO NOT EDIT. Generated with:
 #
-#    devctl@5.14.1-dev
+#    devctl@6.18.1-dev
 #
 name: Create Release PR
 on:
@@ -30,7 +30,7 @@ on:
 jobs:
   debug_info:
     name: Debug info
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Print github context JSON
         run: |
@@ -39,12 +39,12 @@ jobs:
           EOF
   gather_facts:
     name: Gather facts
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     outputs:
       repo_name: ${{ steps.gather_facts.outputs.repo_name }}
       branch: ${{ steps.gather_facts.outputs.branch }}
       base: ${{ steps.gather_facts.outputs.base }}
-      is_major: ${{ steps.gather_facts.outputs.is_major }}
+      needs_major_bump: ${{ steps.gather_facts.outputs.needs_major_bump }}
       skip: ${{ steps.pr_exists.outputs.skip }}
       version: ${{ steps.gather_facts.outputs.version }}
     steps:
@@ -66,7 +66,19 @@ jobs:
           version="$(echo $head | awk -F# '{print $NF}')"
           if [[ $version =~ ^major|minor|patch$ ]]; then
             gh auth login --with-token <<<$(echo -n ${{ secrets.GITHUB_TOKEN }})
-            version_parts=($(gh api "repos/${{ github.repository }}/releases/latest" --jq '.tag_name[1:] | split(".") | .[0], .[1], .[2]'))
+            gh_api_get_latest_release_version()
+            {
+              if ! version="$(gh api "repos/$1/releases/latest" --jq '.tag_name[1:] | split(".") | .[0], .[1], .[2]')"
+              then
+                case "$version" in
+                  *Not\ Found*) echo Assuming v0.0.0, hooray first release! >&2 ; version="0 0 0" ;;
+                  *) version="" ; return 1 ;;
+                esac
+              fi
+              echo "$version"
+            }
+
+            version_parts=($(gh_api_get_latest_release_version "${{ github.repository }}"))
             version_major=${version_parts[0]}
             version_minor=${version_parts[1]}
             version_patch=${version_parts[2]}
@@ -82,7 +94,9 @@ jobs:
                 version_major=$((version_major+1))
                 version_minor=0
                 version_patch=0
-                echo "is_major=true" >> $GITHUB_OUTPUT
+                if [[ "${version_major}" != "1" ]]; then
+                  echo "needs_major_bump=true" >> $GITHUB_OUTPUT
+                fi
                 ;;
               *)
                 echo "Unknown Semver level provided"
@@ -97,8 +111,8 @@ jobs:
             version_patch=$(echo "${version}" | cut -d "." -f 3)
             # This will help us detect versions with suffixes as majors, i.e 3.0.0-alpha1.
             # Even though it's a pre-release, it's still a major.
-            if [[ $version_minor = 0 && $version_patch =~ ^0.* ]]; then
-              echo "is_major=true" >> $GITHUB_OUTPUT
+            if [[ $version_minor = 0 && $version_patch =~ ^0.* && $version_major != 1 ]]; then
+              echo "needs_major_bump=true" >> $GITHUB_OUTPUT
             fi
           fi
           repo_name="$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')"
@@ -112,15 +126,17 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         run: |
-          if gh pr view --repo ${{ github.repository }} ${{ steps.gather_facts.outputs.branch }} | grep -i 'state:[[:space:]]*open' >/dev/null; then
-            gh pr view --repo ${{ github.repository }} ${{ steps.gather_facts.outputs.branch }}
+          head="${{ steps.gather_facts.outputs.branch }}"
+          branch="${head#refs/heads/}" # Strip "refs/heads/" prefix.
+          if gh pr view --repo "${{ github.repository }}" "${branch}" --json state --jq .state | grep -i 'open' > /dev/null; then
+            gh pr view --repo "${{ github.repository }}" "${branch}"
             echo "skip=true" >> $GITHUB_OUTPUT
           else
             echo "skip=false" >> $GITHUB_OUTPUT
           fi
   create_release_pr:
     name: Create release PR
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     needs:
       - gather_facts
     if: ${{ needs.gather_facts.outputs.skip != 'true' }}
@@ -131,12 +147,12 @@ jobs:
         with:
           go-version: '=1.18.1'
       - name: Install architect
-        uses: giantswarm/install-binary-action@v1.0.0
+        uses: giantswarm/install-binary-action@v1.1.0
         with:
           binary: "architect"
-          version: "6.1.0"
+          version: "6.11.0"
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ needs.gather_facts.outputs.branch }}
       - name: Prepare release changes
@@ -186,8 +202,8 @@ jobs:
 
       - name: Bump go module defined in go.mod if needed
         run: |
-          if [ "${{ needs.gather_facts.outputs.is_major }}" = true ] && test -f "go.mod"; then
-            go install github.com/marwan-at-work/mod/cmd/mod@v0.4.2
+          if [ "${{ needs.gather_facts.outputs.needs_major_bump }}" = true ] && test -f "go.mod"; then
+            go install github.com/marwan-at-work/mod/cmd/mod@v0.5.0
             mod upgrade
           fi
       - name: Set up git identity
@@ -211,4 +227,4 @@ jobs:
           base: "${{ needs.gather_facts.outputs.base }}"
           version: "${{ needs.gather_facts.outputs.version }}"
         run: |
-          hub pull-request -f -m "Release v${{ env.version }}" -a ${{ github.actor }} -b ${{ env.base }} -h ${{ needs.gather_facts.outputs.branch }}
+          gh pr create --assignee ${{ github.actor }} --title "Release v${{ env.version }}" --body "" --base ${{ env.base }} --head "${{ needs.gather_facts.outputs.branch }}"
