@@ -34,10 +34,12 @@ spec:
                   values:
                   - controller
               topologyKey: kubernetes.io/hostname
+      extraArgs:
+        enable-ssl-passthrough: true
       ingressClassResource:
         default: true
       minReadySeconds: 10
       replicaCount: 2
       service:
         labels:
-          io.cilium/bgp-announce: "true"
+          io.cilium/bgp-announce: "worker"

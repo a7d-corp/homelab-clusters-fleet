@@ -1,0 +1,25 @@
+apiVersion: cilium.io/v2alpha1
+kind: CiliumBGPPeeringPolicy
+metadata:
+ name: bgp-peering-policy-worker
+spec:
+ nodeSelector:
+   matchLabels:
+     # only nodes with the following label will announce routes
+     metal.sidero.dev/serverclass: worker
+ virtualRouters:
+ - localASN: 65502
+   serviceSelector:
+     matchExpressions:
+       # services must have the following label to be announced
+       - {key: "io.cilium/bgp-announce", operator: In, values: ['worker']}
+   neighbors:
+    - peerAddress: '172.25.0.1/32'
+      peerASN: 65401
+      eBGPMultihopTTL: 10
+      connectRetryTimeSeconds: 120
+      holdTimeSeconds: 90
+      keepAliveTimeSeconds: 30
+      gracefulRestart:
+        enabled: true
+        restartTimeSeconds: 120
