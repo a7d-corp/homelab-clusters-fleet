@@ -7,9 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `CiliumBGPPeeringPolicy` for control-plane nodes.
+
 ### Changed
 
 - Scale up MC to 3 masters.
+- Enable ssl-passthrough for `ingress-nginx`.
 
 ## [1.0.0] - 2024-01-03
 
