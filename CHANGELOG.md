@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add `CiliumBGPPeeringPolicy` for control-plane nodes.
+- Add Ingress to expose Kubernetes API via `ingress-nginx`.
 
 ### Changed
 
