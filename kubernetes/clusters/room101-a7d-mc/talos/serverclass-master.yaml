@@ -16,6 +16,10 @@ spec:
         skuNumber: master
   configPatches:
   - op: add
+    path: /machine/nodeLabels
+    value:
+      metal.sidero.dev/serverclass: controlplane
+  - op: add
     path: /machine/features/kubePrism
     value:
       enabled: false

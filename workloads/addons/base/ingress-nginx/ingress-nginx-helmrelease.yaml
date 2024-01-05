@@ -42,4 +42,4 @@ spec:
       replicaCount: 2
       service:
         labels:
-          io.cilium/bgp-announce: "true"
+          io.cilium/bgp-announce: "worker"
