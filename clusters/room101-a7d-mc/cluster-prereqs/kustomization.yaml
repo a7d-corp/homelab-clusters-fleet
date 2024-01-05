@@ -2,6 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - cluster-vars-configmap.yaml
+  - ingress-kubernetes-api.yaml
   - namespace-cluster-room101-a7d-mc.yaml
   - namespace-flux-system.yaml
   - sops-age-secret.yaml
