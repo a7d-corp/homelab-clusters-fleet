@@ -4,13 +4,11 @@ The bootstrap cluster is used to bootstrap Flux into the management cluster. Flu
 
 ## Proxmox VM creation
 
-VMs should be created first (will bootloop until Sidero is running).
-
-Use Terraform repo (e.g. [this one for the MC](https://github.com/a7d-corp/homelab-k8s-cluster-room101-a7d-mc/)) to create the VMs. Ensure they are all started and bootlooping.
+VMs are created by [proxmox-operator](https://github.com/CRASH-Tech/proxmox-operator) using [these manifests](/kubernetes/clusters/room101-a7d-mc/machines/).
 
 ## Initial DNS configuration
 
-Kubernetes API access needs to be configured before cluster creation; once the cluster is up it can be managed by `external-dns`. Create 3 DNS records for the Kubernetes API FQDN to point at the control-plane node IPs (see [networking.md](networking.md)).
+Kubernetes API access needs to be configured before cluster creation; once the cluster is up it can be managed by `external-dns`. Create 1 DNS record for the Kubernetes API FQDN to point to one control-plane node IP (see [networking.md](networking.md)).
 
 Create A record `sidero.room101-a7d-mc.lab.a7d.dev` pointing to bootstrap node.
 
@@ -63,6 +61,19 @@ sed -i 's/suspend: true/suspend: false/g' clusters/bootstrap/20-talos-cluster.ya
     git push
 ```
 
+### Kubernetes API DNS
+
+Once the MC is running, an [ingress](clusters/room101-a7d-mc/cluster-prereqs/ingress-kubernetes-api.yaml) will be created which exposes the Kubernetes API via `ingress-nginx`. In order to have `external-dns` manage the A record, it is necessary to create the corresponding TXT heritage record which indicates ownership of the A record:
+
+```
+curl -X POST "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records" \
+  --header 'Content-Type: application/json' \
+	-H "X-Auth-Email: user@email.com" \
+	-H "X-Auth-Key: my_secret_auth_key" \
+	-H "Content-Type: application/json" \
+	--data '{"type":"TXT","name":"a-k8s.room101-a7d-mc.lab","content":"heritage=external-dns,external-dns/owner=room101a7dmc,external-dns/resource=ingress/default/kubernetes-external","ttl":60}'
+```
+
 ## Pivot to MC
 
 ### Pivot CAPI resources
@@ -103,7 +114,6 @@ clusterctl move --to-kubeconfig path/to/mc.kubeconfig
 
 ## Post setup
 
-- Remove DNS records created for Kubernetes API FQDN.
 - Re-point `sidero.room101-a7d-mc.lab.a7d.dev` to new MC ingress IP.
 - Update OPNsense PXE `next-server` to point to new MC ingress IP.
 - Shut down bootstrap VM.
