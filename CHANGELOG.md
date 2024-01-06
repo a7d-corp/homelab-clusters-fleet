@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `CiliumBGPPeeringPolicy` for control-plane nodes.
 - Add Ingress to expose Kubernetes API via `ingress-nginx`.
+- Add nginx port mapping for 6443 through to `default/kubernetes` svc.
 
 ### Changed
 
