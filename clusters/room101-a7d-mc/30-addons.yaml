@@ -57,6 +57,10 @@ spec:
         - op: add
           path: /spec/values/tcp
           value:
+            "6443": "default/kubernetes:443"
+        - op: add
+          path: /spec/values/tcp
+          value:
             "8081": "sidero-system/sidero-http:8081"
         - op: add
           path: /spec/values/udp
