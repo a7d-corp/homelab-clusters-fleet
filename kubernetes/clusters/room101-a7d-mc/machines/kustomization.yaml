@@ -1,12 +1,13 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - qemu-master1-room101-a7d-mc.yaml
-  - qemu-worker1-room101-a7d-mc.yaml
-  - qemu-worker2-room101-a7d-mc.yaml
+  # standard machines
+  - qemu-master-203e63cb.yaml
+  - qemu-worker-461b9ad1.yaml
+  - qemu-worker-498eeb6c.yaml
   # nodes enabled for cluster upgrades
-  - qemu-master2-room101-a7d-mc.yaml
-  - qemu-worker3-room101-a7d-mc.yaml
-  - qemu-worker4-room101-a7d-mc.yaml
+  - qemu-master-2d1e5620.yaml
+  - qemu-worker-6904e125.yaml
+  - qemu-worker-fc25565c.yaml
   # machines below disabled to reduce cluster size
-  #- qemu-master3-room101-a7d-mc.yaml
+  #- qemu-master-7eb6cf89.yaml
