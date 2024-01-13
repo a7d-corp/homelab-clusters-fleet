@@ -4,7 +4,7 @@ metadata:
   labels:
     metal.sidero.dev/cluster: room101-a7d-mc
     metal.sidero.dev/machine.type: controlplane
-  name: ${MASTER3_UUID}
+  name: ${MASTER2_UUID}
 spec:
   accepted: true
   hardware:
@@ -17,12 +17,12 @@ spec:
       manufacturer: QEMU
       productName: Standard PC (i440FX + PIIX, 1996)
       skuNumber: master
-      uuid: ${MASTER3_UUID}
-  hostname: ${MASTER3_UUID}
+      uuid: ${MASTER2_UUID}
+  hostname: ${MASTER2_UUID}
   configPatches:
   - op: replace
     path: /machine/network/hostname
-    value: ${MASTER3_UUID}
+    value: ${MASTER2_UUID}
   - op: replace
     path: /machine/network/interfaces
     value:
@@ -30,7 +30,7 @@ spec:
           busPath: "0*" # match first NIC
         dhcp: false
         addresses:
-          - 172.25.100.5/27
+          - 172.25.100.4/27
         routes:
           - network: 0.0.0.0/0
             gateway: 172.25.100.1

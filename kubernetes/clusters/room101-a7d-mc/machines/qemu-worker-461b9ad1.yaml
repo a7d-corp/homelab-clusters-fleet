@@ -1,15 +1,15 @@
 apiVersion: proxmox.xfix.org/v1alpha1
 kind: Qemu
 metadata:
-  name: worker4-room101-a7d-mc
+  name: "worker-${WORKER1_SHORT}"
   labels:
-    qemu.xfix.org/uuid: "${WORKER4_UUID}"
+    qemu.xfix.org/uuid: "${WORKER1_UUID}"
   finalizers:
     - resources-finalizer.proxmox-operator.xfix.org
 spec:
   cluster: virt-lab
   node: host-03
-  vmid: 418
+  vmid: 415
   pool: room101-a7d-mc
   autostart: true
   autostop: true
@@ -37,7 +37,7 @@ spec:
   options:
     ostype: "l26"
     bios: "seabios"
-    smbios1: "uuid=${WORKER4_UUID},sku=Y29udHJvbHBsYW5lCg==,family=d29ya2VyCg==,base64=1"
+    smbios1: "uuid=${WORKER1_UUID},sku=Y29udHJvbHBsYW5lCg==,family=d29ya2VyCg==,base64=1"
     scsihw: "virtio-scsi-pci"
     boot: "order=virtio0;net0"
     onboot: 1
