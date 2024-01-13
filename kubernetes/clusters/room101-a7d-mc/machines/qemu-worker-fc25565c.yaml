@@ -8,7 +8,7 @@ metadata:
     - resources-finalizer.proxmox-operator.xfix.org
 spec:
   cluster: virt-lab
-  node: host-03
+  node: host-01
   vmid: 418
   pool: room101-a7d-mc
   autostart: true
