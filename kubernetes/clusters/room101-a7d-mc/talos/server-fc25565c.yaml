@@ -6,7 +6,7 @@ metadata:
     metal.sidero.dev/machine.type: worker
   name: ${WORKER4_UUID}
 spec:
-  accepted: true
+  accepted: false
   hardware:
     compute:
       processors:

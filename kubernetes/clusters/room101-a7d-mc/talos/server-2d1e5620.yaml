@@ -6,7 +6,7 @@ metadata:
     metal.sidero.dev/machine.type: controlplane
   name: ${MASTER2_UUID}
 spec:
-  accepted: true
+  accepted: false
   hardware:
     compute:
       processors:
