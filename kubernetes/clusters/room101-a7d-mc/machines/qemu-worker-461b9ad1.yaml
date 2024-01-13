@@ -1,7 +1,7 @@
 apiVersion: proxmox.xfix.org/v1alpha1
 kind: Qemu
 metadata:
-  name: worker1-room101-a7d-mc
+  name: "worker-${WORKER1_SHORT}"
   labels:
     qemu.xfix.org/uuid: "${WORKER1_UUID}"
   finalizers:
@@ -9,7 +9,7 @@ metadata:
 spec:
   cluster: virt-lab
   node: host-03
-  vmid: 416
+  vmid: 415
   pool: room101-a7d-mc
   autostart: true
   autostop: true
@@ -22,7 +22,7 @@ spec:
     balloon: 3072
   network:
     net0:
-      mac: "56:66:cc:93:19:2f"
+      mac: "52:c7:2f:97:22:96"
       model: virtio
       bridge: vmbr0
       tag: 1100

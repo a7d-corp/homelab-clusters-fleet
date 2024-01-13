@@ -35,4 +35,3 @@ spec:
           - network: 0.0.0.0/0
             gateway: 172.25.100.1
             metric: 1024
-

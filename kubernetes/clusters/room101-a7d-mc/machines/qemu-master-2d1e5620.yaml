@@ -1,15 +1,15 @@
 apiVersion: proxmox.xfix.org/v1alpha1
 kind: Qemu
 metadata:
-  name: worker3-room101-a7d-mc
+  name: "master-${MASTER2_SHORT}"
   labels:
-    qemu.xfix.org/uuid: "${WORKER3_UUID}"
+    qemu.xfix.org/uuid: "${MASTER2_UUID}"
   finalizers:
     - resources-finalizer.proxmox-operator.xfix.org
 spec:
   cluster: virt-lab
-  node: host-01
-  vmid: 417
+  node: host-03
+  vmid: 411
   pool: room101-a7d-mc
   autostart: true
   autostop: true
@@ -22,7 +22,7 @@ spec:
     balloon: 3072
   network:
     net0:
-      mac: "0e:68:df:5f:8d:26"
+      mac: "0e:3a:d4:e1:96:e8"
       model: virtio
       bridge: vmbr0
       tag: 1100
@@ -33,11 +33,11 @@ spec:
   tags:
     - room101-a7d-mc
     - management-cluster
-    - worker
+    - controlplane
   options:
     ostype: "l26"
     bios: "seabios"
-    smbios1: "uuid=${WORKER3_UUID},sku=Y29udHJvbHBsYW5lCg==,family=d29ya2VyCg==,base64=1"
+    smbios1: "uuid=${MASTER2_UUID},sku=Y29udHJvbHBsYW5lCg==,family=cm9vbTEwMWE3ZG1jCg==,base64=1"
     scsihw: "virtio-scsi-pci"
     boot: "order=virtio0;net0"
     onboot: 1

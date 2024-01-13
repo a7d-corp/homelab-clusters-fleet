@@ -1,7 +1,7 @@
 apiVersion: proxmox.xfix.org/v1alpha1
 kind: Qemu
 metadata:
-  name: worker4-room101-a7d-mc
+  name: "worker-${WORKER4_SHORT}"
   labels:
     qemu.xfix.org/uuid: "${WORKER4_UUID}"
   finalizers:
@@ -22,7 +22,7 @@ spec:
     balloon: 3072
   network:
     net0:
-      mac: "52:c7:2f:97:22:96"
+      mac: "56:66:cc:93:19:2f"
       model: virtio
       bridge: vmbr0
       tag: 1100
