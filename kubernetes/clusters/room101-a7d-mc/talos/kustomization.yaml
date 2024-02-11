@@ -3,12 +3,12 @@ kind: Kustomization
 resources:
   # standard nodes
   - server-master-203e63cb.yaml
-  - server-worker-461b9ad1.yaml
-  - server-worker-498eeb6c.yaml
+#  - server-worker-461b9ad1.yaml
+#  - server-worker-498eeb6c.yaml
   # nodes enabled for cluster upgrade
-  - server-master-2d1e5620.yaml
-  - server-worker-6904e125.yaml
-  - server-worker-fc25565c.yaml
+#  - server-master-2d1e5620.yaml
+#  - server-worker-6904e125.yaml
+#  - server-worker-fc25565c.yaml
   # disabled to reduce cluster size
   #- server-master-7eb6cf89.yaml
   - serverclass-master.yaml
