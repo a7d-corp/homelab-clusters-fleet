@@ -8,17 +8,17 @@ spec:
     namespace: cluster-room101-a7d-mc
   selector:
     matchLabels:
-      metal.sidero.dev/cluster: room101-a7d-mc
-      metal.sidero.dev/machine.type: worker
+      metal.sidero.dev/cluster: ${CLUSTER}
+      metal.sidero.dev/machine.type: ${QEMU_SKU_WORKER}
   qualifiers:
     hardware:
     - system:
-        skuNumber: worker
+        skuNumber: ${QEMU_SKU_WORKER}
   configPatches:
   - op: add
     path: /machine/nodeLabels
     value:
-      metal.sidero.dev/serverclass: worker
+      metal.sidero.dev/serverclass: ${QEMU_SKU_WORKER}
   - op: add
     path: /machine/features/kubePrism
     value:
