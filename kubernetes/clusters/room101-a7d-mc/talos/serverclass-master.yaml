@@ -8,17 +8,17 @@ spec:
     namespace: cluster-room101-a7d-mc
   selector:
     matchLabels:
-      metal.sidero.dev/cluster: room101-a7d-mc
-      metal.sidero.dev/machine.type: controlplane
+      metal.sidero.dev/cluster: ${CLUSTER}
+      metal.sidero.dev/machine.type: ${QEMU_SKU_MASTER}
   qualifiers:
     hardware:
     - system:
-        skuNumber: master
+        skuNumber: ${QEMU_SKU_MASTER}
   configPatches:
   - op: add
     path: /machine/nodeLabels
     value:
-      metal.sidero.dev/serverclass: controlplane
+      metal.sidero.dev/serverclass: ${QEMU_SKU_MASTER}
   - op: add
     path: /machine/features/kubePrism
     value:
@@ -52,7 +52,7 @@ spec:
     value: true
   - op: replace
     path: /cluster/clusterName
-    value: room101-a7d-mc
+    value: ${CLUSTER}
   - op: replace
     path: /cluster/controlPlane/endpoint
     value: "https://k8s.room101-a7d-mc.lab.a7d.dev:6443"
