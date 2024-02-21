@@ -7,17 +7,6 @@ metadata:
   name: ${WORKER2_UUID}
 spec:
   accepted: true
-  hardware:
-    compute:
-      processors:
-      - manufacturer: QEMU
-        productName: pc-i440fx-7.2
-    system:
-      family: room101a7dmc
-      manufacturer: QEMU
-      productName: Standard PC (i440FX + PIIX, 1996)
-      skuNumber: worker
-      uuid: ${WORKER2_UUID}
   hostname: ${WORKER2_UUID}
   configPatches:
   - op: replace
