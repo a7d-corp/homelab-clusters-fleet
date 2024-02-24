@@ -4,14 +4,14 @@ metadata:
   labels:
     metal.sidero.dev/cluster: room101-a7d-mc
     metal.sidero.dev/machine.type: worker
-  name: ${WORKER2_UUID}
+  name: 461b9ad1-3ff0-4bef-8e1e-0dbfc1d8fa43
 spec:
   accepted: true
-  hostname: ${WORKER2_UUID}
+  hostname: 461b9ad1-3ff0-4bef-8e1e-0dbfc1d8fa43
   configPatches:
   - op: replace
     path: /machine/network/hostname
-    value: ${WORKER2_UUID}
+    value: 461b9ad1-3ff0-4bef-8e1e-0dbfc1d8fa43
   - op: replace
     path: /machine/network/interfaces
     value:
