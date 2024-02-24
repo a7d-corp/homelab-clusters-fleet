@@ -9,16 +9,16 @@ spec:
   selector:
     matchLabels:
       metal.sidero.dev/cluster: ${CLUSTER}
-      metal.sidero.dev/machine.type: ${QEMU_SKU_WORKER}
+      metal.sidero.dev/machine.type: ${QEMU_WORKER_SKU}
   qualifiers:
     hardware:
     - system:
-        skuNumber: ${QEMU_SKU_WORKER}
+        skuNumber: ${QEMU_WORKER_SKU}
   configPatches:
   - op: add
     path: /machine/nodeLabels
     value:
-      metal.sidero.dev/serverclass: ${QEMU_SKU_WORKER}
+      metal.sidero.dev/serverclass: ${QEMU_WORKER_SKU}
   - op: add
     path: /machine/features/kubePrism
     value:
