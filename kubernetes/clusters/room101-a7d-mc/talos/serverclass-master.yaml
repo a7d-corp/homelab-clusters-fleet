@@ -13,7 +13,7 @@ spec:
   qualifiers:
     hardware:
     - system:
-        skuNumber: master
+        skuNumber: controlplane
   configPatches:
   - op: add
     path: /machine/features/kubePrism
