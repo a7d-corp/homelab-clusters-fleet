@@ -19,6 +19,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enable ssl-passthrough for `ingress-nginx`.
 - Align machine names across all resources.
 - Use variables across Qemu/Server/ServerClass resources.
+- Explicitly set Qemu machine type to avoid Proxmox iPXE UUID bug.
+
 ### Fixed
 
 - Attempt to finally correct machine names and ordering.
