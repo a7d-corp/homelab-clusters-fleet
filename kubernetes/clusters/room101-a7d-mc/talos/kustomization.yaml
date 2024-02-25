@@ -2,15 +2,15 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   # standard nodes
-  - server-master-203e63cb.yaml
+  - server-controlplane-203e63cb.yaml
   - server-worker-461b9ad1.yaml
   - server-worker-498eeb6c.yaml
   # nodes enabled for cluster upgrade
-  - server-master-2d1e5620.yaml
+  - server-controlplane-2d1e5620.yaml
   - server-worker-6904e125.yaml
   - server-worker-fc25565c.yaml
   # disabled to reduce cluster size
-  #- server-master-7eb6cf89.yaml
-  - serverclass-master.yaml
+  #- server-controlplane-7eb6cf89.yaml
+  - serverclass-controlplane.yaml
   - serverclass-worker.yaml
   - talos-secrets.yaml

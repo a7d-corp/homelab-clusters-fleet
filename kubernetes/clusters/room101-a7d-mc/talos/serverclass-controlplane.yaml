@@ -1,7 +1,7 @@
 apiVersion: metal.sidero.dev/v1alpha2
 kind: ServerClass
 metadata:
-  name: room101-a7d-mc-master
+  name: room101-a7d-mc-controlplane
 spec:
   environmentRef:
     name: room101-a7d-mc
@@ -9,16 +9,16 @@ spec:
   selector:
     matchLabels:
       metal.sidero.dev/cluster: ${CLUSTER}
-      metal.sidero.dev/machine.type: ${QEMU_MASTER_SKU}
+      metal.sidero.dev/machine.type: ${QEMU_CONTROLPLANE_SKU}
   qualifiers:
     hardware:
     - system:
-        skuNumber: ${QEMU_MASTER_SKU}
+        skuNumber: ${QEMU_CONTROLPLANE_SKU}
   configPatches:
   - op: add
     path: /machine/nodeLabels
     value:
-      metal.sidero.dev/serverclass: ${QEMU_MASTER_SKU}
+      metal.sidero.dev/serverclass: ${QEMU_CONTROLPLANE_SKU}
   - op: add
     path: /machine/features/kubePrism
     value:

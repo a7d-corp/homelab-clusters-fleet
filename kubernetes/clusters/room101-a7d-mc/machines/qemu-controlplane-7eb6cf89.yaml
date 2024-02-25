@@ -1,9 +1,9 @@
 apiVersion: proxmox.xfix.org/v1alpha1
 kind: Qemu
 metadata:
-  name: "master-${MASTER3_SHORT}"
+  name: "controlplane-${CONTROLPLANE3_SHORT}"
   labels:
-    qemu.xfix.org/uuid: "${MASTER3_UUID}"
+    qemu.xfix.org/uuid: "${CONTROLPLANE3_UUID}"
   finalizers:
     - resources-finalizer.proxmox-operator.xfix.org
 spec:
@@ -33,12 +33,12 @@ spec:
   tags:
     - ${CLUSTER}
     - management-cluster
-    - ${QEMU_MASTER_SKU}
+    - ${QEMU_CONTROLPLANE_SKU}
   options:
     ostype: "l26"
     bios: "seabios"
     machine: "pc-i440fx-8.0"
-    smbios1: "uuid=${MASTER3_UUID},sku=${QEMU_MASTER_SKU_B64},family=${QEMU_FAMILY_B64},base64=1"
+    smbios1: "uuid=${CONTROLPLANE3_UUID},sku=${QEMU_CONTROLPLANE_SKU_B64},family=${QEMU_FAMILY_B64},base64=1"
     scsihw: "virtio-scsi-pci"
     boot: "order=virtio0;net0"
     onboot: 1
