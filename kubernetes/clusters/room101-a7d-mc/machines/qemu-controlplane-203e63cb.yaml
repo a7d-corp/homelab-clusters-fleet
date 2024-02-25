@@ -1,15 +1,15 @@
 apiVersion: proxmox.xfix.org/v1alpha1
 kind: Qemu
 metadata:
-  name: "master-${MASTER2_SHORT}"
+  name: "controlplane-${CONTROLPLANE1_SHORT}"
   labels:
-    qemu.xfix.org/uuid: "${MASTER2_UUID}"
+    qemu.xfix.org/uuid: "${CONTROLPLANE1_UUID}"
   finalizers:
     - resources-finalizer.proxmox-operator.xfix.org
 spec:
   cluster: virt-lab
-  node: host-03
-  vmid: 411
+  node: host-02
+  vmid: 410
   pool: room101-a7d-mc
   autostart: true
   autostop: true
@@ -22,7 +22,7 @@ spec:
     balloon: 3072
   network:
     net0:
-      mac: "0e:3a:d4:e1:96:e8"
+      mac: "8a:39:fb:1d:10:bb"
       model: virtio
       bridge: vmbr0
       tag: 1100
@@ -33,12 +33,12 @@ spec:
   tags:
     - ${CLUSTER}
     - management-cluster
-    - ${QEMU_MASTER_SKU}
+    - ${QEMU_CONTROLPLANE_SKU}
   options:
     ostype: "l26"
     bios: "seabios"
     machine: "pc-i440fx-8.0"
-    smbios1: "uuid=${MASTER2_UUID},sku=${QEMU_MASTER_SKU_B64},family=${QEMU_FAMILY_B64},base64=1"
+    smbios1: "uuid=${CONTROLPLANE1_UUID},sku=${QEMU_CONTROLPLANE_SKU_B64},family=${QEMU_FAMILY_B64},base64=1"
     scsihw: "virtio-scsi-pci"
     boot: "order=virtio0;net0"
     onboot: 1

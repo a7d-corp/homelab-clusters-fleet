@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Align machine names across all resources.
 - Use variables across Qemu/Server/ServerClass resources.
 - Explicitly set Qemu machine type to avoid Proxmox iPXE UUID bug.
+- Rename 'master' to 'controlplane'.
 
 ### Fixed
 

@@ -12,5 +12,5 @@ spec:
     apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
     kind: MetalMachineTemplate
     name: ${CLUSTER}-cp
-  replicas: ${MASTER_COUNT}
+  replicas: ${CONTROLPLANE_COUNT}
   version: ${K8S_VERSION}

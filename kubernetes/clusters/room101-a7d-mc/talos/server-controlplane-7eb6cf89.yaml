@@ -4,14 +4,14 @@ metadata:
   labels:
     metal.sidero.dev/cluster: room101-a7d-mc
     metal.sidero.dev/machine.type: controlplane
-  name: ${MASTER3_UUID}
+  name: ${CONTROLPLANE3_UUID}
 spec:
   accepted: false
-  hostname: ${MASTER3_UUID}
+  hostname: ${CONTROLPLANE3_UUID}
   configPatches:
   - op: replace
     path: /machine/network/hostname
-    value: ${MASTER3_UUID}
+    value: ${CONTROLPLANE3_UUID}
   - op: replace
     path: /machine/network/interfaces
     value:
