@@ -5,4 +5,4 @@ resources:
   - ../base/external-dns
   - ../base/ingress-nginx
   - ../base/kyverno
-  #- ../base/weave-gitops
+  - ../base/talos-cloud-controller-manager
