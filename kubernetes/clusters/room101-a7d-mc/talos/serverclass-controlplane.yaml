@@ -24,9 +24,18 @@ spec:
     value:
       enabled: false
       port: 6543
+  - op: add
+    path: /machine/features/kubernetesTalosAPIAccess
+    value:
+      enabled: true
+      allowedRoles:
+        - os:reader
+      allowedKubernetesNamespaces:
+        - kube-system
   - op: replace
     path: /machine/kubelet/extraArgs
     value:
+      cloud-provider: external
       rotate-server-certificates: true
   - op: replace
     path: /machine/network/nameservers
