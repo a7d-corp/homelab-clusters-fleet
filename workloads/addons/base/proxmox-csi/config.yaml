@@ -1,0 +1,13 @@
+config:
+  clusters:
+    - url: https://proxmox.virt.lab.analbeard.com:8006/api2/json
+      insecure: false
+      token_id: "csi-room101-a7d-mc@pve!csi"
+      token_secret: "0362ad0a-170b-412a-917b-3e9e608266a2"
+      region: virt-lab
+
+storageClass:
+  - name: proxmox-data-xfs
+    storage: local-lvm
+    reclaimPolicy: Delete
+    fstype: xfs

@@ -39,6 +39,8 @@ spec:
           - Deployment
           names:
           - proxmox-operator
+          - proxmox-csi-plugin-controller
+          - proxmox-csi-plugin-node
     mutate:
       patchStrategicMerge:
         spec:
