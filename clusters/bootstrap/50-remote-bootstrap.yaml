@@ -43,7 +43,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/flux
+  path: ./workloads/stage/00-bootstrap/flux
   prune: true
   decryption:
     provider: sops
@@ -70,7 +70,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/flux/gitrepo
+  path: ./workloads/stage/00-bootstrap/flux/gitrepo
   prune: true
   decryption:
     provider: sops
@@ -101,3 +101,30 @@ spec:
       target:
         kind: Kustomization
         name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 53-remote-ccm
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: 41-remote-cni
+      namespace: cluster-room101-a7d-mc
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./workloads/stage/00-bootstrap/talos-cloud-controller-manager
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  kubeConfig:
+    secretRef:
+      name: room101-a7d-mc-kubeconfig
+  suspend: false
