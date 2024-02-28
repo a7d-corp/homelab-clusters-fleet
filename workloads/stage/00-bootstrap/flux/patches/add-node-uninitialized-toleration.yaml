@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/part-of: flux
+  name: required-for-kustomize-but-ignored
 spec:
   template:
     spec:
