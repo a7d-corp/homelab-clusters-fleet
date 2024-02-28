@@ -6,4 +6,4 @@ resources:
   - 20-talos-cluster.yaml
   - 30-remote-prereqs.yaml
   - 40-remote-cni.yaml
-  - 50-remote-flux.yaml
+  - 50-remote-bootstrap.yaml
