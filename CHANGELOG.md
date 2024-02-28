@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Rename 'master' to 'controlplane'.
 - Add Talos cloud-controller-manager and remove kubelet-csr-approver.
 - Rework initial cluster bootstrapping to install talos-ccm early.
+- Allow Flux to run on controlplane+uninitialized nodes (required for bootstrapping).
 
 ### Fixed
 

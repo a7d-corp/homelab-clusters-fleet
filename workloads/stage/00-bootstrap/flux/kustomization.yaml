@@ -8,3 +8,7 @@ patches:
 - path: patches/delete-image-automation-controller-serviceaccount.yaml
 - path: patches/delete-image-reflector-controller-deployment.yaml
 - path: patches/delete-image-reflector-controller-serviceaccount.yaml
+- path: patches/add-node-uninitialized-toleration.yaml
+  target:
+    kind: Deployment
+    labelSelector: "app.kubernetes.io/part-of=flux"
