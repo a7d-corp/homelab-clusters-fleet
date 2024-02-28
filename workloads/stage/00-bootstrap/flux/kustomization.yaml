@@ -12,3 +12,4 @@ patches:
   target:
     kind: Deployment
     labelSelector: "app.kubernetes.io/part-of=flux"
+    namespace: flux-system
