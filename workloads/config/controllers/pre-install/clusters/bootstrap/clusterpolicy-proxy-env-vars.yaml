@@ -1,14 +1,14 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: proxmox-operator-proxy-env
+  name: inject-proxy-env
 spec:
   background: true
   rules:
-  - name: proxmox-operator-proxy-env
+  - name: inject-proxy-env
     context:
     - configMap:
-        name: proxmox-operator-proxy-env-config
+        name: proxy-env-config
         namespace: kube-system
       name: proxyEnvConfig
     - name: vars
@@ -48,13 +48,13 @@ spec:
               - (name): '*'
                 env:
                 - name: HTTP_PROXY
-                  value: http://10.101.0.55:3128
+                  value: '{{ vars.proxyAddress }}'
                 - name: http_proxy
-                  value: http://10.101.0.55:3128
+                  value: '{{ vars.proxyAddress }}'
                 - name: HTTPS_PROXY
-                  value: http://10.101.0.55:3128
+                  value: '{{ vars.proxyAddress }}'
                 - name: https_proxy
-                  value: http://10.101.0.55:3128
+                  value: '{{ vars.proxyAddress }}'
                 - name: NO_PROXY
                   value: '{{ completeNoProxy }}'
                 - name: no_proxy
