@@ -118,7 +118,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/stage/00-bootstrap/talos-cloud-controller-manager
+  path: ./workloads/stage/00-bootstrap/proxmox-cloud-controller-manager
   prune: true
   decryption:
     provider: sops
