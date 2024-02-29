@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - 01-cluster-prereqs.yaml
   - 10-cni.yaml
-  - 20-flux.yaml
+  - 20-bootstrap.yaml
   - 30-addons.yaml
   - 40-controllers.yaml
   - 50-talos-cluster.yaml
