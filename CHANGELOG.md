@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Rework initial cluster bootstrapping to install talos-ccm early.
 - Allow Flux to run on controlplane+uninitialized nodes (required for bootstrapping).
 - Make kyverno env-vars clusterpolicy more generic.
+- Update MC kustomizations.
 
 ### Fixed
 
