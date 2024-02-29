@@ -1,0 +1,9 @@
+kind: HelmRepository
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+metadata:
+  name: proxmox-cloud-controller-manager
+  namespace: default
+spec:
+  interval: 5m0s
+  type: "oci"
+  url: oci://ghcr.io/sergelogvinov/charts/proxmox-cloud-controller-manager
