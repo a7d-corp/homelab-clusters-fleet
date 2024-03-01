@@ -6,8 +6,8 @@ resources:
   - qemu-worker-461b9ad1.yaml
   - qemu-worker-498eeb6c.yaml
   # nodes enabled for cluster upgrades
-  - qemu-controlplane-2d1e5620.yaml
-  - qemu-worker-6904e125.yaml
-  - qemu-worker-fc25565c.yaml
+  ## - qemu-controlplane-2d1e5620.yaml
+  ## - qemu-worker-6904e125.yaml
+  ## - qemu-worker-fc25565c.yaml
   # machines below disabled to reduce cluster size
   #- qemu-controlplane-7eb6cf89.yaml
