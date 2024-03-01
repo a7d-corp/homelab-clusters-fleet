@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update MC kustomizations.
 - Update MC Flux version to 2.2.3.
 - Update all HelmReleases to v2beta2.
+- Stop creating spare nodes.
 
 ### Fixed
 
