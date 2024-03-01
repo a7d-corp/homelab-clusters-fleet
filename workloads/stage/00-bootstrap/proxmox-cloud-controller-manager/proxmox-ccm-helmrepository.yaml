@@ -2,7 +2,7 @@ kind: HelmRepository
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 metadata:
   name: proxmox-cloud-controller-manager
-  namespace: default
+  namespace: kube-system
 spec:
   interval: 5m0s
   type: "oci"

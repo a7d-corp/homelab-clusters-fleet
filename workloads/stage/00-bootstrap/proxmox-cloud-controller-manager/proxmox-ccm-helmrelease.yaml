@@ -2,7 +2,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: proxmox-cloud-controller-manager
-  namespace: default
+  namespace: kube-system
 spec:
   releaseName: proxmox-cloud-controller-manager
   chart:
@@ -11,7 +11,8 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: proxmox-cloud-controller-manager
-      version: ">=v0.2.0 < v0.3.0"
+        namespace: kube-system
+      version: "v0.4.0"
   interval: 60m
   install:
     remediation:
