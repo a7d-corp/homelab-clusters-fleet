@@ -2,8 +2,8 @@ kind: HelmRepository
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 metadata:
   name: proxmox-csi-plugin
-  namespace: proxmox-csi
+  namespace: kube-system
 spec:
   interval: 5m0s
   type: "oci"
-  url: oci://ghcr.io/sergelogvinov/charts/proxmox-csi-plugin
+  url: oci://ghcr.io/sergelogvinov/charts

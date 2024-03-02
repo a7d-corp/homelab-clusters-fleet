@@ -36,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Attempt to finally correct machine names and ordering.
 - Add fake name field to flux toleration patch.
+- Correct proxmox-ccm and proxmox-csi manifests.
 
 ## [1.0.0] - 2024-01-03
 
