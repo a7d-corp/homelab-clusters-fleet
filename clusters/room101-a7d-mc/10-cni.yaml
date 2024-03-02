@@ -63,7 +63,7 @@ spec:
       target:
         kind: HelmRelease
         name: cilium
-  suspend: false
+  suspend: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
