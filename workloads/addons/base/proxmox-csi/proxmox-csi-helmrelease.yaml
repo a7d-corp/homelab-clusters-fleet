@@ -2,7 +2,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: proxmox-csi-plugin
-  namespace: proxmox-csi
+  namespace: kube-system
 spec:
   releaseName: proxmox-csi-plugin
   chart:
@@ -11,7 +11,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: proxmox-csi-plugin
-      version: ">=v0.5.0 < v1.0.0"
+      version: "0.2.0"
   interval: 60m
   install:
     remediation:

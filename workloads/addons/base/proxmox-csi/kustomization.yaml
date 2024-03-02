@@ -4,4 +4,3 @@ resources:
 - proxmox-csi-auth-secret.yaml
 - proxmox-csi-helmrelease.yaml
 - proxmox-csi-helmrepository.yaml
-- proxmox-csi-namespace.yaml
