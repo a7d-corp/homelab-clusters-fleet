@@ -39,6 +39,7 @@ spec:
           - Deployment
           names:
           - proxmox-operator
+          - proxmox-cloud-controller-manager
           - proxmox-csi-plugin-controller
           - proxmox-csi-plugin-node
     mutate:
