@@ -1,11 +1,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 50-remote-flux-configs
+  name: 50-flux-configs-remote
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 41-remote-cni
+    - name: 41-cni-remote
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -28,13 +28,13 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 51-remote-flux
+  name: 51-flux-remote
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 30-remote-prereqs
+    - name: 30-prereqs-remote
       namespace: cluster-room101-a7d-mc
-    - name: 50-remote-flux-configs
+    - name: 50-flux-configs-remote
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -57,11 +57,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 52-remote-flux-gitrepo
+  name: 52-flux-gitrepo-remote
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 51-remote-flux
+    - name: 51-flux-remote
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -105,11 +105,81 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 53-remote-ccm
+  name: 53-bootstrap-kyverno-remote
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 41-remote-cni
+    - name: 41-bootstrap-cni-remote
+      namespace: cluster-room101-a7d-mc
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./workloads/addons/base/kyverno
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  kubeConfig:
+    secretRef:
+      name: room101-a7d-mc-kubeconfig
+  suspend: false
+  patches:
+    - patch: |
+        - op: add
+          path: /spec/values
+          value:
+            admissionController:
+              tolerations:
+                - effect: NoSchedule
+                  key: node-role.kubernetes.io/control-plane
+                  operator: Exists
+                - effect: NoSchedule
+                  key: node.cloudprovider.kubernetes.io/uninitialized
+                  operator: Exists
+      target:
+        kind: HelmRelease
+        name: kyverno
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 54-bootstrap-configs-remote
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: 53-bootstrap-kyverno-remote
+      namespace: cluster-room101-a7d-mc
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./workloads/20-configs/clusters/room101-a7d-mc
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  kubeConfig:
+    secretRef:
+      name: room101-a7d-mc-kubeconfig
+  suspend: false
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 55-bootstrap-ccm-remote
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: 54-bootstrap-configs-remote
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
