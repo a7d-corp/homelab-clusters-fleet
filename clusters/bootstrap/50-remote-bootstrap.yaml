@@ -127,6 +127,11 @@ spec:
   kubeConfig:
     secretRef:
       name: room101-a7d-mc-kubeconfig
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: kyverno-admission-controller
+      namespace: kube-system
   suspend: false
   patches:
     - patch: |
