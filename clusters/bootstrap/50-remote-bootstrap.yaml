@@ -1,11 +1,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 50-flux-configs-remote
+  name: 50-remote-flux-configs
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 41-cni-remote
+    - name: 41-remote-cni
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -28,13 +28,13 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 51-flux-remote
+  name: 51-remote-flux
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 30-prereqs-remote
+    - name: 30-remote-prereqs
       namespace: cluster-room101-a7d-mc
-    - name: 50-flux-configs-remote
+    - name: 50-remote-flux-configs
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -57,11 +57,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 52-flux-gitrepo-remote
+  name: 52-remote-flux-gitrepo
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 51-flux-remote
+    - name: 51-remote-flux
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -105,11 +105,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 53-bootstrap-kyverno-remote
+  name: 53-remote-kyverno
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 41-cni-remote
+    - name: 41-remote-cni
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -148,11 +148,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 54-bootstrap-configs-remote
+  name: 54-remote-configs
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 53-bootstrap-kyverno-remote
+    - name: 53-remote-kyverno
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -175,11 +175,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 55-bootstrap-ccm-remote
+  name: 55-remote-ccm
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 54-bootstrap-configs-remote
+    - name: 54-remote-configs
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
