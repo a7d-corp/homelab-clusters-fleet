@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update all HelmReleases to v2beta2.
 - Stop creating spare nodes.
 - Use talos-ccm and proxmox-ccm together.
+- Rework early CAPI cluster bootstrapping.
 
 ### Fixed
 
