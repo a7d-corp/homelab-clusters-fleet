@@ -8,7 +8,7 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: rework/remote-bootstrap
+    branch: main
   secretRef:
     name: flux-system
   url: ssh://git@github.com/a7d-corp/homelab-clusters-fleet
