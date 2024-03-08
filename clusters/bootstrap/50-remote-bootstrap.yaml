@@ -1,11 +1,58 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 50-remote-flux-configs
+  name: 50-remote-ccm
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
     - name: 41-remote-cni
+      namespace: cluster-room101-a7d-mc
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./workloads/00-bootstrap/cloud-controller-manager
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  kubeConfig:
+    secretRef:
+      name: room101-a7d-mc-kubeconfig
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: proxmox-cloud-controller-manager
+      namespace: kube-system
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: talos-cloud-controller-manager
+      namespace: kube-system
+  suspend: false
+  patches:
+    - patch: |
+        - op: replace
+          path: /spec/values/hostAliases
+          value:
+            - ip: 172.27.0.1
+              hostnames:
+                - proxmox.virt.lab.analbeard.com
+      target:
+        kind: HelmRelease
+        name: proxmox-cloud-controller-manager
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 51-remote-flux-configs
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: 50-remote-ccm
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -23,18 +70,18 @@ spec:
   kubeConfig:
     secretRef:
       name: room101-a7d-mc-kubeconfig
-  suspend: false
+  suspend: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 51-remote-flux
+  name: 52-remote-flux
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
     - name: 30-remote-prereqs
       namespace: cluster-room101-a7d-mc
-    - name: 50-remote-flux-configs
+    - name: 51-remote-flux-configs
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -43,7 +90,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/stage/00-bootstrap/flux
+  path: ./workloads/00-bootstrap/flux
   prune: true
   decryption:
     provider: sops
@@ -57,11 +104,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 52-remote-flux-gitrepo
+  name: 53-remote-flux-gitrepo
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 51-remote-flux
+    - name: 52-remote-flux
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -70,7 +117,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/stage/00-bootstrap/flux/gitrepo
+  path: ./workloads/00-bootstrap/flux/gitrepo
   prune: true
   decryption:
     provider: sops
@@ -105,11 +152,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 53-remote-kyverno
+  name: 54-remote-kyverno
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 41-remote-cni
+    - name: 50-remote-ccm
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -153,11 +200,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 54-remote-configs
+  name: 55-remote-configs
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 53-remote-kyverno
+    - name: 54-remote-kyverno
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -167,33 +214,6 @@ spec:
     name: flux-system
     namespace: flux-system
   path: ./workloads/20-configs/clusters/room101-a7d-mc
-  prune: true
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
-  kubeConfig:
-    secretRef:
-      name: room101-a7d-mc-kubeconfig
-  suspend: false
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: 55-remote-ccm
-  namespace: cluster-room101-a7d-mc
-spec:
-  dependsOn:
-    - name: 54-remote-configs
-      namespace: cluster-room101-a7d-mc
-  interval: 1h
-  retryInterval: 1m
-  timeout: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  path: ./workloads/stage/00-bootstrap/cloud-controller-manager
   prune: true
   decryption:
     provider: sops
