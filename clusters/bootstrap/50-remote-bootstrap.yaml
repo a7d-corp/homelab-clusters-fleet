@@ -20,18 +20,18 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  kubeConfig:
-    secretRef:
-      name: room101-a7d-mc-kubeconfig
-  healthChecks:
-    - apiVersion: apps/v1
-      kind: Deployment
-      name: proxmox-cloud-controller-manager
-      namespace: kube-system
-    - apiVersion: apps/v1
-      kind: Deployment
-      name: talos-cloud-controller-manager
-      namespace: kube-system
+#  kubeConfig:
+#    secretRef:
+#      name: room101-a7d-mc-kubeconfig
+#  healthChecks:
+#    - apiVersion: apps/v1
+#      kind: Deployment
+#      name: proxmox-cloud-controller-manager
+#      namespace: kube-system
+#    - apiVersion: apps/v1
+#      kind: Deployment
+#      name: talos-cloud-controller-manager
+#      namespace: kube-system
   suspend: false
   patches:
     # route Proxmox API requests to nginx-ingress on k8s-mgmt
