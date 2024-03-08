@@ -34,6 +34,7 @@ spec:
       namespace: kube-system
   suspend: false
   patches:
+    # route Proxmox API requests to nginx-ingress on k8s-mgmt
     - patch: |
         - op: replace
           path: /spec/values/hostAliases
@@ -44,6 +45,26 @@ spec:
       target:
         kind: HelmRelease
         name: proxmox-cloud-controller-manager
+    # ensure helmrelease is reconciled locally against MC
+    - patch: |
+        - op: add
+          path: /spec/kubeConfig
+          value:
+            secretRef:
+              name: room101-a7d-mc-kubeconfig
+      target:
+        kind: HelmRelease
+        name: proxmox-cloud-controller-manager
+    # ensure helmrelease is reconciled locally against MC
+    - patch: |
+        - op: add
+          path: /spec/kubeConfig
+          value:
+            secretRef:
+              name: room101-a7d-mc-kubeconfig
+      target:
+        kind: HelmRelease
+        name: talos-cloud-controller-manager
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
