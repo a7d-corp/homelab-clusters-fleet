@@ -34,6 +34,21 @@ spec:
 #      namespace: kube-system
   suspend: false
   patches:
+    # install helmrepo/helmrelease in the cluster namespace when bootstrapping
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: HelmRepository
+        name: proxmox-cloud-controller-manager
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: HelmRelease
+        name: proxmox-cloud-controller-manager
     # route Proxmox API requests to nginx-ingress on k8s-mgmt
     - patch: |
         - op: replace
@@ -45,7 +60,7 @@ spec:
       target:
         kind: HelmRelease
         name: proxmox-cloud-controller-manager
-    # ensure helmrelease is reconciled locally against MC
+    # ensure helmrelease is reconciled locally against remote MC
     - patch: |
         - op: add
           path: /spec/kubeConfig
@@ -55,7 +70,22 @@ spec:
       target:
         kind: HelmRelease
         name: proxmox-cloud-controller-manager
-    # ensure helmrelease is reconciled locally against MC
+    # install helmrepo/helmrelease in the cluster namespace when bootstrapping
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: HelmRepository
+        name: talos-cloud-controller-manager
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: HelmRelease
+        name: talos-cloud-controller-manager
+    # ensure helmrelease is reconciled locally against remote MC
     - patch: |
         - op: add
           path: /spec/kubeConfig
