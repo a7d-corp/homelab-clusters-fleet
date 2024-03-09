@@ -34,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Use talos-ccm and proxmox-ccm together.
 - Rework early CAPI cluster bootstrapping.
 - Fully rework early MC cluster bootstrapping.
+- Deploy CCM secrets before installing CCMs.
 
 ### Fixed
 

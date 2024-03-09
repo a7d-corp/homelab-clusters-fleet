@@ -1,11 +1,39 @@
+
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 50-remote-ccm
+  name: 50-remote-ccm-configs
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
     - name: 41-remote-cni
+      namespace: cluster-room101-a7d-mc
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./workloads/00-bootstrap/cloud-controller-manager/configs
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  kubeConfig:
+    secretRef:
+      name: room101-a7d-mc-kubeconfig
+  suspend: false
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 51-remote-ccm
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: 50-remote-ccm-configs
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -131,11 +159,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 51-remote-flux-configs
+  name: 52-remote-flux-configs
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 50-remote-ccm
+    - name: 51-remote-ccm
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -158,13 +186,13 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 52-remote-flux
+  name: 53-remote-flux
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
     - name: 30-remote-prereqs
       namespace: cluster-room101-a7d-mc
-    - name: 51-remote-flux-configs
+    - name: 52-remote-flux-configs
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -187,11 +215,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 53-remote-flux-gitrepo
+  name: 54-remote-flux-gitrepo
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 52-remote-flux
+    - name: 53-remote-flux
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -235,11 +263,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 54-remote-kyverno
+  name: 55-remote-kyverno
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 50-remote-ccm
+    - name: 51-remote-ccm
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -283,11 +311,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 55-remote-configs
+  name: 56-remote-configs
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 54-remote-kyverno
+    - name: 55-remote-kyverno
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
