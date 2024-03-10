@@ -282,16 +282,57 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  kubeConfig:
-    secretRef:
-      name: room101-a7d-mc-kubeconfig
-  healthChecks:
-    - apiVersion: apps/v1
-      kind: Deployment
-      name: kyverno-admission-controller
-      namespace: kube-system
+  #kubeConfig:
+  #  secretRef:
+  #    name: room101-a7d-mc-kubeconfig
+  #healthChecks:
+  #  - apiVersion: apps/v1
+  #    kind: Deployment
+  #    name: kyverno-admission-controller
+  #    namespace: kube-system
   suspend: false
   patches:
+    # install helmrepo/helmrelease in the cluster namespace when bootstrapping
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: HelmRepository
+        name: kyverno
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: HelmRelease
+        name: kyverno
+    # install helmrelease in the correct remote namespace
+    - patch: |
+        - op: replace
+          path: /spec/targetNamespace
+          value: kyverno
+      target:
+        kind: HelmRelease
+        name: kyverno
+    # consume helmrepo from cluster namespace
+    - patch: |
+        - op: replace
+          path: /spec/chart/spec/sourceRef/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: HelmRelease
+        name: kyverno
+    # ensure helmrelease is reconciled locally against remote MC
+    - patch: |
+        - op: add
+          path: /spec/kubeConfig
+          value:
+            secretRef:
+              name: room101-a7d-mc-kubeconfig
+      target:
+        kind: HelmRelease
+        name: kyverno
     - patch: |
         - op: add
           path: /spec/values
