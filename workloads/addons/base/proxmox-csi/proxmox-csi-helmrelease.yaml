@@ -18,3 +18,7 @@ spec:
       retries: 3
   values:
     existingConfigSecret: "proxmox-csi-auth"
+    hostAliases:
+      - ip: 172.27.0.1
+        hostnames:
+          - proxmox.virt.lab.analbeard.com

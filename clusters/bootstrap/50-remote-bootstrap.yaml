@@ -93,17 +93,6 @@ spec:
       target:
         kind: HelmRelease
         name: proxmox-cloud-controller-manager
-    # route Proxmox API requests to nginx-ingress on k8s-mgmt
-    - patch: |
-        - op: replace
-          path: /spec/values/hostAliases
-          value:
-            - ip: 172.27.0.1
-              hostnames:
-                - proxmox.virt.lab.analbeard.com
-      target:
-        kind: HelmRelease
-        name: proxmox-cloud-controller-manager
     # ensure helmrelease is reconciled locally against remote MC
     - patch: |
         - op: add

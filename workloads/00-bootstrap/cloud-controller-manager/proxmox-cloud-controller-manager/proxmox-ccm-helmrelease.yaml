@@ -21,3 +21,7 @@ spec:
     enabledControllers:
       - cloud-node-lifecycle
     existingConfigSecret: "proxmox-cloud-controller-manager-auth"
+    hostAliases:
+      - ip: 172.27.0.1
+        hostnames:
+          - proxmox.virt.lab.analbeard.com
