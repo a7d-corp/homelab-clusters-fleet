@@ -19,6 +19,7 @@ spec:
       retries: 3
   values:
     enabledControllers:
+      - cloud-node
       - cloud-node-lifecycle
     existingConfigSecret: "proxmox-cloud-controller-manager-auth"
     hostAliases:
