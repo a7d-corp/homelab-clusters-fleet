@@ -1,7 +1,7 @@
 apiVersion: proxmox.xfix.org/v1alpha1
 kind: Qemu
 metadata:
-  name: "controlplane-${CONTROLPLANE2_SHORT}"
+  name: "controlplane-${CONTROLPLANE2_UUID}"
   labels:
     qemu.xfix.org/uuid: "${CONTROLPLANE2_UUID}"
   finalizers:

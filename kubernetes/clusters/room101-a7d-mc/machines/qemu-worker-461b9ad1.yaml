@@ -1,7 +1,7 @@
 apiVersion: proxmox.xfix.org/v1alpha1
 kind: Qemu
 metadata:
-  name: "worker-${WORKER1_SHORT}"
+  name: "worker-${WORKER1_UUID}"
   labels:
     qemu.xfix.org/uuid: "${WORKER1_UUID}"
   finalizers:
