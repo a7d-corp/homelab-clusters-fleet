@@ -62,6 +62,53 @@ spec:
 #      namespace: kube-system
   suspend: false
   patches:
+    #
+    # kubelet-csr-approver
+    #
+    ## install helmrepo/helmrelease in the cluster namespace when bootstrapping
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: HelmRepository
+        name: kubelet-csr-approver
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: HelmRelease
+        name: kubelet-csr-approver
+    # install helmrelease in the correct remote namespace
+    - patch: |
+        - op: replace
+          path: /spec/targetNamespace
+          value: kube-system
+      target:
+        kind: HelmRelease
+        name: kubelet-csr-approver
+    # consume helmrepo from cluster namespace
+    - patch: |
+        - op: replace
+          path: /spec/chart/spec/sourceRef/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: HelmRelease
+        name: kubelet-csr-approver
+    # ensure helmrelease is reconciled locally against remote MC
+    - patch: |
+        - op: add
+          path: /spec/kubeConfig
+          value:
+            secretRef:
+              name: room101-a7d-mc-kubeconfig
+      target:
+        kind: HelmRelease
+        name: kubelet-csr-approver
+    #
+    # proxmox-cloud-controller-manager
+    #
     # install helmrepo/helmrelease in the cluster namespace when bootstrapping
     - patch: |
         - op: replace
