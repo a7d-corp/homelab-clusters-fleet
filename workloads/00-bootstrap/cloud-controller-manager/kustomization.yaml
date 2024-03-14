@@ -2,5 +2,5 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
 - kubelet-csr-approver
-- proxmox-cloud-controller-manager
-#- talos-cloud-controller-manager
+#- proxmox-cloud-controller-manager
+- talos-cloud-controller-manager

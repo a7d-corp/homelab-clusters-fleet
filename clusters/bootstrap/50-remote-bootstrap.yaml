@@ -158,47 +158,47 @@ spec:
       target:
         kind: HelmRelease
         name: proxmox-cloud-controller-manager
-#    # install helmrepo/helmrelease in the cluster namespace when bootstrapping
-#    - patch: |
-#        - op: replace
-#          path: /metadata/namespace
-#          value: cluster-room101-a7d-mc
-#      target:
-#        kind: HelmRepository
-#        name: talos-cloud-controller-manager
-#    - patch: |
-#        - op: replace
-#          path: /metadata/namespace
-#          value: cluster-room101-a7d-mc
-#      target:
-#        kind: HelmRelease
-#        name: talos-cloud-controller-manager
-#    # install helmrelease in the correct remote namespace
-#    - patch: |
-#        - op: replace
-#          path: /spec/targetNamespace
-#          value: kube-system
-#      target:
-#        kind: HelmRelease
-#        name: talos-cloud-controller-manager
-#    # consume helmrepo from cluster namespace
-#    - patch: |
-#        - op: replace
-#          path: /spec/chart/spec/sourceRef/namespace
-#          value: cluster-room101-a7d-mc
-#      target:
-#        kind: HelmRelease
-#        name: talos-cloud-controller-manager
-#    # ensure helmrelease is reconciled locally against remote MC
-#    - patch: |
-#        - op: add
-#          path: /spec/kubeConfig
-#          value:
-#            secretRef:
-#              name: room101-a7d-mc-kubeconfig
-#      target:
-#        kind: HelmRelease
-#        name: talos-cloud-controller-manager
+    # install helmrepo/helmrelease in the cluster namespace when bootstrapping
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: HelmRepository
+        name: talos-cloud-controller-manager
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: HelmRelease
+        name: talos-cloud-controller-manager
+    # install helmrelease in the correct remote namespace
+    - patch: |
+        - op: replace
+          path: /spec/targetNamespace
+          value: kube-system
+      target:
+        kind: HelmRelease
+        name: talos-cloud-controller-manager
+    # consume helmrepo from cluster namespace
+    - patch: |
+        - op: replace
+          path: /spec/chart/spec/sourceRef/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: HelmRelease
+        name: talos-cloud-controller-manager
+    # ensure helmrelease is reconciled locally against remote MC
+    - patch: |
+        - op: add
+          path: /spec/kubeConfig
+          value:
+            secretRef:
+              name: room101-a7d-mc-kubeconfig
+      target:
+        kind: HelmRelease
+        name: talos-cloud-controller-manager
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
