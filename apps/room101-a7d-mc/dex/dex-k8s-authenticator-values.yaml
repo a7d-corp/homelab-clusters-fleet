@@ -18,18 +18,18 @@ spec:
           client_id: ${STATIC_CLIENT_ID}
           client_secret: ${STATIC_CLIENT_SECRET}
           redirect_uri: https://login.room101-a7d-mc.lab.a7d.dev/callback
-          k8s_master_uri: https://k8s.room101-a7d-mc.lab.a7d.dev:6443
+          k8s_master_uri: https://k8s.room101-a7d-mc.lab.a7d.dev:443
           k8s_ca_pem: |
             -----BEGIN CERTIFICATE-----
-            MIIBijCCATCgAwIBAgIRAO9Jkn0Es/kUI4DncQJgvOQwCgYIKoZIzj0EAwIwFTET
-            MBEGA1UEChMKa3ViZXJuZXRlczAeFw0yMzExMTcyMDQ3NDlaFw0zMzExMTQyMDQ3
-            NDlaMBUxEzARBgNVBAoTCmt1YmVybmV0ZXMwWTATBgcqhkjOPQIBBggqhkjOPQMB
-            BwNCAAS2QdLye3emGy9ERNSQr7wFbzhbZRNGRT8tesT9B2xypniGGpQfBujhbeWS
-            1UtpuJVm6nmD112mcFv9sSJ/ipdqo2EwXzAOBgNVHQ8BAf8EBAMCAoQwHQYDVR0l
+            MIIBizCCATCgAwIBAgIRAKxQFe9XATS7RuUgLDncm0gwCgYIKoZIzj0EAwIwFTET
+            MBEGA1UEChMKa3ViZXJuZXRlczAeFw0yMzEyMTExNzEwMjZaFw0zMzEyMDgxNzEw
+            MjZaMBUxEzARBgNVBAoTCmt1YmVybmV0ZXMwWTATBgcqhkjOPQIBBggqhkjOPQMB
+            BwNCAARa9GZlE8KeQITeDovUJQRSSaaWUA+TaJigPMecJtuucBJLKvHBgZlYiuq8
+            d0u324IkoKVKF6elxA2z5ndKiwA3o2EwXzAOBgNVHQ8BAf8EBAMCAoQwHQYDVR0l
             BBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0O
-            BBYEFM5CnAgyrP8WxNukwVZQqeNxcbQHMAoGCCqGSM49BAMCA0gAMEUCIBj4VhPM
-            o6n5uFPV4N9+Og+WKmO6oX1fZwhjUdsmlhMwAiEAi3w9MSo3TS5zBCDFQgwB/Mrx
-            JdS2Ds2rhvKyX/oM/Dg=
+            BBYEFLpoK052uIGQbrM5PHm1dCc5hO01MAoGCCqGSM49BAMCA0kAMEYCIQCdmJFj
+            gmJ9/jlTTsp/+zn7aouZL9ZqZdd3faPuQ/ayfgIhAO6X8D8hvp6zs+2bZfZqSvFI
+            VPLJUj/tSKwS+rmQ3Zd4
             -----END CERTIFICATE-----
     envFrom:
       - secretRef:
