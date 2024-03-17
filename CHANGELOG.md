@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add proxmox-csi.
 - Remove `talos-cloud-controller-manager` and add `proxmox-cloud-controller-manager`.
 - Re-add `kubelet-csr-approver`.
+- Add zone and region topology labels to nodes.
 
 ### Changed
 
