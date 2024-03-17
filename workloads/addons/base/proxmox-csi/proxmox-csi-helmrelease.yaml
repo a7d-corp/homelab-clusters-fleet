@@ -22,3 +22,8 @@ spec:
       - ip: 172.27.0.1
         hostnames:
           - proxmox.virt.lab.analbeard.com
+    storageClass:
+      - name: proxmox-local-lvm
+        storage: local-lvm
+        reclaimPolicy: Delete
+        fstype: xfs
