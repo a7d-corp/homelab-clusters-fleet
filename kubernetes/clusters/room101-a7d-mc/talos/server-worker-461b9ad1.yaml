@@ -9,6 +9,10 @@ spec:
   accepted: true
   hostname: ${WORKER1_UUID}
   configPatches:
+  - op: add
+    path: /machine/nodeLabels
+    value:
+      topology.kubernetes.io/zone: ${WORKER1_HOST} # see corresponding per-serverclass labels
   - op: replace
     path: /machine/network/hostname
     value: ${WORKER1_UUID}

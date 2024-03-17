@@ -19,6 +19,7 @@ spec:
     path: /machine/nodeLabels
     value:
       metal.sidero.dev/serverclass: ${QEMU_CONTROLPLANE_SKU}
+      topology.kubernetes.io/region: ${PVE_CLUSTER_NAME} # see corresponding per-node labels
   - op: add
     path: /machine/features/kubePrism
     value:
