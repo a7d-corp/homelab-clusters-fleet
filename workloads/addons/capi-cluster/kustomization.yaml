@@ -6,3 +6,4 @@ resources:
   - ../base/ingress-nginx
   - ../base/kyverno
   - ../base/proxmox-csi
+  - ../base/weave-gitops
