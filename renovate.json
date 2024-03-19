@@ -3,6 +3,7 @@
   "extends": [
     "config:recommended"
   ],
+  "labels": ["skip-verify-changelog"],
   "flux": {
     "fileMatch": [
         "(helmrelease|helmrepository)\\.yaml$"
