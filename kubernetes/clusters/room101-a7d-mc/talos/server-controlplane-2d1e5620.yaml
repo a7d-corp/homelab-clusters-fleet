@@ -10,9 +10,8 @@ spec:
   hostname: ${CONTROLPLANE2_UUID}
   configPatches:
   - op: add
-    path: /machine/nodeLabels
-    value:
-      topology.kubernetes.io/zone: ${CONTROLPLANE2_HOST} # see corresponding per-serverclass labels
+    path: /machine/nodeLabels/topology.kubernetes.io~1zone
+    value: ${CONTROLPLANE2_HOST} # see corresponding per-serverclass labels
   - op: replace
     path: /machine/network/hostname
     value: ${CONTROLPLANE2_UUID}
