@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Remove `talos-cloud-controller-manager` and add `proxmox-cloud-controller-manager`.
 - Re-add `kubelet-csr-approver`.
 - Add zone and region topology labels to nodes.
+- Add manual renovate upstream repo tags for CAPI controller versions.
 
 ### Changed
 

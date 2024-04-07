@@ -132,6 +132,7 @@ spec:
         - op: add
           path: /spec
           value:
+            # renovate: siderolabs/cluster-api-bootstrap-provider-talos
             version: v0.6.2
       target:
         kind: BootstrapProvider
@@ -140,6 +141,7 @@ spec:
         - op: add
           path: /spec
           value:
+            # renovate: siderolabs/cluster-api-control-plane-provider-talos
             version: v0.5.3
       target:
         kind: ControlPlaneProvider
@@ -148,6 +150,7 @@ spec:
         - op: add
           path: /spec
           value:
+            # renovate: kubernetes-sigs/cluster-api
             version: v1.5.3
       target:
         kind: CoreProvider
@@ -155,6 +158,7 @@ spec:
     - patch: |
         - op: add
           path: /spec/version
+          # renovate: siderolabs/sidero
           value: v0.6.1
       target:
         kind: InfrastructureProvider
