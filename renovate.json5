@@ -16,7 +16,7 @@
       "customType": "regex",
       "fileMatch": [
         ".*y[a]?ml$",
-        ".*cluster-vars-configmap.yaml$",
+        ".*cluster-vars-configmap\\.yaml$",
       ],
       "matchStrings": [
         "renovate: (?<depName>.*)\n(.+)\\?= v?(?<currentValue>\\S+)\n",
