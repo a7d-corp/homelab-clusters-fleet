@@ -7,7 +7,9 @@ data:
   CLUSTER: "room101-a7d-mc"
   WORKER_COUNT: "2"
   CONTROLPLANE_COUNT: "1"
+  # renovate: kubernetes/kubernetes
   K8S_VERSION: "1.29.1"
+  # renovate: siderolabs/talos
   TALOS_VERSION: "v1.6.4"
   NGINX_SVC_IP: "172.27.0.62"
   PVE_CLUSTER_NAME: "virt-lab"
