@@ -16,8 +16,7 @@
       "customType": "regex",
       "fileMatch": [
         ".*y[a]?ml$",
-        "Dockerfile$",
-        "^Makefile\\..+\\.mk$",
+        ".*cluster-vars-configmap.yaml$",
       ],
       "matchStrings": [
         "renovate: (?<depName>.*)\n(.+)\\?= v?(?<currentValue>\\S+)\n",
@@ -32,15 +31,6 @@
       ],
       "datasourceTemplate": "github-releases",
       "extractVersionTemplate": "^\"?v?(?<version>.*)\"?$"
-    },
-    {
-      // Supports matching a version where the datasource and dep name are defined in a comment on the previous line
-      "customType": "regex",
-      "fileMatch": ["^Dockerfile$"],
-      "matchStrings": [
-        "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\sARG .+_VER=(?<currentValue>.*)\\s"
-      ],
-      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
     }
   ],
 }
