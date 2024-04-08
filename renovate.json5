@@ -16,7 +16,6 @@
       "customType": "regex",
       "fileMatch": [
         ".*y[a]?ml$",
-        ".*cluster-vars-configmap\\.yaml$",
       ],
       "matchStrings": [
         "renovate: (?<depName>.*)\n(.+)\\?= v?(?<currentValue>\\S+)\n",
@@ -28,6 +27,7 @@
         "renovate: (?<depName>.*)\n(\\s*)default: \"?.+:v?(?<currentValue>.*?)(-debug)?\"?\n",
         "renovate: (?<depName>.*)\n(\\s*)image: \"?.+:v?(?<currentValue>.*?)\"?\n",
         "renovate: (?<depName>.*)\n(\\s)*([\\w|_]+)release:(\\s)*v?(?<currentValue>.*?)(\\s)*\n",
+        "renovate: (?<depName>.*)\n(.+)VERSION: v?(?<currentValue>.+)\n",
       ],
       "datasourceTemplate": "github-releases",
       "extractVersionTemplate": "^\"?v?(?<version>.*)\"?$"
