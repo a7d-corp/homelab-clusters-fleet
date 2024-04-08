@@ -28,7 +28,7 @@
         "renovate: (?<depName>.*)\n(\\s*)image: \"?.+:v?(?<currentValue>.*?)\"?\n",
         "renovate: (?<depName>.*)\n(\\s)*([\\w|_]+)release:(\\s)*v?(?<currentValue>.*?)(\\s)*\n",
         "renovate: (?<depName>.*)\n(.+)VERSION: v?(?<currentValue>.+)\n",
-        "renovate: (?<depName>.*)(.+): v?(?<currentValue>.+)\n",
+        "renovate: (?<depName>.*)\n(.+): v?(?<currentValue>.+)\n",
       ],
       "datasourceTemplate": "github-releases",
       "extractVersionTemplate": "^\"?v?(?<version>.*)\"?$"
