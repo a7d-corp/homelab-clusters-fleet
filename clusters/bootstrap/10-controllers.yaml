@@ -163,7 +163,7 @@ spec:
           path: /spec
           value:
             # renovate: siderolabs/cluster-api-bootstrap-provider-talos
-            version: v0.6.4
+            version: v0.6.5
       target:
         kind: BootstrapProvider
         name: talos # https://github.com/siderolabs/cluster-api-bootstrap-provider-talos
