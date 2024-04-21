@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: talos-cloud-controller-manager
         namespace: kube-system
-      version: "0.2.2"
+      version: "0.2.3"
   interval: 60m
   install:
     remediation:
