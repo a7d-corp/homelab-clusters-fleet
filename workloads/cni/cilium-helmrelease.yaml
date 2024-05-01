@@ -11,7 +11,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: cilium
-      version: "<1.15.5"
+      version: "1.15.5"
   interval: 10m0s
   values:
     bgpControlPlane:
@@ -23,9 +23,9 @@ spec:
     ipam:
       mode: kubernetes
     kubeProxyReplacement: true
-    securityContext: 
-      capabilities: 
-        ciliumAgent: 
+    securityContext:
+      capabilities:
+        ciliumAgent:
           - CHOWN
           - KILL
           - NET_ADMIN
