@@ -4,6 +4,7 @@ metadata:
   name: "${WORKER4_UUID}"
   labels:
     qemu.xfix.org/uuid: "${WORKER4_UUID}"
+    kubernetes.a7d.dev/machine.group: batch2
   finalizers:
     - resources-finalizer.proxmox-operator.xfix.org
 spec:

@@ -4,6 +4,7 @@ metadata:
   name: "${CONTROLPLANE1_UUID}"
   labels:
     qemu.xfix.org/uuid: "${CONTROLPLANE1_UUID}"
+    kubernetes.a7d.dev/machine.group: batch1
   finalizers:
     - resources-finalizer.proxmox-operator.xfix.org
 spec:

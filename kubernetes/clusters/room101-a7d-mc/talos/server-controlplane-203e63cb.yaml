@@ -4,6 +4,7 @@ metadata:
   labels:
     metal.sidero.dev/cluster: room101-a7d-mc
     metal.sidero.dev/machine.type: controlplane
+    kubernetes.a7d.dev/machine.group: batch1
   name: ${CONTROLPLANE1_UUID}
 spec:
   accepted: true
