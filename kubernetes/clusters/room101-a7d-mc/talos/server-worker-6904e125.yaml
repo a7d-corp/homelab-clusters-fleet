@@ -7,7 +7,7 @@ metadata:
     kubernetes.a7d.dev/machine.group: batch2
   name: ${WORKER3_UUID}
 spec:
-  accepted: false
+  accepted: true
   hostname: ${WORKER3_UUID}
   configPatches:
   - op: add
