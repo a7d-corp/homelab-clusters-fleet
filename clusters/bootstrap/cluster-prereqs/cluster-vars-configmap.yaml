@@ -10,7 +10,7 @@ data:
   # renovate: kubernetes/kubernetes
   K8S_VERSION: v1.29.3
   # renovate: siderolabs/talos
-  TALOS_VERSION: v1.7.1
+  TALOS_VERSION: v1.6.7
   NGINX_SVC_IP: "172.27.0.62"
   TEMPLATE_UNIQUE_HASH: "aeb8338435"
   PVE_CLUSTER_NAME: "virt-lab"
