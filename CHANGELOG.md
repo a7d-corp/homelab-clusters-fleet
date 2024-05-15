@@ -39,6 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fully rework early MC cluster bootstrapping.
 - Deploy CCM secrets before installing CCMs.
 - Ensure QEMU VM names match node names.
+- Use a hash suffix to ensure machine templates have unique names to facilitate upgrades.
 
 ### Fixed
 
