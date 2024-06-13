@@ -98,7 +98,7 @@ spec:
     - patch: |
         - op: replace
           path: /metadata/name
-          value: room101-a7d-mc-workers
+          value: room101-a7d-mc-workers-${TEMPLATE_UNIQUE_HASH}
         - op: replace
           path: /metadata/namespace
           value: cluster-room101-a7d-mc
@@ -131,7 +131,7 @@ spec:
     - patch: |
         - op: replace
           path: /metadata/name
-          value: room101-a7d-mc-workers
+          value: room101-a7d-mc-workers-${TEMPLATE_UNIQUE_HASH}
         - op: replace
           path: /metadata/namespace
           value: cluster-room101-a7d-mc
@@ -141,7 +141,7 @@ spec:
     - patch: |
         - op: replace
           path: /metadata/name
-          value: room101-a7d-mc-workers
+          value: room101-a7d-mc-workers-${TEMPLATE_UNIQUE_HASH}
         - op: replace
           path: /metadata/namespace
           value: cluster-room101-a7d-mc
