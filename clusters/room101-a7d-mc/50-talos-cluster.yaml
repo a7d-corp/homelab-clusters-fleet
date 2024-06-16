@@ -92,6 +92,9 @@ spec:
         - op: replace
           path: /metadata/namespace
           value: cluster-room101-a7d-mc
+        - op: replace
+          path: /spec/controlPlaneRef/name
+          value: room101-a7d-mc-cp-${TEMPLATE_UNIQUE_HASH}
       target:
         kind: Cluster
         name: changeme
@@ -102,6 +105,12 @@ spec:
         - op: replace
           path: /metadata/namespace
           value: cluster-room101-a7d-mc
+        - op: replace
+          path: /spec/template/spec/bootstrap/configRef/name
+          value: room101-a7d-mc-workers-${TEMPLATE_UNIQUE_HASH}
+        - op: replace
+          path: /spec/template/spec/infrastructureRef/name
+          value: room101-a7d-mc-workers-${TEMPLATE_UNIQUE_HASH}
       target:
         kind: MachineDeployment
         name: changeme
@@ -151,7 +160,7 @@ spec:
     - patch: |
         - op: replace
           path: /metadata/name
-          value: room101-a7d-mc-cp
+          value: room101-a7d-mc-cp-${TEMPLATE_UNIQUE_HASH}
         - op: replace
           path: /metadata/namespace
           value: cluster-room101-a7d-mc
