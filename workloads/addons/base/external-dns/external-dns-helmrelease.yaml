@@ -11,7 +11,11 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: bitnami
+<<<<<<< HEAD
         version: 7.3.2 # https://github.com/bitnami/charts/issues/25967
+=======
+        version: 7.3.2
+>>>>>>> 34309b7 (pin external-dns to last working version)
   interval: 1m0s
   values:
     annotationFilter: "external-dns.alpha.kubernetes.io/exclude notin (true)"
