@@ -54,7 +54,7 @@ spec:
       - kind: ConfigMap
         name: cluster-vars
         optional: false
-  suspend: false
+  suspend: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
