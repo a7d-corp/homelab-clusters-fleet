@@ -11,6 +11,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: bitnami
+        version: 7.3.2 # https://github.com/bitnami/charts/issues/25967
   interval: 1m0s
   values:
     annotationFilter: "external-dns.alpha.kubernetes.io/exclude notin (true)"
