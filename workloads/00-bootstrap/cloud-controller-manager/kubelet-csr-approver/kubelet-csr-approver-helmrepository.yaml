@@ -1,5 +1,5 @@
 kind: HelmRepository
-apiVersion: source.toolkit.fluxcd.io/v1beta1
+apiVersion: source.toolkit.fluxcd.io/v1
 metadata:
   name: kubelet-csr-approver
   namespace: kube-system

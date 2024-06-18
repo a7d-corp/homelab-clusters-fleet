@@ -41,6 +41,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Ensure QEMU VM names match node names.
 - Use a hash suffix to ensure machine templates have unique names to facilitate upgrades.
 - Pin external-dns to last known working version with DNSEndpoint CRD.
+- Update HelmReleases to v2.
+- Update HelmRepository manifests to v1.
 
 ### Fixed
 
