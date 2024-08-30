@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Re-add `kubelet-csr-approver`.
 - Add zone and region topology labels to nodes.
 - Add manual renovate upstream repo tags for CAPI controller versions.
+- Manage `siderolink` secret in bootstrap and MC clusters.
 
 ### Changed
 
