@@ -55,6 +55,14 @@ spec:
   patches:
     - patch: |
         - op: add
+          path: /spec/values/tcp
+          value:
+            "6443": "default/kubernetes:443"
+      target:
+        kind: HelmRelease
+        name: ingress-nginx
+    - patch: |
+        - op: add
           path: /spec/values/controller/service/loadBalancerIP
           value: "${NGINX_SVC_IP}"
       target:
