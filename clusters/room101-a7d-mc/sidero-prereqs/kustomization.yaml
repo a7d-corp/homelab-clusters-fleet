@@ -3,3 +3,6 @@ kind: Kustomization
 resources:
   - sidero-config-secret.yaml
   - siderolink-secret.yaml
+  - sidero-http-loadbalancer-service.yaml
+  - sidero-siderolink-loadbalancer-service.yaml
+  - sidero-tftp-loadbalancer-service.yaml

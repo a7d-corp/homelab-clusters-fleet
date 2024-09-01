@@ -4,7 +4,7 @@ metadata:
   name: sidero
   namespace: sidero-system
 spec:
-  endpoints:
+  endpoints: []
   - dnsName: sidero.domain.com
     recordTTL: 180
     recordType: A

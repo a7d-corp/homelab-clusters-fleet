@@ -12,6 +12,9 @@ data:
   # renovate: siderolabs/talos
   TALOS_VERSION: v1.7.6
   NGINX_SVC_IP: "172.27.0.62"
+  SIDERO_HTTP_IP: "172.27.0.35"
+  SIDERO_SIDEROLINK_IP: "172.27.0.34"
+  SIDERO_TFTP_IP: "172.27.0.33"
   PVE_CLUSTER_NAME: "virt-lab"
   QEMU_FAMILY_B64: "cm9vbTEwMWE3ZG1jCg=="
   QEMU_CONTROLPLANE_SKU: "controlplane"

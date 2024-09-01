@@ -55,20 +55,6 @@ spec:
   patches:
     - patch: |
         - op: add
-          path: /spec/values/tcp
-          value:
-            "8081": "sidero-system/sidero-http:8081"
-            "6443": "default/kubernetes:443"
-        - op: add
-          path: /spec/values/udp
-          value:
-            "69": "sidero-system/sidero-tftp:69"
-            "51821": "sidero-system/sidero-siderolink:51821"
-      target:
-        kind: HelmRelease
-        name: ingress-nginx
-    - patch: |
-        - op: add
           path: /spec/values/controller/service/loadBalancerIP
           value: "${NGINX_SVC_IP}"
       target:

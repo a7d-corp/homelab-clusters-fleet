@@ -63,17 +63,38 @@ spec:
   suspend: false
   patches:
     - patch: |
-        - op: replace
-          path: /spec/endpoints/0/dnsName
-          value: sidero.room101-a7d-mc.lab.a7d.dev
+        - op: add
+          path: /spec/endpoints/0
+          value:
+            dnsName: sidero-http.room101-a7d-mc.lab.a7d.dev
+            recordTTL: 180
+            recordType: A
+            targets:
+            - "${SIDERO_HTTP_IP}"
       target:
         kind: DNSEndpoint
         name: sidero
     - patch: |
-        - op: replace
-          path: /spec/endpoints/0/targets
+        - op: add
+          path: /spec/endpoints/1
           value:
-            - "${NGINX_SVC_IP}"
+            dnsName: sidero-siderolink.room101-a7d-mc.lab.a7d.dev
+            recordTTL: 180
+            recordType: A
+            targets:
+            - "${SIDERO_SIDEROLINK_IP}"
+      target:
+        kind: DNSEndpoint
+        name: sidero
+    - patch: |
+        - op: add
+          path: /spec/endpoints/2
+          value:
+            dnsName: sidero-tftp.room101-a7d-mc.lab.a7d.dev
+            recordTTL: 180
+            recordType: A
+            targets:
+            - "${SIDERO_TFTP_IP}"
       target:
         kind: DNSEndpoint
         name: sidero
