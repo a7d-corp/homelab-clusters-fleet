@@ -11,6 +11,8 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: sagikazarmark
+  install:
+    disableWait: true
   interval: 1m0s
   values:
     envFrom:
