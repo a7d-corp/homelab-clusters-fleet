@@ -2,3 +2,4 @@ sops-key.txt
 hack/pki
 tmp/
 hack/recreate-bootstrap.sh*
+hack/restart-vm.sh
