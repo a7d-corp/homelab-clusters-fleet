@@ -10,7 +10,8 @@ spec:
   type: LoadBalancer
   loadBalancerIP: ${SIDERO_SIDEROLINK_IP}
   ports:
-  - port: 51821
+  - nodePort: 51821
+    port: 51821
     protocol: UDP
     targetPort: siderolink
   selector:

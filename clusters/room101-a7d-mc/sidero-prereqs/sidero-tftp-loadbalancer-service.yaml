@@ -10,7 +10,8 @@ spec:
   type: LoadBalancer
   loadBalancerIP: ${SIDERO_TFTP_IP}
   ports:
-  - port: 69
+  - nodePort: 69
+    port: 69
     protocol: UDP
     targetPort: tftp
   selector:
