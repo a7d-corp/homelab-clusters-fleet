@@ -44,6 +44,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pin external-dns to last known working version with DNSEndpoint CRD.
 - Update HelmReleases to v2.
 - Update HelmRepository manifests to v1.
+- Use Talos image factory to set install image instead of specifying extensions directly.
 
 ### Fixed
 
