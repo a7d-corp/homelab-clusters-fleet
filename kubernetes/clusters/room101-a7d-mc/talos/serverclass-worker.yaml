@@ -45,7 +45,7 @@ spec:
   - op: replace
     path: /machine/install/disk
     value: /dev/vda
-  - op: replace:
+  - op: replace
     path: /machine/install/image
     value: factory.talos.dev/installer/${FACTORY_SCHEMATIC_ID}/${TALOS_VERSION}
   - op: replace
