@@ -10,8 +10,7 @@ spec:
   type: LoadBalancer
   loadBalancerIP: ${SIDERO_HTTP_IP}
   ports:
-  - nodePort: 8081
-    port: 8081
+  - port: 8081
     targetPort: http
   selector:
     app: sidero
