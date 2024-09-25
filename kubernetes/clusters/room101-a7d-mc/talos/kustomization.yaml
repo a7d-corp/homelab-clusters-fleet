@@ -3,14 +3,13 @@ kind: Kustomization
 resources:
   # standard nodes
   - server-controlplane-203e63cb.yaml
+  - server-controlplane-2d1e5620.yaml
+  - server-controlplane-7eb6cf89.yaml
   - server-worker-461b9ad1.yaml
   - server-worker-498eeb6c.yaml
   # nodes enabled for cluster upgrade
-  ##- server-controlplane-2d1e5620.yaml
   ##- server-worker-6904e125.yaml
   ##- server-worker-fc25565c.yaml
-  # disabled to reduce cluster size
-  #- server-controlplane-7eb6cf89.yaml
   - serverclass-controlplane.yaml
   - serverclass-worker.yaml
   - talos-secrets.yaml

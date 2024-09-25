@@ -6,7 +6,7 @@ metadata:
 data:
   CLUSTER: "room101-a7d-mc"
   WORKER_COUNT: "2"
-  CONTROLPLANE_COUNT: "1"
+  CONTROLPLANE_COUNT: "3"
   # renovate: kubernetes/kubernetes
   K8S_VERSION: v1.29.3
   # renovate: siderolabs/talos
