@@ -1,7 +1,12 @@
 # after updating this file, remember to generate a new schematic ID and
 # set it in the cluster vars file.
 customization:
-    systemExtensions:
-      officialExtensions:
-        - siderolabs/gvisor
-        - siderolabs/qemu-guest-agent
+  extraKernelArgs:
+    - -console
+    - console=tty0
+    - -console
+    - console=ttys0
+  systemExtensions:
+    officialExtensions:
+      - siderolabs/gvisor
+      - siderolabs/qemu-guest-agent
