@@ -1,7 +1,7 @@
 apiVersion: proxmox.xfix.org/v1alpha1
 kind: Qemu
 metadata:
-  name: "${CONTROLPLANE1_UUID}"
+  name: "controlplane-${CONTROLPLANE1_UUID}"
   labels:
     qemu.xfix.org/uuid: "${CONTROLPLANE1_UUID}"
     kubernetes.a7d.dev/machine.group: batch1

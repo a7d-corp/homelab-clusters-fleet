@@ -1,7 +1,7 @@
 apiVersion: proxmox.xfix.org/v1alpha1
 kind: Qemu
 metadata:
-  name: "${WORKER4_UUID}"
+  name: "worker-${WORKER4_UUID}"
   labels:
     qemu.xfix.org/uuid: "${WORKER4_UUID}"
     kubernetes.a7d.dev/machine.group: batch2
