@@ -1,16 +1,16 @@
 apiVersion: proxmox.xfix.org/v1alpha1
 kind: Qemu
 metadata:
-  name: "controlplane-${CONTROLPLANE4_UUID}"
+  name: "controlplane-${CONTROLPLANE6_UUID}"
   labels:
-    qemu.xfix.org/uuid: "${CONTROLPLANE4_UUID}"
+    qemu.xfix.org/uuid: "${CONTROLPLANE6_UUID}"
     kubernetes.a7d.dev/machine.group: batch2
   finalizers:
     - resources-finalizer.proxmox-operator.xfix.org
 spec:
   cluster: virt-lab
   node: host-02
-  vmid: 410
+  vmid: 415
   pool: room101-a7d-mc
   autostart: true
   autostop: true
@@ -39,7 +39,7 @@ spec:
     ostype: "l26"
     bios: "seabios"
     machine: "pc-i440fx-8.0"
-    smbios1: "uuid=${CONTROLPLANE4_UUID},sku=${QEMU_CONTROLPLANE_SKU_B64},family=${QEMU_FAMILY_B64},base64=1"
+    smbios1: "uuid=${CONTROLPLANE6_UUID},sku=${QEMU_CONTROLPLANE_SKU_B64},family=${QEMU_FAMILY_B64},base64=1"
     scsihw: "virtio-scsi-pci"
     boot: "order=virtio0;net0"
     onboot: 1

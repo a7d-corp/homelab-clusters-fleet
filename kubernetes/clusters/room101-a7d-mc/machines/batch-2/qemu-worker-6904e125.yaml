@@ -10,7 +10,7 @@ metadata:
 spec:
   cluster: virt-lab
   node: host-02
-  vmid: 417
+  vmid: 422
   pool: room101-a7d-mc
   autostart: true
   autostop: true
