@@ -1,12 +1,5 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  # batch 1
-  - qemu-controlplane-203e63cb.yaml
-  - qemu-controlplane-2d1e5620.yaml
-  - qemu-controlplane-7eb6cf89.yaml
-  - qemu-worker-461b9ad1.yaml
-  - qemu-worker-498eeb6c.yaml
-  # batch 2
-  #- qemu-worker-6904e125.yaml
-  #- qemu-worker-fc25565c.yaml
+  - batch-1/
+  #- batch-2/
