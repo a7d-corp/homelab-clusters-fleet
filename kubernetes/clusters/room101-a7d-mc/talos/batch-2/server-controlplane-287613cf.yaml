@@ -5,17 +5,17 @@ metadata:
     metal.sidero.dev/cluster: room101-a7d-mc
     metal.sidero.dev/machine.type: controlplane
     kubernetes.a7d.dev/machine.group: batch2
-  name: ${CONTROLPLANE5_UUID}
+  name: ${CONTROLPLANE4_UUID}
 spec:
   accepted: true
-  hostname: ${CONTROLPLANE5_UUID}
+  hostname: ${CONTROLPLANE4_UUID}
   configPatches:
   - op: add
     path: /machine/nodeLabels/topology.kubernetes.io~1zone
-    value: ${CONTROLPLANE5_HOST} # see corresponding per-serverclass labels
+    value: ${CONTROLPLANE4_HOST} # see corresponding per-serverclass labels
   - op: replace
     path: /machine/network/hostname
-    value: ${CONTROLPLANE5_UUID}
+    value: ${CONTROLPLANE4_UUID}
   - op: replace
     path: /machine/network/interfaces
     value:
@@ -25,7 +25,7 @@ spec:
         dhcpOptions:
           ipv6: false
         addresses:
-          - 172.25.100.7/27
+          - 172.25.100.6/27
         routes:
           - network: 0.0.0.0/0
             gateway: 172.25.100.1
