@@ -22,3 +22,5 @@ spec:
       - deviceSelector:
           busPath: "0*" # match first NIC
         dhcp: true
+        dhcpOptions:
+          ipv6: false

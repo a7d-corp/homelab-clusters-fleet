@@ -21,6 +21,8 @@ spec:
       - deviceSelector:
           busPath: "0*" # match first NIC
         dhcp: false
+        dhcpOptions:
+          ipv6: false
         addresses:
           - 172.25.100.5/27
         routes:
