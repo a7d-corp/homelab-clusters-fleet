@@ -43,6 +43,12 @@ spec:
     value:
       - 10.101.0.2
       - 10.101.0.3
+  - op: add
+    path: /machine/network/extraHostEntries
+    value:
+      - ip: 4.157.170.221
+        aliases:
+          - factory.talos.dev
   - op: replace
     path: /machine/time
     value:
