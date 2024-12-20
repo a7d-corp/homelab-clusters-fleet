@@ -189,7 +189,7 @@ spec:
         - op: add
           path: /spec/version
           # renovate: siderolabs/sidero
-          value: v0.6.6
+          value: v0.6.7
       target:
         kind: InfrastructureProvider
         name: sidero # https://github.com/siderolabs/sidero
