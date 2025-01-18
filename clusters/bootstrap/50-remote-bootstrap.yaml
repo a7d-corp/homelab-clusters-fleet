@@ -15,7 +15,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/00-bootstrap/cloud-controller-manager/configs
+  path: ./workloads/00-early-bootstrap/cloud-controller-manager/configs
   prune: true
   decryption:
     provider: sops
@@ -42,7 +42,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/00-bootstrap/cloud-controller-manager
+  path: ./workloads/00-early-bootstrap/cloud-controller-manager
   prune: true
   decryption:
     provider: sops
@@ -245,7 +245,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/00-bootstrap/flux
+  path: ./workloads/00-early-bootstrap/flux
   prune: true
   decryption:
     provider: sops
@@ -272,7 +272,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/00-bootstrap/flux/gitrepo
+  path: ./workloads/00-early-bootstrap/flux/gitrepo
   prune: true
   decryption:
     provider: sops
