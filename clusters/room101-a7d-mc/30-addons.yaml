@@ -1,27 +1,3 @@
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: 30-addons-pre-install
-  namespace: cluster-room101-a7d-mc
-spec:
-  dependsOn:
-    - name: 11-cni
-      namespace: cluster-room101-a7d-mc
-  interval: 1h
-  retryInterval: 1m
-  timeout: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  path: ./workloads/config/addons/pre-install/clusters/room101-a7d-mc
-  prune: true
-  wait: true
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
-  suspend: false
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -57,7 +33,7 @@ spec:
         - op: add
           path: /spec/values/tcp
           value:
-            "6443": "default/kubernetes:443"
+            "6443": "default/kubernetes:443" # CHECKME
       target:
         kind: HelmRelease
         name: ingress-nginx
@@ -89,8 +65,45 @@ spec:
           path: /spec/values/crd
           value:
             create: true
-            apiversion: "externaldns.k8s.io/v1alpha1"
+            apiversion: "externaldns.k8s.io/v1alpha1" # CHECKME
             kind: "DNSEndpoint"
       target:
         kind: HelmRelease
         name: external-dns
+---
+#
+# create configs which depend on controllers which were installed by the prior kustomization
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 31-addons-post-install
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: 31-addons
+      namespace: cluster-room101-a7d-mc
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./workloads/addons/config/post
+  prune: true
+  wait: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: kyverno
+      namespace: kyverno-admission-controller
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: kyverno
+      namespace: kyverno-background-controller
+  suspend: false
