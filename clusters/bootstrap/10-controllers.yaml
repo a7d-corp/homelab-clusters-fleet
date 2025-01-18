@@ -18,7 +18,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/addons/bootstrap-cluster
+  path: ./workloads/addons/cluster-type/bootstrap-cluster
   prune: true
   wait: true
   decryption:
@@ -83,7 +83,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/controllers/bootstrap-cluster
+  path: ./workloads/controllers/cluster-role/bootstrap-cluster
   prune: true
   wait: true
   decryption:

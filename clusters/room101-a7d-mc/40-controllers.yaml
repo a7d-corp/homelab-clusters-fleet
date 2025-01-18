@@ -15,7 +15,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/controllers/management-cluster
+  path: ./workloads/controllers/cluster-role/management-cluster
   prune: true
   wait: true
   decryption:
