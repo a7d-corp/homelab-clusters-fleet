@@ -1,4 +1,7 @@
-# 10-misc-config - supporting config for controllers which needs to exist ahead of controller deployment
+#
+# supporting config for configs which needs to exist ahead of controller deployment
+# e.g. vars configmap used by kyverno proxy injection cluster policy
+#
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -24,6 +27,9 @@ spec:
       name: sops-age
   suspend: false
 ---
+#
+# install common addons e.g. cert-manager, nginx, kyverno
+#
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -49,6 +55,9 @@ spec:
       name: sops-age
   suspend: false
 ---
+#
+# create configs which depend on controllers which were installed by the prior kustomization
+#
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -83,6 +92,9 @@ spec:
       namespace: kyverno-background-controller
   suspend: false
 ---
+#
+# install controllers specifc to that cluster's purpose
+#
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -108,31 +120,9 @@ spec:
       name: sops-age
   suspend: false
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: 14-controllers-infrastructure-provider-prereqs
-  namespace: cluster-room101-a7d-mc
-spec:
-  dependsOn:
-    - name: 13-controllers
-      namespace: cluster-room101-a7d-mc
-  interval: 1h
-  retryInterval: 1m
-  timeout: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  path: ./clusters/bootstrap/sidero-prereqs
-  prune: true
-  wait: true
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
-  suspend: false
----
+#
+# install cluster-api providers to be consumed by cluster-api-operator
+#
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
