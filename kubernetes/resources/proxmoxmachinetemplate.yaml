@@ -1,0 +1,64 @@
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+kind: ProxmoxMachineTemplate
+metadata:
+  name: changeme-cp
+  namespace: default
+spec:
+  template:
+    spec:
+      checks:
+        skipCloudInitStatus: true
+      disks:
+        bootVolume:
+          disk: scsi0 # CHECK
+          sizeGb: 30
+      format: raw
+      memoryMiB: # CHECK
+      metadataSettings:
+        providerIDInjection: false
+      network:
+        default:
+          bridge: vmbr0
+          vlan: # PATCH IN VLANID
+      numCores: # CHECK
+      numSockets: # CHECK
+      pool: # CHECK
+      sourceNode: stor-01 # CHECK
+      storage: lvm pool # CHECK
+      templateID: 1 # PATCH IN TEMPLATE ID
+      vmIDRange:
+        end: 1 # PATCH IN VMID RANGE
+        start: 1 # PATCH IN VMID RANGE
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+kind: ProxmoxMachineTemplate
+metadata:
+  name: changeme-workers
+  namespace: default
+spec:
+  template:
+    spec:
+      checks:
+        skipCloudInitStatus: true
+      disks:
+        bootVolume:
+          disk: scsi0 # CHECK
+          sizeGb: 30
+      format: raw
+      memoryMiB: # CHECK
+      metadataSettings:
+        providerIDInjection: false
+      network:
+        default:
+          bridge: vmbr0
+          vlan: # PATCH IN VLANID
+      numCores: # CHECK
+      numSockets: # CHECK
+      pool: # CHECK
+        sourceNode: stor-01 # CHECK
+        storage: lvm pool # CHECK
+        templateID: 1 # PATCH IN TEMPLATE ID
+        vmIDRange:
+          end: 1 # PATCH IN VMID RANGE
+          start: 1 # PATCH IN VMID RANGE

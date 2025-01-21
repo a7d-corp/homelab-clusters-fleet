@@ -10,7 +10,7 @@ spec:
       talosVersion: ${TALOS_VERSION}
   infrastructureTemplate:
     apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
-    kind: MetalMachineTemplate
+    kind: ProxmoxMachineTemplate
     name: ${CLUSTER}-cp
   replicas: ${CONTROLPLANE_COUNT}
   version: ${K8S_VERSION}

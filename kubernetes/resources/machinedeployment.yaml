@@ -18,6 +18,6 @@ spec:
       clusterName: ${CLUSTER}
       infrastructureRef:
         apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
-        kind: MetalMachineTemplate
+        kind: ProxmoxMachineTemplate
         name: changeme
       version: ${K8S_VERSION}
