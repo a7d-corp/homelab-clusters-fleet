@@ -12,6 +12,7 @@ data:
   # renovate: siderolabs/talos
   TALOS_VERSION: v1.7.6
   FACTORY_SCHEMATIC_ID: "6f4f1561bdd96a21fc713838db289cce7c5dde02af6575b66b04b008e6516144"
+  TEMPLATE_UNIQUE_HASH: "aeb8338435"
   NGINX_SVC_IP: "172.27.0.62"
   PVE_CLUSTER_NAME: "virt-lab"
 

@@ -11,7 +11,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./clusters/bootstrap/cluster-prereqs
+  path: ./clusters/room101-a7d-mc/cluster-prereqs
   prune: true
   wait: true
   decryption:
