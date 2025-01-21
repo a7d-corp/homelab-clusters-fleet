@@ -5,11 +5,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 11-addons
+  name: 10-addons
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 10-addons-pre-install
+    - name: 02-shared-cluster-prereqs
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -33,11 +33,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 12-controllers-pre-install
+  name: 11-addons-post-install
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 11-addons
+    - name: 10-addons
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -70,11 +70,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 13-controllers
+  name: 12-controllers
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 12-controllers-pre-install
+    - name: 11-addons-post-install
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -98,11 +98,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 15-controllers-capi-providers
+  name: 13-controllers-capi-providers
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 14-controllers-infrastructure-provider-prereqs
+    - name: 12-controllers
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -150,8 +150,8 @@ spec:
     - patch: |
         - op: add
           path: /spec/version
-          # renovate: siderolabs/sidero
-          value: v0.6.6
+          # renovate: ionos-cloud/cluster-api-provider-proxmox
+          value: v0.6.2
       target:
         kind: InfrastructureProvider
-        name: sidero # https://github.com/siderolabs/sidero
+        name: proxmox # https://github.com/ionos-cloud/cluster-api-provider-proxmox
