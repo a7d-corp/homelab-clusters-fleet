@@ -1,0 +1,9 @@
+- op: add
+  path: /spec/controlPlaneConfig/controlplane/configPatches/0
+  value:
+    op: add
+    path: /machine/network/extraHostEntries
+    value:
+      - ip: 127.0.0.1
+        aliases:
+          - kubernetes

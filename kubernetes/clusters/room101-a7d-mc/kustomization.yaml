@@ -1,0 +1,29 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+sortOptions:
+  order: legacy
+  legacySortOptions:
+    orderFirst:
+    - Secret
+
+resources:
+  - talos-secrets.yaml
+bases:
+  - ../../resources/
+
+patches:
+  - path: patches/taloscontrolplane-kube-vip-kubeconfig.yaml
+    target: 
+      group: controlplane.cluster.x-k8s.io
+      kind: TalosControlPlane
+      name: changeme
+  - path: patches/taloscontrolplane-hostentries.yaml
+    target: 
+      group: controlplane.cluster.x-k8s.io
+      kind: TalosControlPlane
+      name: changeme
+  - path: patches/taloscontrolplane-kube-vip-staticpod.yaml
+    target: 
+      group: controlplane.cluster.x-k8s.io
+      kind: TalosControlPlane
+      name: changeme
