@@ -1,0 +1,8 @@
+- op: add
+  path: /spec/template/spec/configPatches/0
+  value:
+    op: replace
+    path: /machine/network/nameservers
+    value:
+      - ${NAMESERVER_1}
+      - ${NAMESERVER_2}

@@ -1,0 +1,7 @@
+- op: add
+  path: /spec/controlPlaneConfig/controlplane/configPatches/0
+  value:
+    op: add
+    path: /cluster/network/cni
+    value:
+      name: "none"

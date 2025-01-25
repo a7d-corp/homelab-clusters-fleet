@@ -1,0 +1,10 @@
+- op: add
+  path: /spec/controlPlaneConfig/controlplane/configPatches/0
+  value:
+    op: replace
+    path: /cluster/apiServer/extraArgs
+    value:
+      oidc-issuer-url: "https://${DEX_SUBDOMAIN}.${CLUSTER_FQDN}"
+      oidc-client-id: ${DEX_CLIENT_ID}
+      oidc-username-claim: email
+      oidc-groups-claim: groups

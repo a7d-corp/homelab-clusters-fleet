@@ -1,0 +1,6 @@
+- op: add
+  path: /spec/controlPlaneConfig/controlplane/configPatches/0
+  value:
+    op: replace
+    path: /machine/install/disk
+    value: /dev/vda

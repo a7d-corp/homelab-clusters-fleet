@@ -1,0 +1,6 @@
+- op: add
+  path: /spec/controlPlaneConfig/controlplane/configPatches/0
+  value:
+    op: replace
+    path: /cluster/clusterName
+    value: ${CLUSTER}

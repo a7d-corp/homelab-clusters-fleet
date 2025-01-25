@@ -4,6 +4,9 @@
     op: add
     path: /machine/network/extraHostEntries
     value:
+      - ip: 4.157.170.221
+        aliases:
+          - factory.talos.dev
       - ip: 127.0.0.1
         aliases:
           - kubernetes

@@ -1,5 +1,5 @@
 - op: add
-  path: /spec/controlPlaneConfig/controlplane/configPatches/1
+  path: /spec/controlPlaneConfig/controlplane/configPatches/0
   value:
     op: add
     path: /machine/pods
@@ -18,9 +18,9 @@
             - name: cp_enable
               value: "true"
             - name: vip_interface
-              value: ${VIP_NETWORK_INTERFACE=""}
+              value: ${DEFAULT_NIC}
             - name: address
-              value: ${CONTROLPLANE_HOST}
+              value: ${APISERVER_VIP}
             - name: port
               value: "6443"
             - name: vip_arp

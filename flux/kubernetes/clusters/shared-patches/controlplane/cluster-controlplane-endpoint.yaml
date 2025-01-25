@@ -1,0 +1,6 @@
+- op: add
+  path: /spec/controlPlaneConfig/controlplane/configPatches/0
+  value:
+    op: replace
+    path: /cluster/controlPlane/endpoint
+    value: "https://${APISERVER_SUBDOMAIN}.${CLUSTER_FQDN}:${APISERVER_PORT}"
