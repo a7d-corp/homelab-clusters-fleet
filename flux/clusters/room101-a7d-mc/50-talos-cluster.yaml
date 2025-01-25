@@ -1,69 +1,14 @@
+#
+#
+#
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 50-talos-machine-config
+  name: 50-talos-cluster-resources
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 43-controllers-capi-providers
-      namespace: cluster-room101-a7d-mc
-  interval: 1h
-  retryInterval: 1m
-  timeout: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  path: ./flux/kubernetes/clusters/room101-a7d-mc/machines
-  prune: true
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
-  postBuild:
-    substituteFrom:
-      - kind: ConfigMap
-        name: cluster-vars
-        optional: false
-  suspend: false
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: 51-talos-cluster-config
-  namespace: cluster-room101-a7d-mc
-spec:
-  dependsOn:
-    - name: 50-talos-machine-config
-      namespace: cluster-room101-a7d-mc
-  interval: 1h
-  retryInterval: 1m
-  timeout: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  path: ./flux/kubernetes/clusters/room101-a7d-mc/talos
-  prune: true
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
-  postBuild:
-    substituteFrom:
-      - kind: ConfigMap
-        name: cluster-vars
-        optional: false
-  suspend: true
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: 52-talos-cluster-resources
-  namespace: cluster-room101-a7d-mc
-spec:
-  dependsOn:
-    - name: 51-talos-cluster-config
+    - name: 41-controllers-capi-providers
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -125,7 +70,7 @@ spec:
           path: /spec/controlPlaneEndpoint/host
           value: k8s.room101-a7d-mc.lab.a7d.dev
       target:
-        kind: MetalCluster
+        kind: ProxmoxCluster
         name: changeme
     - patch: |
         - op: replace
@@ -135,7 +80,7 @@ spec:
           path: /metadata/namespace
           value: cluster-room101-a7d-mc
       target:
-        kind: MetalMachineTemplate
+        kind: ProxmoxMachineTemplate
         name: changeme-cp
     - patch: |
         - op: replace
@@ -145,7 +90,7 @@ spec:
           path: /metadata/namespace
           value: cluster-room101-a7d-mc
       target:
-        kind: MetalMachineTemplate
+        kind: ProxmoxMachineTemplate
         name: changeme-workers
     - patch: |
         - op: replace

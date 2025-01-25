@@ -1,3 +1,6 @@
+#
+# apply flux prereqs
+#
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -19,6 +22,9 @@ spec:
       name: sops-age
   suspend: false
 ---
+#
+# install flux
+#
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -45,6 +51,9 @@ spec:
       name: sops-age
   suspend: false
 ---
+#
+# apply gitrepo
+#
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -90,14 +99,44 @@ spec:
         kind: Kustomization
         name: flux-system
 ---
+#
+# create prereqs for cloud controller manager
+#
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 23-ccm
+  name: 23-ccm-configs
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 11-cni
+    - name: 22-flux-gitrepo
+      namespace: cluster-room101-a7d-mc
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/workloads/early-bootstrap/cloud-controller-manager/configs
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: false
+---
+#
+# install cloud controller manager
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 24-ccm
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: 23-ccm-configs
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m

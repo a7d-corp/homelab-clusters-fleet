@@ -1,12 +1,15 @@
 ---
+#
+# install MC addons
+#
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 31-addons
+  name: 30-addons
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 30-addons-pre-install
+    - name: 24-ccm
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
@@ -29,14 +32,6 @@ spec:
         optional: false
   suspend: false
   patches:
-    - patch: |
-        - op: add
-          path: /spec/values/tcp
-          value:
-            "6443": "default/kubernetes:443" # CHECKME
-      target:
-        kind: HelmRelease
-        name: ingress-nginx
     - patch: |
         - op: add
           path: /spec/values/controller/service/loadBalancerIP
@@ -81,7 +76,7 @@ metadata:
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 31-addons
+    - name: 30-addons
       namespace: cluster-room101-a7d-mc
   interval: 1h
   retryInterval: 1m
