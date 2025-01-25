@@ -1,3 +1,6 @@
+#
+# create very early prereqs (bootstrap specific)
+#
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -20,6 +23,9 @@ spec:
       name: sops-age
   suspend: false
 ---
+#
+# create very early prereqs (shared between bootstrap and MC)
+#
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:

@@ -1,4 +1,6 @@
-
+#
+# create prereqs for cloud controller manager in remote cluster
+#
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -26,6 +28,9 @@ spec:
       name: room101-a7d-mc-kubeconfig
   suspend: false
 ---
+#
+# install cloud controller manager in remote cluster
+#
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -48,9 +53,9 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-#  kubeConfig:
-#    secretRef:
-#      name: room101-a7d-mc-kubeconfig
+  kubeConfig:
+    secretRef:
+      name: room101-a7d-mc-kubeconfig
 #  healthChecks:
 #    - apiVersion: apps/v1
 #      kind: Deployment
@@ -200,6 +205,9 @@ spec:
         kind: HelmRelease
         name: talos-cloud-controller-manager
 ---
+#
+# create flux configs in remote cluster
+#
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -227,6 +235,9 @@ spec:
       name: room101-a7d-mc-kubeconfig
   suspend: false
 ---
+#
+# install flux in remote cluster
+#
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -256,6 +267,9 @@ spec:
       name: room101-a7d-mc-kubeconfig
   suspend: false
 ---
+#
+# create gitrepo in remote cluster
+#
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -304,6 +318,9 @@ spec:
         kind: Kustomization
         name: flux-system
 ---
+#
+# install kyverno early in remote cluster (required for network proxy CPol)
+#
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -326,14 +343,14 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  #kubeConfig:
-  #  secretRef:
-  #    name: room101-a7d-mc-kubeconfig
-  #healthChecks:
-  #  - apiVersion: apps/v1
-  #    kind: Deployment
-  #    name: kyverno-admission-controller
-  #    namespace: kube-system
+  kubeConfig:
+    secretRef:
+      name: room101-a7d-mc-kubeconfig
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: kyverno-admission-controller
+      namespace: kube-system
   suspend: false
   patches:
     # install helmrepo/helmrelease in the cluster namespace when bootstrapping
@@ -393,6 +410,9 @@ spec:
         kind: HelmRelease
         name: kyverno
 ---
+#
+# create kyverno resources following kyverno installation
+#
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -409,7 +429,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./flux/workloads/20-configs/clusters/room101-a7d-mc
+  path: ./flux/workloads/addons/config/post
   prune: true
   decryption:
     provider: sops
