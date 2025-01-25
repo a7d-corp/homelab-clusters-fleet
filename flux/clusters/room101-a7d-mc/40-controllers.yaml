@@ -15,7 +15,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/controllers/cluster-role/management-cluster
+  path: ./flux/workloads/controllers/cluster-role/management-cluster
   prune: true
   wait: true
   decryption:
@@ -82,7 +82,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/controllers/base/cluster-api-operator/capi-providers
+  path: ./flux/workloads/controllers/base/cluster-api-operator/capi-providers
   prune: true
   wait: true
   decryption:

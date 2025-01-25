@@ -14,7 +14,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./kubernetes/clusters/room101-a7d-mc/machines
+  path: ./flux/kubernetes/clusters/room101-a7d-mc/machines
   prune: true
   decryption:
     provider: sops
@@ -43,7 +43,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./kubernetes/clusters/room101-a7d-mc/talos
+  path: ./flux/kubernetes/clusters/room101-a7d-mc/talos
   prune: true
   decryption:
     provider: sops
@@ -72,7 +72,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./kubernetes/resources
+  path: ./flux/kubernetes/resources
   prune: true
   decryption:
     provider: sops

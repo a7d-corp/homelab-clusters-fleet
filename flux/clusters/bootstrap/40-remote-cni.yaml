@@ -11,7 +11,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/cni/prereqs
+  path: ./flux/workloads/cni/prereqs
   prune: true
   wait: true
   suspend: false
@@ -35,7 +35,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/cni
+  path: ./flux/workloads/cni
   prune: true
   wait: true
   suspend: false

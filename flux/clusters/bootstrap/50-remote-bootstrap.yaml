@@ -15,7 +15,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/early-bootstrap/cloud-controller-manager/configs
+  path: ./flux/workloads/early-bootstrap/cloud-controller-manager/configs
   prune: true
   decryption:
     provider: sops
@@ -42,7 +42,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/early-bootstrap/cloud-controller-manager
+  path: ./flux/workloads/early-bootstrap/cloud-controller-manager
   prune: true
   decryption:
     provider: sops
@@ -216,7 +216,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./clusters/room101-a7d-mc/flux-configs
+  path: ./flux/clusters/room101-a7d-mc/flux-configs
   prune: true
   decryption:
     provider: sops
@@ -245,7 +245,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/early-bootstrap/flux
+  path: ./flux/workloads/early-bootstrap/flux
   prune: true
   decryption:
     provider: sops
@@ -272,7 +272,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/early-bootstrap/flux/gitrepo
+  path: ./flux/workloads/early-bootstrap/flux/gitrepo
   prune: true
   decryption:
     provider: sops
@@ -320,7 +320,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/addons/base/kyverno
+  path: ./flux/workloads/addons/base/kyverno
   prune: true
   decryption:
     provider: sops
@@ -409,7 +409,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/20-configs/clusters/room101-a7d-mc
+  path: ./flux/workloads/20-configs/clusters/room101-a7d-mc
   prune: true
   decryption:
     provider: sops

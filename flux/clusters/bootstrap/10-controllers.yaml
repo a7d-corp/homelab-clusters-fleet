@@ -18,7 +18,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/addons/cluster-type/bootstrap-cluster
+  path: ./flux/workloads/addons/cluster-type/bootstrap-cluster
   prune: true
   wait: true
   decryption:
@@ -46,7 +46,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/addons/config/post
+  path: ./flux/workloads/addons/config/post
   prune: true
   wait: true
   decryption:
@@ -83,7 +83,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/controllers/cluster-role/bootstrap-cluster
+  path: ./flux/workloads/controllers/cluster-role/bootstrap-cluster
   prune: true
   wait: true
   decryption:
@@ -111,7 +111,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/controllers/base/cluster-api-operator/capi-providers
+  path: ./flux/workloads/controllers/base/cluster-api-operator/capi-providers
   prune: true
   wait: true
   decryption:

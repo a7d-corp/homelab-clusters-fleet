@@ -14,7 +14,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./configs/room101-a7d-mc
+  path: ./flux/configs/room101-a7d-mc
   prune: true
   decryption:
     provider: sops

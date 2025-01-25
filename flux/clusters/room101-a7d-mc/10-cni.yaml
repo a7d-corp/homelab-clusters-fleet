@@ -11,7 +11,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/cni/prereqs
+  path: ./flux/workloads/cni/prereqs
   prune: true
   wait: true
   suspend: false
@@ -32,7 +32,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./workloads/cni
+  path: ./flux/workloads/cni
   prune: true
   wait: true
   decryption:
@@ -81,7 +81,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./clusters/room101-a7d-mc/cilium-configs
+  path: ./flux/clusters/room101-a7d-mc/cilium-configs
   prune: true
   wait: true
   suspend: false
