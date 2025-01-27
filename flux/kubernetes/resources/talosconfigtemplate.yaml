@@ -6,5 +6,6 @@ metadata:
 spec:
   template:
     spec:
+      configPatches: []
       generateType: join
       talosVersion: ${TALOS_VERSION}

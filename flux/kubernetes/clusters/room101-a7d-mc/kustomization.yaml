@@ -8,7 +8,6 @@ sortOptions:
 
 resources:
   - talos-secrets.yaml
-bases:
   - ../../resources/
 
 patches:
@@ -113,46 +112,46 @@ patches:
   #
   - path: ../shared-patches/worker/cluster-controlplane-endpoint.yaml
     target:
-      group: bootstrap.cluster.x-k8s.io/v1alpha3
+      group: bootstrap.cluster.x-k8s.io
       kind: TalosConfigTemplate
       name: changeme
   - path: ../shared-patches/worker/machine-install-disk.yaml
     target:
-      group: bootstrap.cluster.x-k8s.io/v1alpha3
+      group: bootstrap.cluster.x-k8s.io
       kind: TalosConfigTemplate
       name: changeme
   - path: ../shared-patches/worker/machine-install-image.yaml
     target:
-      group: bootstrap.cluster.x-k8s.io/v1alpha3
+      group: bootstrap.cluster.x-k8s.io
       kind: TalosConfigTemplate
       name: changeme
   - path: ../shared-patches/worker/machine-install-wipe.yaml
     target:
-      group: bootstrap.cluster.x-k8s.io/v1alpha3
+      group: bootstrap.cluster.x-k8s.io
       kind: TalosConfigTemplate
       name: changeme
   - path: ../shared-patches/worker/machine-kubelet-extraargs.yaml
     target:
-      group: bootstrap.cluster.x-k8s.io/v1alpha3
+      group: bootstrap.cluster.x-k8s.io
       kind: TalosConfigTemplate
       name: changeme
   - path: ../shared-patches/worker/machine-network-extrahostentries.yaml
     target:
-      group: bootstrap.cluster.x-k8s.io/v1alpha3
+      group: bootstrap.cluster.x-k8s.io
       kind: TalosConfigTemplate
       name: changeme
   - path: ../shared-patches/worker/machine-network-nameservers.yaml
     target:
-      group: bootstrap.cluster.x-k8s.io/v1alpha3
+      group: bootstrap.cluster.x-k8s.io
       kind: TalosConfigTemplate
       name: changeme
   - path: ../shared-patches/worker/machine-nodelabels.yaml
     target:
-      group: bootstrap.cluster.x-k8s.io/v1alpha3
+      group: bootstrap.cluster.x-k8s.io
       kind: TalosConfigTemplate
       name: changeme
   - path: ../shared-patches/worker/machine-time.yaml
     target:
-      group: bootstrap.cluster.x-k8s.io/v1alpha3
+      group: bootstrap.cluster.x-k8s.io
       kind: TalosConfigTemplate
       name: changeme

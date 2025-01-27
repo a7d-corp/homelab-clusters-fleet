@@ -6,6 +6,7 @@ metadata:
 spec:
   controlPlaneConfig:
     controlplane:
+      configPatches: []
       generateType: controlplane
       talosVersion: ${TALOS_VERSION}
   infrastructureTemplate:

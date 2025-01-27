@@ -6,16 +6,16 @@ spec:
  nodeSelector:
    matchLabels:
      # only nodes with the following label will announce routes
-     metal.sidero.dev/serverclass: worker
+     k8s.a7d.dev/serverclass: worker
  virtualRouters:
- - localASN: 65502
+ - localASN: ${BGP_CLUSTER_AS}
    serviceSelector:
      matchExpressions:
        # services must have the following label to be announced
        - {key: "io.cilium/bgp-announce", operator: In, values: ['worker']}
    neighbors:
-    - peerAddress: '172.25.0.1/32'
-      peerASN: 65401
+    - peerAddress: "${CILIUM_BGP_PEER}/32"
+      peerASN: ${BGP_PEER_AS}
       eBGPMultihopTTL: 10
       connectRetryTimeSeconds: 120
       holdTimeSeconds: 90

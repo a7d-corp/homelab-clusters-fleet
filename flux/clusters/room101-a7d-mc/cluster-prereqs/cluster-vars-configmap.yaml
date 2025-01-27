@@ -5,9 +5,9 @@ metadata:
   namespace: cluster-room101-a7d-mc
 data:
   # cluster vars
-  CLUSTER: "room101-a7d-mc"
-  WORKER_COUNT: "2"
-  CONTROLPLANE_COUNT: "3"
+  CLUSTER: room101-a7d-mc
+  WORKER_COUNT: 2
+  CONTROLPLANE_COUNT: 3
 
   # node config
   FACTORY_SCHEMATIC_ID: "6f4f1561bdd96a21fc713838db289cce7c5dde02af6575b66b04b008e6516144"
@@ -20,20 +20,24 @@ data:
   TALOS_VERSION: v1.7.6
 
   # proxmox vars
-  PVE_CLUSTER_NAME: "virt-lab"
+  PVE_CLUSTER_NAME: virt-lab
 
   # network config
-  CLUSTER_FQDN: "room101-a7d-mc.lab.a7d.dev"
-  APISERVER_VIP: #changeme
-  APISERVER_SUBDOMAIN: "k8s"
+  CLUSTER_FQDN: room101-a7d-mc.lab.a7d.dev
+  APISERVER_VIP: 172.27.0.61
+  APISERVER_SUBDOMAIN: k8s
   APISERVER_PORT: 6443
-  DEFAULT_NIC: eth0
-  NAMESERVER_1: "10.101.0.2"
-  NAMESERVER_2: "10.101.0.3"
-  TIMESERVER_1: "10.101.0.2"
-  TIMESERVER_2: "10.101.0.3"
-  NGINX_SVC_IP: "172.27.0.62"
+  NAMESERVER_1: 10.101.0.2
+  NAMESERVER_2: 10.101.0.3
+  TIMESERVER_1: 10.101.0.2
+  TIMESERVER_2: 10.101.0.3
+  NGINX_SVC_IP: 172.27.0.62
+
+  BGP_PEER_AS: 65401
+  BGP_CLUSTER_AS: 65502
+  KUBE_VIP_BGP_PEERS: "172.25.0.1:65401::false"
+  CILIUM_BGP_PEER: 172.25.0.1
 
   # apiserver OIDC config
-  DEX_SUBDOMAIN: "dex"
-  DEX_CLIENT_ID: "9aba9b32-e761-4507-8445-cea11a6b15da"
+  DEX_SUBDOMAIN: dex
+  DEX_CLIENT_ID: 9aba9b32-e761-4507-8445-cea11a6b15da

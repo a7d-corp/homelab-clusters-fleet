@@ -8,31 +8,50 @@
         kind: Pod
         metadata:
           creationTimestamp: null
-          name: kube-vip
+          name: kube-vip-k8s-api
           namespace: kube-system
         spec:
           containers:
           - args:
             - manager
             env:
-            - name: cp_enable
-              value: "true"
-            - name: vip_interface
-              value: ${DEFAULT_NIC}
-            - name: address
-              value: ${APISERVER_VIP}
+            - name: vip_arp
+              value: "false"
             - name: port
               value: "6443"
-            - name: vip_arp
+            - name: vip_nodename
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: vip_interface
+              value: lo
+            - name: vip_cidr
+              value: "32"
+            - name: dns_mode
+              value: first
+            - name: cp_enable
               value: "true"
-            - name: vip_leaderelection
+            - name: cp_namespace
+              value: kube-system
+            - name: bgp_enable
               value: "true"
-            - name: vip_leaseduration
-              value: "15"
-            - name: vip_renewdeadline
-              value: "10"
-            - name: vip_retryperiod
-              value: "2"
+            - name: bgp_routerid
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: bgp_as
+              value: "${BGP_CLUSTER_AS}"
+            - name: bgp_peeraddress
+            - name: bgp_peerpass
+            - name: bgp_peeras
+              value: "${BGP_PEER_AS}"
+            - name: bgp_peers
+              value: ${BGP_PEERS}
+            - name: address
+              value: ${APISERVER_VIP}
+            - name: prometheus_server
+              value: :2112
+            # renovate: kube-vip/kube-vip
             image: ghcr.io/kube-vip/kube-vip:v0.8.9
             imagePullPolicy: IfNotPresent
             name: kube-vip
@@ -53,5 +72,5 @@
           volumes:
           - hostPath:
               path: /etc/kubernetes/kube-vip.kubeconfig
-              type: FileOrCreate
             name: kubeconfig
+        status: {}
