@@ -17,7 +17,7 @@ spec:
   path: ./flux/workloads/cni/prereqs
   prune: true
   wait: true
-  suspend: false
+  suspend: true
   postBuild:
     substituteFrom:
       - kind: ConfigMap
@@ -74,7 +74,7 @@ spec:
       target:
         kind: HelmRelease
         name: cilium
-  suspend: false
+  suspend: true
   postBuild:
     substituteFrom:
       - kind: ConfigMap
@@ -103,7 +103,7 @@ spec:
   path: ./flux/clusters/room101-a7d-mc/cilium-configs
   prune: true
   wait: true
-  suspend: false
+  suspend: true
   postBuild:
     substituteFrom:
       - kind: ConfigMap

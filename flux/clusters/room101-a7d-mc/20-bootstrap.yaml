@@ -20,7 +20,7 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  suspend: false
+  suspend: true
 ---
 #
 # install flux
@@ -49,7 +49,7 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  suspend: false
+  suspend: true
 ---
 #
 # apply gitrepo
@@ -76,7 +76,7 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  suspend: false
+  suspend: true
   postBuild:
     substituteFrom:
       - kind: ConfigMap
@@ -129,7 +129,7 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  suspend: false
+  suspend: true
   postBuild:
     substituteFrom:
       - kind: ConfigMap
@@ -161,7 +161,7 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  suspend: false
+  suspend: true
   postBuild:
     substituteFrom:
       - kind: ConfigMap

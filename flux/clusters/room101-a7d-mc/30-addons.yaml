@@ -25,7 +25,7 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  suspend: false
+  suspend: true
   postBuild:
     substituteFrom:
       - kind: ConfigMap
@@ -101,7 +101,7 @@ spec:
       kind: Deployment
       name: kyverno
       namespace: kyverno-background-controller
-  suspend: false
+  suspend: true
   postBuild:
     substituteFrom:
       - kind: ConfigMap

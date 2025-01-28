@@ -26,7 +26,7 @@ spec:
   kubeConfig:
     secretRef:
       name: room101-a7d-mc-kubeconfig
-  suspend: false
+  suspend: true
   postBuild:
     substituteFrom:
       - kind: ConfigMap
@@ -70,7 +70,7 @@ spec:
 #      kind: Deployment
 #      name: talos-cloud-controller-manager
 #      namespace: kube-system
-  suspend: false
+  suspend: true
   postBuild:
     substituteFrom:
       - kind: ConfigMap
@@ -243,7 +243,7 @@ spec:
   kubeConfig:
     secretRef:
       name: room101-a7d-mc-kubeconfig
-  suspend: false
+  suspend: true
   postBuild:
     substituteFrom:
       - kind: ConfigMap
@@ -280,7 +280,7 @@ spec:
   kubeConfig:
     secretRef:
       name: room101-a7d-mc-kubeconfig
-  suspend: false
+  suspend: true
   postBuild:
     substituteFrom:
       - kind: ConfigMap
@@ -315,7 +315,7 @@ spec:
   kubeConfig:
     secretRef:
       name: room101-a7d-mc-kubeconfig
-  suspend: false
+  suspend: true
   postBuild:
     substituteFrom:
       - kind: ConfigMap
@@ -376,7 +376,7 @@ spec:
       kind: Deployment
       name: kyverno-admission-controller
       namespace: kube-system
-  suspend: false
+  suspend: true
   postBuild:
     substituteFrom:
       - kind: ConfigMap
@@ -468,7 +468,7 @@ spec:
   kubeConfig:
     secretRef:
       name: room101-a7d-mc-kubeconfig
-  suspend: false
+  suspend: true
   postBuild:
     substituteFrom:
       - kind: ConfigMap

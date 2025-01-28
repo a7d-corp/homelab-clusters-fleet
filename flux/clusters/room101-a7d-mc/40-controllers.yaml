@@ -24,7 +24,7 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  suspend: false
+  suspend: true
   postBuild:
     substituteFrom:
       - kind: ConfigMap
@@ -57,7 +57,7 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  suspend: false
+  suspend: true
   postBuild:
     substituteFrom:
       - kind: ConfigMap
