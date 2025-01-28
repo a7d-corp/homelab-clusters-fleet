@@ -14,7 +14,7 @@ patches:
   #
   # proxmoxcluster patches
   #
-  - path: ../../patches/clusters/room101-a7d-mc//proxmoxcluster-allowednodes.yaml
+  - path: patches/proxmoxcluster-allowednodes.yaml
     target:
       group: infrastructure.cluster.x-k8s.io
       kind: ProxmoxCluster
@@ -24,7 +24,7 @@ patches:
   #
   # room101-a7d-mc controlplane specific patches
   #
-  - path: ../../patches/clusters/room101-a7d-mc//taloscontrolplane-kube-vip-kubeconfig.yaml
+  - path: patches//taloscontrolplane-kube-vip-kubeconfig.yaml
     target:
       group: controlplane.cluster.x-k8s.io
       kind: TalosControlPlane
