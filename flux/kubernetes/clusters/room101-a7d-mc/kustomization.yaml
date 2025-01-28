@@ -16,7 +16,6 @@ patches:
   #
   # room101-a7d-mc controlplane specific patches
   #
-  # must come first as it creates the configPatches array
   - path: patches/taloscontrolplane-kube-vip-kubeconfig.yaml
     target:
       group: controlplane.cluster.x-k8s.io
