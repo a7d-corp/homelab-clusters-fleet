@@ -1,8 +1,10 @@
 apiVersion: controlplane.cluster.x-k8s.io/v1alpha3
 kind: TalosControlPlane
 metadata:
-  name: changeme
-  namespace: default
+  name: ${CLUSTER}-cp
+  namespace: ${CLUSTER_NAMESPACE}
+  labels:
+    flux-target: taloscontrolplane
 spec:
   controlPlaneConfig:
     controlplane:
@@ -12,6 +14,6 @@ spec:
   infrastructureTemplate:
     apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
     kind: ProxmoxMachineTemplate
-    name: ${CLUSTER}-cp
+    name: ${CLUSTER}-cp-${CP+TEMPLATE_UNIQUE_HASH}
   replicas: ${CONTROLPLANE_COUNT}
   version: ${K8S_VERSION}

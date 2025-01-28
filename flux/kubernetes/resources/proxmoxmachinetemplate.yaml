@@ -2,8 +2,8 @@
 apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
 kind: ProxmoxMachineTemplate
 metadata:
-  name: changeme-cp
-  namespace: default
+  name: ${CLUSTER}-cp-${CP_TEMPLATE_UNIQUE_HASH}
+  namespace: ${CLUSTER_NAMESPACE}
 spec:
   template:
     spec:
@@ -12,30 +12,30 @@ spec:
       disks:
         bootVolume:
           disk: scsi0 # CHECK
-          sizeGb: 30
+          sizeGb: ${CP_DISK_SIZE}
       format: raw
-      memoryMiB: # CHECK
+      memoryMiB: ${CP_MEMORY}
       metadataSettings:
         providerIDInjection: false
       network:
         default:
           bridge: vmbr0
-          vlan: # PATCH IN VLANID
-      numCores: # CHECK
-      numSockets: # CHECK
-      pool: # CHECK
-      sourceNode: stor-01 # CHECK
-      storage: lvm pool # CHECK
-      templateID: 1 # PATCH IN TEMPLATE ID
+          vlan: ${CLUSTER_NODE_NET_VLAN}
+      numCores: ${CP_NUM_CORES}
+      numSockets: ${CP_NUM_SOCKETS}
+      pool: ${CLUSTER}
+      sourceNode: ${PVE_TEMPLATE_SOURCE_NODE}
+      storage: ${PVE_STORAGE_POOL}
+      templateID: ${PVE_TEMPLATE_ID}
       vmIDRange:
-        end: 1 # PATCH IN VMID RANGE
-        start: 1 # PATCH IN VMID RANGE
+        end: ${CP_VM_ID_RANGE_START}
+        start: ${CP_VM_ID_RANGE_END}
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
 kind: ProxmoxMachineTemplate
 metadata:
-  name: changeme-workers
-  namespace: default
+  name: ${CLUSTER}-workers-${WORKER_TEMPLATE_UNIQUE_HASH}
+  namespace: ${CLUSTER_NAMESPACE}
 spec:
   template:
     spec:
@@ -44,21 +44,21 @@ spec:
       disks:
         bootVolume:
           disk: scsi0 # CHECK
-          sizeGb: 30
+          sizeGb: ${WORKER_DISK_SIZE}
       format: raw
-      memoryMiB: # CHECK
+      memoryMiB: ${WORKER_MEMORY}
       metadataSettings:
         providerIDInjection: false
       network:
         default:
           bridge: vmbr0
-          vlan: # PATCH IN VLANID
-      numCores: # CHECK
-      numSockets: # CHECK
-      pool: # CHECK
-        sourceNode: stor-01 # CHECK
-        storage: lvm pool # CHECK
-        templateID: 1 # PATCH IN TEMPLATE ID
-        vmIDRange:
-          end: 1 # PATCH IN VMID RANGE
-          start: 1 # PATCH IN VMID RANGE
+          vlan: ${CLUSTER_NODE_NET_VLAN}
+      numCores: ${WORKER_NUM_CORES}
+      numSockets: ${WORKER_NUM_SOCKETS}
+      pool: ${CLUSTER}
+      sourceNode: ${PVE_TEMPLATE_SOURCE_NODE}
+      storage: ${PVE_STORAGE_POOL}
+      templateID: ${PVE_TEMPLATE_ID}
+      vmIDRange:
+        end: ${WORKER_VM_ID_RANGE_START}
+        start: ${WORKER_VM_ID_RANGE_END}

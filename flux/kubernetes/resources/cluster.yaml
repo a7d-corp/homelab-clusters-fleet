@@ -1,8 +1,8 @@
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: Cluster
 metadata:
-  name: changeme
-  namespace: default
+  name: ${CLUSTER}
+  namespace: ${CLUSTER_NAMESPACE}
 spec:
   clusterNetwork:
     pods:
@@ -14,7 +14,7 @@ spec:
   controlPlaneRef:
     apiVersion: controlplane.cluster.x-k8s.io/v1alpha3
     kind: TalosControlPlane
-    name: changeme
+    name: ${CLUSTER}-cp
   infrastructureRef:
     apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
     kind: ProxmoxCluster

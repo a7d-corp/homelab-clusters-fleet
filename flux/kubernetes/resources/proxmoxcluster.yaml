@@ -1,15 +1,20 @@
 apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
 kind: ProxmoxCluster
 metadata:
-  name: changeme
-  namespace: default
+  name: ${CLUSTER}
+  namespace: ${CLUSTER_NAMESPACE}
+  labels:
+    flux-target: proxmoxcluster
 spec:
   allowedNodes: []
   controlPlaneEndpoint:
-    host: 0.0.0.0
-    port: 6443
-  dnsServers: []
+    host: ${APISERVER_SUBDOMAIN}-${CLUSTER_FQDN}
+    port: ${APISERVER_PORT}
+  dnsServers:
+    - ${NAMESERVER_1}
+    - ${NAMESERVER_2}
   ipv4Config:
-    addresses: []
-    gateway: 0.0.0.0
-    prefix: 24
+    addresses:
+      - ${CLUSTER_NODE_NET_RANGE}
+    gateway: ${CLUSTER_NODE_NET_GATEWAY}
+    prefix: ${CLUSTER_NODE_SUBNET_CIDR}

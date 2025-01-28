@@ -12,6 +12,14 @@ resources:
 
 patches:
   #
+  # proxmoxcluster patches
+  #
+  - path: patches/proxmoxcluster-allowednodes.yaml
+    target:
+      group: infrastructure.cluster.x-k8s.io
+      kind: ProxmoxCluster
+      labelSelector: "flux-target=proxmoxcluster"
+  #
   # controlplane patches
   #
   # room101-a7d-mc controlplane specific patches
@@ -20,7 +28,7 @@ patches:
     target:
       group: controlplane.cluster.x-k8s.io
       kind: TalosControlPlane
-      name: changeme
+      labelSelector: "flux-target=taloscontrolplane"
   #
   # generic controlplane patches
   #
@@ -28,82 +36,82 @@ patches:
     target:
       group: controlplane.cluster.x-k8s.io
       kind: TalosControlPlane
-      name: changeme
+      labelSelector: "flux-target=taloscontrolplane"
   - path: ../shared-patches/controlplane/cluster-apiserver-extraargs.yaml
     target:
       group: controlplane.cluster.x-k8s.io
       kind: TalosControlPlane
-      name: changeme
+      labelSelector: "flux-target=taloscontrolplane"
   - path: ../shared-patches/controlplane/cluster-clustername.yaml
     target:
       group: controlplane.cluster.x-k8s.io
       kind: TalosControlPlane
-      name: changeme
+      labelSelector: "flux-target=taloscontrolplane"
   - path: ../shared-patches/controlplane/cluster-controlplane-endpoint.yaml
     target:
       group: controlplane.cluster.x-k8s.io
       kind: TalosControlPlane
-      name: changeme
+      labelSelector: "flux-target=taloscontrolplane"
   - path: ../shared-patches/controlplane/cluster-network-cni.yaml
     target:
       group: controlplane.cluster.x-k8s.io
       kind: TalosControlPlane
-      name: changeme
+      labelSelector: "flux-target=taloscontrolplane"
   - path: ../shared-patches/controlplane/cluster-proxy-disabled.yaml
     target:
       group: controlplane.cluster.x-k8s.io
       kind: TalosControlPlane
-      name: changeme
+      labelSelector: "flux-target=taloscontrolplane"
   - path: ../shared-patches/controlplane/machine-features-kubernetestalosapiaccess.yaml
     target:
       group: controlplane.cluster.x-k8s.io
       kind: TalosControlPlane
-      name: changeme
+      labelSelector: "flux-target=taloscontrolplane"
   - path: ../shared-patches/controlplane/machine-install-disk.yaml
     target:
       group: controlplane.cluster.x-k8s.io
       kind: TalosControlPlane
-      name: changeme
+      labelSelector: "flux-target=taloscontrolplane"
   - path: ../shared-patches/controlplane/machine-install-image.yaml
     target:
       group: controlplane.cluster.x-k8s.io
       kind: TalosControlPlane
-      name: changeme
+      labelSelector: "flux-target=taloscontrolplane"
   - path: ../shared-patches/controlplane/machine-install-wipe.yaml
     target:
       group: controlplane.cluster.x-k8s.io
       kind: TalosControlPlane
-      name: changeme
+      labelSelector: "flux-target=taloscontrolplane"
   - path: ../shared-patches/controlplane/machine-kubelet-extraargs.yaml
     target:
       group: controlplane.cluster.x-k8s.io
       kind: TalosControlPlane
-      name: changeme
+      labelSelector: "flux-target=taloscontrolplane"
   - path: ../shared-patches/controlplane/machine-network-extrahostentries.yaml
     target:
       group: controlplane.cluster.x-k8s.io
       kind: TalosControlPlane
-      name: changeme
+      labelSelector: "flux-target=taloscontrolplane"
   - path: ../shared-patches/controlplane/machine-network-nameservers.yaml
     target:
       group: controlplane.cluster.x-k8s.io
       kind: TalosControlPlane
-      name: changeme
+      labelSelector: "flux-target=taloscontrolplane"
   - path: ../shared-patches/controlplane/machine-nodelabels.yaml
     target:
       group: controlplane.cluster.x-k8s.io
       kind: TalosControlPlane
-      name: changeme
+      labelSelector: "flux-target=taloscontrolplane"
   - path: ../shared-patches/controlplane/machine-pods.yaml
     target:
       group: controlplane.cluster.x-k8s.io
       kind: TalosControlPlane
-      name: changeme
+      labelSelector: "flux-target=taloscontrolplane"
   - path: ../shared-patches/controlplane/machine-time.yaml
     target:
       group: controlplane.cluster.x-k8s.io
       kind: TalosControlPlane
-      name: changeme
+      labelSelector: "flux-target=taloscontrolplane"
   #
   # worker patches
   #
@@ -113,44 +121,44 @@ patches:
     target:
       group: bootstrap.cluster.x-k8s.io
       kind: TalosConfigTemplate
-      name: changeme
+      labelSelector: "flux-target=talosconfigtemplate"
   - path: ../shared-patches/worker/machine-install-disk.yaml
     target:
       group: bootstrap.cluster.x-k8s.io
       kind: TalosConfigTemplate
-      name: changeme
+      labelSelector: "flux-target=talosconfigtemplate"
   - path: ../shared-patches/worker/machine-install-image.yaml
     target:
       group: bootstrap.cluster.x-k8s.io
       kind: TalosConfigTemplate
-      name: changeme
+      labelSelector: "flux-target=talosconfigtemplate"
   - path: ../shared-patches/worker/machine-install-wipe.yaml
     target:
       group: bootstrap.cluster.x-k8s.io
       kind: TalosConfigTemplate
-      name: changeme
+      labelSelector: "flux-target=talosconfigtemplate"
   - path: ../shared-patches/worker/machine-kubelet-extraargs.yaml
     target:
       group: bootstrap.cluster.x-k8s.io
       kind: TalosConfigTemplate
-      name: changeme
+      labelSelector: "flux-target=talosconfigtemplate"
   - path: ../shared-patches/worker/machine-network-extrahostentries.yaml
     target:
       group: bootstrap.cluster.x-k8s.io
       kind: TalosConfigTemplate
-      name: changeme
+      labelSelector: "flux-target=talosconfigtemplate"
   - path: ../shared-patches/worker/machine-network-nameservers.yaml
     target:
       group: bootstrap.cluster.x-k8s.io
       kind: TalosConfigTemplate
-      name: changeme
+      labelSelector: "flux-target=talosconfigtemplate"
   - path: ../shared-patches/worker/machine-nodelabels.yaml
     target:
       group: bootstrap.cluster.x-k8s.io
       kind: TalosConfigTemplate
-      name: changeme
+      labelSelector: "flux-target=talosconfigtemplate"
   - path: ../shared-patches/worker/machine-time.yaml
     target:
       group: bootstrap.cluster.x-k8s.io
       kind: TalosConfigTemplate
-      name: changeme
+      labelSelector: "flux-target=talosconfigtemplate"

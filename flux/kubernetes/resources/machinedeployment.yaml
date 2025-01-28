@@ -1,8 +1,8 @@
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachineDeployment
 metadata:
-  name: changeme
-  namespace: default
+  name: ${CLUSTER}-workers
+  namespace: ${CLUSTER_NAMESPACE}
 spec:
   clusterName: ${CLUSTER}
   replicas: ${WORKER_COUNT}
@@ -14,10 +14,10 @@ spec:
         configRef:
           apiVersion: bootstrap.cluster.x-k8s.io/v1alpha3
           kind: TalosConfigTemplate
-          name: changeme
+          name: ${CLUSTER}-workers-${WORKER_TEMPLATE_UNIQUE_HASH}
       clusterName: ${CLUSTER}
       infrastructureRef:
         apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
         kind: ProxmoxMachineTemplate
-        name: changeme
+        name: ${CLUSTER}-workers-${TEMPLATE_UNIQUE_HASH}
       version: ${K8S_VERSION}
