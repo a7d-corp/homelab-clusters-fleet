@@ -1,8 +1,0 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-resources:
-  - server-controlplane-287613cf.yaml
-  - server-controlplane-35b667f9.yaml
-  - server-controlplane-e8325c5c.yaml
-  - server-worker-6904e125.yaml
-  - server-worker-fc25565c.yaml
