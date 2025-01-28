@@ -9,8 +9,8 @@ metadata:
   namespace: cluster-room101-a7d-mc
 spec:
   dependsOn:
-    - name: 02-shared-cluster-prereqs
-      namespace: cluster-room101-a7d-mc
+      name: 02-shared-cluster-prereqs
+      namespace: flux-system
   interval: 1h
   retryInterval: 1m
   timeout: 5m
