@@ -27,6 +27,11 @@ spec:
     secretRef:
       name: room101-a7d-mc-kubeconfig
   suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
 ---
 #
 # install cloud controller manager in remote cluster
@@ -66,6 +71,11 @@ spec:
 #      name: talos-cloud-controller-manager
 #      namespace: kube-system
   suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
   patches:
     #
     # kubelet-csr-approver
@@ -234,6 +244,11 @@ spec:
     secretRef:
       name: room101-a7d-mc-kubeconfig
   suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
 ---
 #
 # install flux in remote cluster
@@ -266,6 +281,11 @@ spec:
     secretRef:
       name: room101-a7d-mc-kubeconfig
   suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
 ---
 #
 # create gitrepo in remote cluster
@@ -296,6 +316,11 @@ spec:
     secretRef:
       name: room101-a7d-mc-kubeconfig
   suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
   patches:
     - patch: |
         - op: replace
@@ -352,6 +377,11 @@ spec:
       name: kyverno-admission-controller
       namespace: kube-system
   suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
   patches:
     # install helmrepo/helmrelease in the cluster namespace when bootstrapping
     - patch: |
@@ -439,3 +469,8 @@ spec:
     secretRef:
       name: room101-a7d-mc-kubeconfig
   suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false

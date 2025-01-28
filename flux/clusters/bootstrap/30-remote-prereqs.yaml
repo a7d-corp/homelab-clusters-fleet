@@ -22,6 +22,11 @@ spec:
     secretRef:
       name: sops-age
   suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
   kubeConfig:
     secretRef:
       name: room101-a7d-mc-kubeconfig

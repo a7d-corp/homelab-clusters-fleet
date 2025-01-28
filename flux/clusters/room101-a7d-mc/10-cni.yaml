@@ -18,6 +18,11 @@ spec:
   prune: true
   wait: true
   suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
 ---
 #
 # install CNI
@@ -70,6 +75,11 @@ spec:
         kind: HelmRelease
         name: cilium
   suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
 ---
 #
 # apply CNI configs (BGP etc)

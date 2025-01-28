@@ -77,6 +77,11 @@ spec:
     secretRef:
       name: sops-age
   suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
   patches:
     - patch: |
         - op: replace
@@ -125,6 +130,11 @@ spec:
     secretRef:
       name: sops-age
   suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
 ---
 #
 # install cloud controller manager
@@ -152,3 +162,8 @@ spec:
     secretRef:
       name: sops-age
   suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: falses

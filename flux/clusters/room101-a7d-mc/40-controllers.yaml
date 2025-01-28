@@ -24,12 +24,12 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  suspend: false
   postBuild:
     substituteFrom:
       - kind: ConfigMap
         name: cluster-vars
         optional: false
-  suspend: false
 ---
 #
 # install CAPI providers
@@ -58,6 +58,11 @@ spec:
     secretRef:
       name: sops-age
   suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
   patches:
     - patch: |
         - op: add

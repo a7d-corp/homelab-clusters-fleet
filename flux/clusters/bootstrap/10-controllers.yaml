@@ -26,6 +26,11 @@ spec:
     secretRef:
       name: sops-age
   suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
 ---
 #
 # create configs which depend on controllers which were installed by the prior kustomization
@@ -63,6 +68,11 @@ spec:
       name: kyverno
       namespace: kyverno-background-controller
   suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
 ---
 #
 # install controllers specifc to that cluster's purpose
@@ -91,6 +101,11 @@ spec:
     secretRef:
       name: sops-age
   suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
 ---
 #
 # install cluster-api providers to be consumed by cluster-api-operator
@@ -119,6 +134,11 @@ spec:
     secretRef:
       name: sops-age
   suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
   patches:
     - patch: |
         - op: add

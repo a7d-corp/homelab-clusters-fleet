@@ -25,12 +25,12 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  suspend: false
   postBuild:
     substituteFrom:
       - kind: ConfigMap
         name: cluster-vars
         optional: false
-  suspend: false
   patches:
     - patch: |
         - op: add
@@ -102,3 +102,8 @@ spec:
       name: kyverno
       namespace: kyverno-background-controller
   suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
