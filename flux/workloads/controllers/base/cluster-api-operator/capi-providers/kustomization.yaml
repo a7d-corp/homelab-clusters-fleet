@@ -5,3 +5,4 @@ resources:
   - controlplane-provider.yaml
   - core-provider.yaml
   - infrastructure-provider.yaml
+  - ipam-provider.yaml
