@@ -19,5 +19,5 @@ spec:
       infrastructureRef:
         apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
         kind: ProxmoxMachineTemplate
-        name: ${CLUSTER}-workers-${TEMPLATE_UNIQUE_HASH}
+        name: ${CLUSTER}-workers-${WORKER_TEMPLATE_UNIQUE_HASH}
       version: ${K8S_VERSION}
