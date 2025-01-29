@@ -7,6 +7,6 @@ metadata:
 spec:
   configSecret:
     name: proxmox-provider-auth
-    namespace: changeme
+    namespace: proxmox-system
   deployment:
     replicas: 1
