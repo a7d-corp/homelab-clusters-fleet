@@ -12,7 +12,7 @@ spec:
       generateType: controlplane
       talosVersion: ${TALOS_VERSION}
   infrastructureTemplate:
-    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
+    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
     kind: ProxmoxMachineTemplate
     name: ${CLUSTER}-cp-${CP_TEMPLATE_UNIQUE_HASH}
   replicas: ${CONTROLPLANE_COUNT}
