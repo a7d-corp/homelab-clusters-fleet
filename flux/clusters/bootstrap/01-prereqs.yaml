@@ -22,11 +22,6 @@ spec:
     secretRef:
       name: sops-age
   suspend: false
-  postBuild:
-    substituteFrom:
-      - kind: ConfigMap
-        name: cluster-vars
-        optional: false
 ---
 #
 # create very early prereqs (shared between bootstrap and MC)
@@ -52,8 +47,3 @@ spec:
     secretRef:
       name: sops-age
   suspend: false
-  postBuild:
-    substituteFrom:
-      - kind: ConfigMap
-        name: cluster-vars
-        optional: false

@@ -22,8 +22,3 @@ spec:
     secretRef:
       name: sops-age
   suspend: true
-  postBuild:
-    substituteFrom:
-      - kind: ConfigMap
-        name: cluster-vars
-        optional: false
