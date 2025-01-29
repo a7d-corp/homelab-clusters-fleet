@@ -28,8 +28,8 @@ spec:
       storage: ${PVE_STORAGE_POOL}
       templateID: ${PVE_TEMPLATE_ID}
       vmIDRange:
-        end: ${CP_VM_ID_RANGE_START}
-        start: ${CP_VM_ID_RANGE_END}
+        end: ${CP_VM_ID_RANGE_END}
+        start: ${CP_VM_ID_RANGE_START}
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
 kind: ProxmoxMachineTemplate
@@ -60,5 +60,5 @@ spec:
       storage: ${PVE_STORAGE_POOL}
       templateID: ${PVE_TEMPLATE_ID}
       vmIDRange:
-        end: ${WORKER_VM_ID_RANGE_START}
-        start: ${WORKER_VM_ID_RANGE_END}
+        end: ${WORKER_VM_ID_RANGE_END}
+        start: ${WORKER_VM_ID_RANGE_START}
