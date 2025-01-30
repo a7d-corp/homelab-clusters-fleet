@@ -24,7 +24,7 @@ data:
   # proxmox vars
   PVE_CLUSTER_NAME: virt-lab
   PVE_TEMPLATE_SOURCE_NODE: stor-01
-  PVE_STORAGE_POOL: local-lvm
+  PVE_STORAGE_POOL: nfs-vm-images
   PVE_TEMPLATE_ID: "901"
 
   # CP SPECs
