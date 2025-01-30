@@ -71,6 +71,6 @@
           hostNetwork: true
           volumes:
           - hostPath:
-              path: /etc/kubernetes/kube-vip.kubeconfig
+              path: /var/kube-vip.kubeconfig
             name: kubeconfig
         status: {}
