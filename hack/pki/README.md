@@ -9,11 +9,18 @@ The following commands can be used to generate client certificates for `kubeconf
 ```
 export CLUSTER=room101-a7d-mc
 BASE_DIR=$(git rev-parse --show-toplevel)
-cd ${BASE_DIR}/kubernetes/clusters/${CLUSTER}
-cat talos-secrets.yaml  | yq .data.bundle -r | base64 -d \
-    | yq .certs.k8s.crt -r | base64 -d > ${BASE_DIR}/hack/pki/tmp/k8s-ca.crt
-cat talos-secrets.yaml  | yq .data.bundle -r | base64 -d \
-    | yq .certs.k8s.key -r | base64 -d > ${BASE_DIR}/hack/pki/tmp/k8s-ca.key
+SECRETS_FILE=${BASE_DIR}/flux/kubernetes/clusters/${CLUSTER}/talos-secrets.yaml
+
+sops -i -d ${SECRETS_FILE}
+
+yq .data.bundle -r $SECRETS_FILE \
+    | base64 -d \
+    | yq .certs.k8s.crt -r \
+    | base64 -d > ${BASE_DIR}/hack/pki/tmp/k8s-ca.crt
+yq .data.bundle -r $SECRETS_FILE \
+    | base64 -d \
+    | yq .certs.k8s.key -r \
+    | base64 -d > ${BASE_DIR}/hack/pki/tmp/k8s-ca.key
 ```
 
 2. Generate kubeconfig client certs:
@@ -44,11 +51,19 @@ envsubst < kubeconfig.template > tmp/$CLUSTER.kubeconfig
 ```
 export CLUSTER=room101-a7d-mc
 BASE_DIR=$(git rev-parse --show-toplevel)
-cd ${BASE_DIR}/kubernetes/clusters/${CLUSTER}
-cat talos-secrets.yaml  | yq .data.bundle -r | base64 -d \
-    | yq .certs.os.crt -r | base64 -d > ${BASE_DIR}/hack/pki/tmp/talos-ca.crt
-cat talos-secrets.yaml  | yq .data.bundle -r | base64 -d \
-    | yq .certs.os.key -r | base64 -d > ${BASE_DIR}/hack/pki/tmp/talos-ca.key
+SECRETS_FILE=${BASE_DIR}/flux/kubernetes/clusters/${CLUSTER}/talos-secrets.yaml
+
+sops -i -d ${SECRETS_FILE}
+
+yq .data.bundle -r $SECRETS_FILE \
+    | base64 -d \
+    | yq .certs.os.crt -r \
+    | base64 -d > ${BASE_DIR}/hack/pki/tmp/talos-ca.crt
+
+yq .data.bundle -r $SECRETS_FILE \
+    | base64 -d \
+    | yq .certs.os.key -r \
+    | base64 -d > ${BASE_DIR}/hack/pki/tmp/talos-ca.key
 ```
 
 2. Generate talosconfig client certs:
