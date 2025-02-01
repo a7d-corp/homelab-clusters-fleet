@@ -46,11 +46,11 @@
             - name: bgp_peeras
               value: "${BGP_PEER_AS}"
             - name: bgp_peers
-              value: ${BGP_PEERS}
+              value: "${BGP_PEERS}"
             - name: address
-              value: ${APISERVER_VIP}
+              value: "${APISERVER_VIP}"
             - name: prometheus_server
-              value: :2112
+              value: ":2112"
             # renovate: kube-vip/kube-vip
             image: ghcr.io/kube-vip/kube-vip:v0.8.9
             imagePullPolicy: IfNotPresent
