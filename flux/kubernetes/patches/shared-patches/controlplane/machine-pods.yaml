@@ -40,12 +40,7 @@
                 fieldRef:
                   fieldPath: status.podIP
             - name: bgp_as
-              value: "${BGP_CLUSTER_AS}"
-            - name: bgp_peeraddress
-            - name: bgp_peerpass
-            - name: bgp_peeras
-              value: "${BGP_PEER_AS}"
-            - name: bgp_peers
+              value: ${quote}${BGP_CLUSTER_AS}${quote}
               value: "${BGP_PEERS}"
             - name: address
               value: "${APISERVER_VIP}"

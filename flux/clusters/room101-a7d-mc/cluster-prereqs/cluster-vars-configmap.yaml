@@ -67,3 +67,6 @@ data:
   # apiserver OIDC config
   DEX_SUBDOMAIN: dex
   DEX_CLIENT_ID: 9aba9b32-e761-4507-8445-cea11a6b15da
+
+  # flux hack (see https://fluxcd.io/flux/components/kustomize/kustomizations/#post-build-substitution-of-numbers-and-booleans)
+  quote: '"' # double quote var
