@@ -24,15 +24,15 @@
                 fieldRef:
                   fieldPath: spec.nodeName
             - name: vip_interface
-              value: lo
+              value: "lo"
             - name: vip_cidr
               value: "32"
             - name: dns_mode
-              value: first
+              value: "first"
             - name: cp_enable
               value: "true"
             - name: cp_namespace
-              value: kube-system
+              value: "kube-system"
             - name: bgp_enable
               value: "true"
             - name: bgp_routerid
