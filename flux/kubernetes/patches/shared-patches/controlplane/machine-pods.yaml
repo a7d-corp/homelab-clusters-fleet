@@ -41,7 +41,8 @@
                   fieldPath: status.podIP
             - name: bgp_as
               value: ${quote}${BGP_CLUSTER_AS}${quote}
-              value: "${BGP_PEERS}"
+            - name: bgp_peers
+              value: "${KUBE_VIP_BGP_PEERS}"
             - name: address
               value: "${APISERVER_VIP}"
             - name: prometheus_server
