@@ -5,5 +5,6 @@ resources:
   - cluster-vars-secret.yaml
   - namespace-cluster-room101-a7d-mc.yaml
   - namespace-flux-system.yaml
+  - namespace-proxmox-system.yaml
   - secret-proxmox-provider-auth.yaml
   - sops-age-secret.yaml
