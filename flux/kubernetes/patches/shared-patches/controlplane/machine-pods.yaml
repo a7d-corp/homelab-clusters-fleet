@@ -57,7 +57,7 @@
                 - NET_ADMIN
                 - NET_RAW
             volumeMounts:
-            - mountPath: /etc/kubernetes/kube-vip.kubeconfig
+            - mountPath: /etc/kubernetes/admin.conf
               name: kubeconfig
           hostAliases:
           - hostnames:
