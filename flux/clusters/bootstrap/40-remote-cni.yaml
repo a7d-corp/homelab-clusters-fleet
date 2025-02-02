@@ -17,7 +17,7 @@ spec:
   path: ./flux/workloads/cni/prereqs
   prune: true
   wait: true
-  suspend: true
+  suspend: false
   postBuild:
     substituteFrom:
       - kind: ConfigMap
@@ -53,7 +53,7 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  suspend: true
+  suspend: false
   postBuild:
     substituteFrom:
       - kind: ConfigMap
