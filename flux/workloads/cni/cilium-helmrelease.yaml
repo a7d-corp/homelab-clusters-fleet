@@ -45,5 +45,6 @@ spec:
       autoMount:
         enabled: false
       hostRoot: "/sys/fs/cgroup"
-    k8sServiceHost: "${KUBERNETES_API_SERVER_ADDRESS}"
-    k8sServicePort: 6443
+    # use kubeprism to access API server in-cluster
+    k8sServiceHost: 127.0.0.1
+    k8sServicePort: 7445
