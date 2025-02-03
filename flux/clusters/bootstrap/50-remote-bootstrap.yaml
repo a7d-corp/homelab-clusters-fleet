@@ -240,7 +240,7 @@ spec:
   kubeConfig:
     secretRef:
       name: room101-a7d-mc-kubeconfig
-  suspend: true
+  suspend: false
   postBuild:
     substituteFrom:
       - kind: ConfigMap
@@ -277,7 +277,7 @@ spec:
   kubeConfig:
     secretRef:
       name: room101-a7d-mc-kubeconfig
-  suspend: true
+  suspend: false
   postBuild:
     substituteFrom:
       - kind: ConfigMap
@@ -312,7 +312,7 @@ spec:
   kubeConfig:
     secretRef:
       name: room101-a7d-mc-kubeconfig
-  suspend: true
+  suspend: false
   postBuild:
     substituteFrom:
       - kind: ConfigMap
@@ -322,7 +322,7 @@ spec:
     - patch: |
         - op: replace
           path: /spec/ref/branch
-          value: main
+          value: use-capmox
         - op: replace
           path: /spec/secretRef/name
           value: flux-github-auth
@@ -373,7 +373,7 @@ spec:
       kind: Deployment
       name: kyverno-admission-controller
       namespace: kube-system
-  suspend: true
+  suspend: false
   postBuild:
     substituteFrom:
       - kind: ConfigMap
@@ -465,7 +465,7 @@ spec:
   kubeConfig:
     secretRef:
       name: room101-a7d-mc-kubeconfig
-  suspend: true
+  suspend: false
   postBuild:
     substituteFrom:
       - kind: ConfigMap
