@@ -58,9 +58,6 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  kubeConfig:
-    secretRef:
-      name: room101-a7d-mc-kubeconfig
 #  healthChecks:
 #    - apiVersion: apps/v1
 #      kind: Deployment
