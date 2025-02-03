@@ -16,7 +16,7 @@ spec:
       format: raw
       memoryMiB: ${CP_MEMORY}
       metadataSettings:
-        providerIDInjection: false
+        providerIDInjection: true
       network:
         default:
           bridge: vmbr0
@@ -48,7 +48,7 @@ spec:
       format: raw
       memoryMiB: ${WORKER_MEMORY}
       metadataSettings:
-        providerIDInjection: false
+        providerIDInjection: true
       network:
         default:
           bridge: vmbr0
