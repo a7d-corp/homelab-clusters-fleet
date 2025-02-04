@@ -20,7 +20,7 @@ spec:
   values:
     config:
       features:
-        provider: 'proxmox' # enable capmox integration
+        provider: capmox # enable capmox integration
     enabledControllers:
       - cloud-node
       - cloud-node-lifecycle
