@@ -20,7 +20,7 @@ spec:
   values:
     bypassDnsResolution: true
     bypassHostnameCheck: true
-    providerRegex: '^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$'
+    providerRegex: '^room101-[a-z0-9]+-mc-(workers|cp)-[a-z0-9]+-[a-z0-9]+$'
     tolerations:
       - effect: NoSchedule
         key: node-role.kubernetes.io/control-plane
