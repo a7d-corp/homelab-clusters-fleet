@@ -4,5 +4,4 @@
     op: add
     path: /machine/nodeLabels
     value:
-      topology.kubernetes.io/region: ${PVE_CLUSTER_NAME}
       k8s.a7d.dev/serverclass: controlplane
