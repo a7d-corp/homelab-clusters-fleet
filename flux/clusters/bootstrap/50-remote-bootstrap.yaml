@@ -126,6 +126,13 @@ spec:
       target:
         kind: HelmRelease
         name: kubelet-csr-approver
+    - patch: |
+        - op: add
+          path: /spec/values/providerRegex
+          value: "^room101-[a-z0-9]+-mc-(workers|cp)-[a-z0-9]+-[a-z0-9]+$"
+      target:
+        kind: HelmRelease
+        name: kubelet-csr-approver
     #
     # proxmox-cloud-controller-manager
     #
