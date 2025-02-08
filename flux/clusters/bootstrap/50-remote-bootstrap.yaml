@@ -329,7 +329,7 @@ spec:
     - patch: |
         - op: replace
           path: /spec/ref/branch
-          value: use-capmox
+          value: main
         - op: replace
           path: /spec/secretRef/name
           value: flux-github-auth
