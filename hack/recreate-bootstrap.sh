@@ -1,7 +1,13 @@
 #!/bin/bash
 
 REPO_BASE="$(git rev-parse --show-toplevel)"
-source "${REPO_BASE}/hack/_credentials.sh"
+
+if [ ! -f "${REPO_BASE}/hack/_credentials.sh" ]; then
+  echo "Could not find _credentials.sh, exiting"
+  exit 1
+else
+  source "${REPO_BASE}/hack/_credentials.sh"
+fi
 
 parse_args () {
   args=$@
@@ -29,32 +35,20 @@ parse_args () {
         redeploy_mc
         exit 0
         ;;
-      --dns)
-        reset_dns
-        exit 0
-        ;;
-      --check-dns)
-        check_dns
+      -k|--kill-cluster)
+        kill_cluster
         exit 0
         ;;
       -f|--flux)
         bootstrap_flux
         exit 0
         ;;
-      -d|--deploy)
+      -d|--deploy-mc)
         deploy_mc
         exit 0
         ;;
       -s|--scale-down)
         disable_bootstrap_cluster
-        exit 0
-        ;;
-      -q|--qemu)
-        destroy_qemu
-        exit 0
-        ;;
-      --redeploy-qemu)
-        redeploy_qemu
         exit 0
         ;;
     esac
@@ -75,9 +69,7 @@ full_auto() {
     fi
 
     recreate_cluster
-    reset_dns
     bootstrap_flux
-    wait_on_machines
     deploy_mc
 }
 
@@ -88,51 +80,41 @@ redeploy_mc() {
     # stop flux reconciling gitrepo
     ${_flux} suspend ks flux-system -n flux-system
 
-    # suspend cluster kustomization
-    ${_flux} suspend ks 21-talos-cluster-config -n cluster-room101-a7d-mc
-
-    # suspend proxmox machine kustomization
-    ${_flux} suspend ks 20-talos-machine-config -n cluster-room101-a7d-mc
+    # suspend capi resources kustomization
+    ${_flux} suspend ks 20-talos-cluster-resources -n cluster-room101-a7d-mc
 
     # delete cluster
     ${_kubectl} delete cluster room101-a7d-mc -n cluster-room101-a7d-mc
 
-    # delete all qemu machines
-    for qemu in $(${_kubectl} get qemu -o custom-columns=NAME:.metadata.name --no-headers=true); do ${_kubectl} delete qemu $qemu ; done
+    # wait for cluster to be deleted
+    ${_kubectl} wait --for=delete cluster/room101-a7d-mc --timeout=300s
 
-    # scale proxmox operator down
-    ${_kubectl} scale deploy proxmox-operator -n proxmox-operator --replicas=0
-
-    # delete all servers
-    for server in $(${_kubectl} get server -o custom-columns=NAME:.metadata.name --no-headers=true); do ${_kubectl} delete server $server ; done
-
-    # recreate proxmox machines
-    ${_flux} resume ks 20-talos-machine-config -n cluster-room101-a7d-mc
-
-    # scale proxmox operator up
-    ${_kubectl} scale deploy proxmox-operator -n proxmox-operator --replicas=1
-
-    until [ `${_kubectl} get server --no-headers=true | wc -l` == 3 ]; do
-        log_info "waiting for all servers to be created"
-        sleep 10
-    done
-
-    log_info "waiting for servers to be powered on"
-
-    ${_kubectl} wait --for=jsonpath='{.status.power}'=on server 203e63cb-a8aa-4bf8-a5b6-333090507777 --timeout=600s
-    ${_kubectl} wait --for=jsonpath='{.status.power}'=on server 461b9ad1-3ff0-4bef-8e1e-0dbfc1d8fa43 --timeout=600s
-    ${_kubectl} wait --for=jsonpath='{.status.power}'=on server 498eeb6c-76dd-4fb1-9bc4-bb940e8803ff --timeout=600s
-
-    log_info "all servers powered on"
-
-    # recreate cluster resources
-    ${_flux} resume ks 21-talos-cluster-config -n cluster-room101-a7d-mc
+    # resume capi resources kustomization
+    ${_flux} resume ks 20-talos-cluster-resources -n cluster-room101-a7d-mc
 
     # resume flux reconciling gitrepo
     ${_flux} resume ks flux-system -n flux-system
 }
 
+kill_cluster() {
+    export _kubectl="kubectl --kubeconfig=$(git rev-parse --show-toplevel)/tmp/bootstrap.kubeconfig"
+    export _flux="flux --kubeconfig=$(git rev-parse --show-toplevel)/tmp/bootstrap.kubeconfig"
+
+    # stop flux reconciling gitrepo
+    ${_flux} suspend ks flux-system -n flux-system
+
+    # suspend capi resources kustomization
+    ${_flux} suspend ks 20-talos-cluster-resources -n cluster-room101-a7d-mc
+
+    # delete cluster
+    ${_kubectl} delete cluster room101-a7d-mc -n cluster-room101-a7d-mc
+
+    # wait for cluster to be deleted
+    ${_kubectl} wait --for=delete cluster/room101-a7d-mc --timeout=300s
+}
+
 recreate_cluster() {
+    set -x
     export _kubectl="kubectl --kubeconfig=$(git rev-parse --show-toplevel)/tmp/bootstrap.kubeconfig"
     export _flux="flux --kubeconfig=$(git rev-parse --show-toplevel)/tmp/bootstrap.kubeconfig"
 
@@ -143,10 +125,6 @@ recreate_cluster() {
         POD_COUNT=$(kubectl get po -A -o custom-columns=NAME:.metadata.name --no-headers=true | wc -l)
     fi
     if [ "$POD_COUNT" -gt "11" ] ; then
-#        ssh 172.25.100.2 \
-#         "kind delete cluster --name mc-bootstrap \
-#         ; kind create cluster --config ~/kind.yaml --kubeconfig ~/kind.kubeconfig"
-
         ssh 172.25.100.2 \
         "talosctl cluster destroy --name sidero-bootstrap \
         ; rm ~/.talos/config \
@@ -167,15 +145,17 @@ recreate_cluster() {
         talosctl kubeconfig $(git rev-parse --show-toplevel)/tmp/bootstrap.kubeconfig --force --talosconfig ~/.talos/config
         sed -i 's/https.*/https:\/\/172.25.100.2:6443/g' $(git rev-parse --show-toplevel)/tmp/bootstrap.kubeconfig
 
-#        ssh 172.25.100.2 'cat ~/kind.kubeconfig' > $(git rev-parse --show-toplevel)/tmp/bootstrap.kubeconfig
-
-        sed -zi 's/suspend: false/suspend: true/2' $(git rev-parse --show-toplevel)/clusters/bootstrap/20-talos-cluster.yaml \
-            && git add $(git rev-parse --show-toplevel)/clusters/bootstrap/20-talos-cluster.yaml \
+        sed -zi 's/suspend: false/suspend: true/2' $(git rev-parse --show-toplevel)/flux/clusters/bootstrap/20-talos-cluster.yaml \
+            && git add $(git rev-parse --show-toplevel)/flux/clusters/bootstrap/20-talos-cluster.yaml \
             && git commit -m "suspend reconciliation of bootstrap cluster Talos resources" \
             && git push
 
+        # get root vault token from Bitwarden
+        export VAULT_TOKEN=$(rbw get "Vault token")
+
         ${_kubectl} create ns cluster-room101-a7d-mc
         ${_kubectl} create ns flux-system
+        ${_kubectl} create ns proxmox-system
         vault kv get -mount=cluster-room101-a7d-mc -field=data sops-age \
             | base64 -d | ${_kubectl} apply -n flux-system -f -
         vault kv get -mount=cluster-room101-a7d-mc -field=data sops-age \
@@ -189,75 +169,18 @@ recreate_cluster() {
     fi
 }
 
-reset_dns() {
-    CURRENT_RECORD=$(dig a k8s.room101-a7d-mc.lab.a7d.dev +short @1.1.1.1)
-
-    if [ "${CURRENT_RECORD}" != "172.25.100.3" ]; then
-        log_info "resetting DNS record for MC API"
-        RECORD_ID=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${CLOUDFLARE_ZONE}/dns_records" \
-            --header 'Content-Type: application/json' \
-            -H "X-Auth-Email: ${CLOUDFLARE_EMAIL}" \
-            -H "X-Auth-Key: ${CLOUDFLARE_TOKEN}" \
-            -H "Content-Type: application/json" \
-            | jq -r '.result[] | select((.name=="k8s.room101-a7d-mc.lab.a7d.dev") and (.type=="A"))'.id)
-
-        curl -X PATCH "https://api.cloudflare.com/client/v4/zones/${CLOUDFLARE_ZONE}/dns_records/${RECORD_ID}" \
-        --header 'Content-Type: application/json' \
-            -H "X-Auth-Email: ${CLOUDFLARE_EMAIL}" \
-            -H "X-Auth-Key: ${CLOUDFLARE_TOKEN}" \
-            -H "Content-Type: application/json" \
-            --data '{"type":"A","name":"k8s.room101-a7d-mc.lab","content":"172.25.100.3","ttl":60,"proxied":false}'
-
-        until [ `dig a k8s.room101-a7d-mc.lab.a7d.dev +short @1.1.1.1` == "172.25.100.3" ]; do
-            log_info "waiting for DNS record to update"
-            sleep 10
-        done
-    else
-        log_info "DNS record for MC API is already correct"
-    fi
-}
-
-check_dns() {
-    CURRENT_RECORD=$(dig a k8s.room101-a7d-mc.lab.a7d.dev +short @1.1.1.1)
-
-    log_info "Current DNS record for MC API is ${CURRENT_RECORD}"
-}
-
 bootstrap_flux() {
     export _flux="flux --kubeconfig=$(git rev-parse --show-toplevel)/tmp/bootstrap.kubeconfig"
 
     ${_flux} bootstrap github --owner a7d-corp --repository homelab-clusters-fleet \
-    	--branch main --path clusters/bootstrap --secret-name flux-system
-}
-
-wait_on_machines() {
-    export _kubectl="kubectl --kubeconfig=$(git rev-parse --show-toplevel)/tmp/bootstrap.kubeconfig"
-
-    until ${_kubectl} get server; do
-        log_info "waiting for server CRD to be created"
-        sleep 10
-    done
-
-    until [ `${_kubectl} get server --no-headers=true | wc -l` == 3 ]; do
-        log_info "waiting for all servers to be created"
-        sleep 10
-    done
-
-    log_info "waiting for servers to be powered on"
-
-    ${_kubectl} wait --for=jsonpath='{.status.power}'=on server 203e63cb-a8aa-4bf8-a5b6-333090507777 --timeout=600s
-    ${_kubectl} wait --for=jsonpath='{.status.power}'=on server 461b9ad1-3ff0-4bef-8e1e-0dbfc1d8fa43 --timeout=600s
-    ${_kubectl} wait --for=jsonpath='{.status.power}'=on server 498eeb6c-76dd-4fb1-9bc4-bb940e8803ff --timeout=600s
+        --branch main --path flux/clusters/bootstrap --secret-name flux-system
 }
 
 deploy_mc() {
-    log_info "Resetting MC API DNS record"
-    reset_dns
-
     log_info "Deploying MC cluster resources"
     cd $(git rev-parse --show-toplevel)
-    sed -i 's/suspend: true/suspend: false/g' clusters/bootstrap/20-talos-cluster.yaml && \
-        git add clusters/bootstrap/20-talos-cluster.yaml && \
+    sed -i 's/suspend: true/suspend: false/g' flux/clusters/bootstrap/20-talos-cluster.yaml && \
+        git add flux/clusters/bootstrap/20-talos-cluster.yaml && \
         git commit -m "resume reconciliation of bootstrap cluster Talos resources" && \
         git push
 }
@@ -269,46 +192,20 @@ disable_bootstrap_cluster() {
         ${_kubectl} scale deploy $deploy -n flux-system --replicas=0
     done
 
-    ${_kubectl} scale deploy proxmox-operator -n proxmox-operator --replicas=0
-}
-
-destroy_qemu() {
-    export _kubectl="kubectl --kubeconfig=$(git rev-parse --show-toplevel)/tmp/bootstrap.kubeconfig"
-    export _flux="flux --kubeconfig=$(git rev-parse --show-toplevel)/tmp/bootstrap.kubeconfig"
-
-    # stop flux reconciling gitrepo
-    ${_flux} suspend ks flux-system -n flux-system
-
-    ${_flux} suspend ks 20-talos-machine-config -n cluster-room101-a7d-mc
-    for qemu in $(${_kubectl} get qemu -o custom-columns=NAME:.metadata.name --no-headers=true); do ${_kubectl} delete qemu $qemu ; done
-}
-
-redeploy_qemu() {
-    export _flux="flux --kubeconfig=$(git rev-parse --show-toplevel)/tmp/bootstrap.kubeconfig"
-
-    # stop flux reconciling gitrepo
-    ${_flux} resume ks flux-system -n flux-system
-
-    ${_flux} resume ks 20-talos-machine-config -n cluster-room101-a7d-mc
+    ${_kubectl} scale deploy capmox-controller-manager -n proxmox-system --replicas 0
 }
 
 show_help() {
     echo "Creation flags:
 
 -a | --auto             Do all the things
+-k | --kill-cluster     Destroy MC cluster resources
    | --redeploy-mc      Recreate MC cluster resources
 
 -r | --recreate         Recreate bootstrap cluster
-   | --dns              Reset DNS record for MC API
-   | --check-dns        Get current DNS record for MC API
--f | --flux             Bootstrap flux into recreated cluster
--d | --deploy           Deploy MC Cluster resources
--s | --scale-down       Scale down bootstrap controllers (flux, proxmox)
-
-Machine lifecycle flags:
-
--q | --qemu             Delete QEMU machines
-   | --redeploy-qemu    Redeploy QEMU machines"
+-f | --flux             Deploy flux into bootstrap cluster
+-d | --deploy-mc        Deploy MC Cluster resources
+-s | --scale-down       Scale down bootstrap cluster controllers (flux, capmox)"
 }
 
 log_info() {
