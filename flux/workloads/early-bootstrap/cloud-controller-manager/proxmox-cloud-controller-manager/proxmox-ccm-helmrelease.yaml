@@ -1,0 +1,28 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: proxmox-cloud-controller-manager
+  namespace: kube-system
+spec:
+  releaseName: proxmox-cloud-controller-manager
+  chart:
+    spec:
+      chart: proxmox-cloud-controller-manager
+      sourceRef:
+        kind: HelmRepository
+        name: proxmox-cloud-controller-manager
+        namespace: kube-system
+      version: "0.2.11"
+  interval: 60m
+  install:
+    remediation:
+      retries: 3
+  values:
+    enabledControllers:
+      - cloud-node
+      - cloud-node-lifecycle
+    existingConfigSecret: "proxmox-cloud-controller-manager-auth"
+    hostAliases:
+      - ip: 172.27.0.1
+        hostnames:
+          - proxmox.virt.lab.analbeard.com

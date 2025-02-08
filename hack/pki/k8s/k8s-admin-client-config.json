@@ -1,0 +1,10 @@
+{
+  "signing": {
+    "profiles": {
+      "k8s-admin-client": {
+        "usages": ["client auth"],
+        "expiry": "8760h"
+      }
+    }
+  }
+}

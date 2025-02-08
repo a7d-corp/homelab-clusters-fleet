@@ -1,0 +1,6 @@
+- op: add
+  path: /spec/template/spec/configPatches/0
+  value:
+    op: replace
+    path: /machine/install/image
+    value: factory.talos.dev/installer/${FACTORY_SCHEMATIC_ID}:${TALOS_VERSION}

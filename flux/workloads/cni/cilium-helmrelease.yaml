@@ -1,0 +1,50 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cilium
+  namespace: cilium
+spec:
+  releaseName: cilium
+  chart:
+    spec:
+      chart: cilium
+      sourceRef:
+        kind: HelmRepository
+        name: cilium
+      version: "1.15.7"
+  interval: 10m0s
+  values:
+    bgpControlPlane:
+      enabled: true
+    cni:
+      uninstall: false
+    containerRuntime:
+      integration: auto
+    ipam:
+      mode: kubernetes
+    kubeProxyReplacement: true
+    securityContext:
+      capabilities:
+        ciliumAgent:
+          - CHOWN
+          - KILL
+          - NET_ADMIN
+          - NET_RAW
+          - IPC_LOCK
+          - SYS_ADMIN
+          - SYS_RESOURCE
+          - DAC_OVERRIDE
+          - FOWNER
+          - SETGID
+          - SETUID
+        cleanCiliumState:
+          - NET_ADMIN
+          - SYS_ADMIN
+          - SYS_RESOURCE
+    cgroup:
+      autoMount:
+        enabled: false
+      hostRoot: "/sys/fs/cgroup"
+    # use kubeprism to access API server in-cluster
+    k8sServiceHost: 127.0.0.1
+    k8sServicePort: 7445

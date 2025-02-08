@@ -1,0 +1,13 @@
+apiVersion: bootstrap.cluster.x-k8s.io/v1alpha3
+kind: TalosConfigTemplate
+metadata:
+  name: ${CLUSTER}-workers-${WORKER_TEMPLATE_UNIQUE_HASH}
+  namespace: ${CLUSTER_NAMESPACE}
+  labels:
+    flux-target: talosconfigtemplate
+spec:
+  template:
+    spec:
+      configPatches: []
+      generateType: join
+      talosVersion: ${TALOS_VERSION}

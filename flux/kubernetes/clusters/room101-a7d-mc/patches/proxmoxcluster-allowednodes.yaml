@@ -1,0 +1,3 @@
+- op: add
+  path: /spec/allowedNodes
+  value: [host-01, host-02, host-03]

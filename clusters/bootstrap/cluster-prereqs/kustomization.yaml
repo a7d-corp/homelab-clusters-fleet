@@ -1,6 +1,0 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-resources:
-  - cluster-vars-configmap.yaml 
-  - namespace.yaml
-  - room101-a7d-mc-kubeconfig.yaml

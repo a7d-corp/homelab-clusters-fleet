@@ -1,0 +1,64 @@
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+kind: ProxmoxMachineTemplate
+metadata:
+  name: ${CLUSTER}-cp-${CP_TEMPLATE_UNIQUE_HASH}
+  namespace: ${CLUSTER_NAMESPACE}
+spec:
+  template:
+    spec:
+      checks:
+        skipCloudInitStatus: true
+      disks:
+        bootVolume:
+          disk: scsi0 # CHECK
+          sizeGb: ${CP_DISK_SIZE}
+      format: raw
+      memoryMiB: ${CP_MEMORY}
+      metadataSettings:
+        providerIDInjection: true
+      network:
+        default:
+          bridge: vmbr0
+          vlan: ${CLUSTER_NODE_NET_VLAN}
+      numCores: ${CP_NUM_CORES}
+      numSockets: ${CP_NUM_SOCKETS}
+      pool: ${CLUSTER}
+      sourceNode: ${PVE_TEMPLATE_SOURCE_NODE}
+      storage: ${PVE_STORAGE_POOL}
+      templateID: ${PVE_TEMPLATE_ID}
+      vmIDRange:
+        end: ${CP_VM_ID_RANGE_END}
+        start: ${CP_VM_ID_RANGE_START}
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+kind: ProxmoxMachineTemplate
+metadata:
+  name: ${CLUSTER}-workers-${WORKER_TEMPLATE_UNIQUE_HASH}
+  namespace: ${CLUSTER_NAMESPACE}
+spec:
+  template:
+    spec:
+      checks:
+        skipCloudInitStatus: true
+      disks:
+        bootVolume:
+          disk: scsi0 # CHECK
+          sizeGb: ${WORKER_DISK_SIZE}
+      format: raw
+      memoryMiB: ${WORKER_MEMORY}
+      metadataSettings:
+        providerIDInjection: true
+      network:
+        default:
+          bridge: vmbr0
+          vlan: ${CLUSTER_NODE_NET_VLAN}
+      numCores: ${WORKER_NUM_CORES}
+      numSockets: ${WORKER_NUM_SOCKETS}
+      pool: ${CLUSTER}
+      sourceNode: ${PVE_TEMPLATE_SOURCE_NODE}
+      storage: ${PVE_STORAGE_POOL}
+      templateID: ${PVE_TEMPLATE_ID}
+      vmIDRange:
+        end: ${WORKER_VM_ID_RANGE_END}
+        start: ${WORKER_VM_ID_RANGE_START}

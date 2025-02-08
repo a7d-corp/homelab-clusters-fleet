@@ -1,0 +1,177 @@
+---
+#
+# install common addons e.g. cert-manager, nginx, kyverno
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 10-addons
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: 02-shared-cluster-prereqs
+      namespace: flux-system
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/workloads/addons/cluster-type/bootstrap-cluster
+  prune: true
+  wait: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
+---
+#
+# create configs which depend on controllers which were installed by the prior kustomization
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 11-addons-post-install
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: 10-addons
+      namespace: cluster-room101-a7d-mc
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/workloads/addons/config/post
+  prune: true
+  wait: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: kyverno
+      namespace: kyverno-admission-controller
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: kyverno
+      namespace: kyverno-background-controller
+  suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
+---
+#
+# install controllers specifc to that cluster's purpose
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 12-controllers
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: 11-addons-post-install
+      namespace: cluster-room101-a7d-mc
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/workloads/controllers/cluster-role/bootstrap-cluster
+  prune: true
+  wait: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
+---
+#
+# install cluster-api providers to be consumed by cluster-api-operator
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 13-controllers-capi-providers
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: 12-controllers
+      namespace: cluster-room101-a7d-mc
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/workloads/controllers/base/cluster-api-operator/capi-providers
+  prune: true
+  wait: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
+  patches:
+    - patch: |
+        - op: add
+          path: /spec
+          value:
+            # renovate: siderolabs/cluster-api-bootstrap-provider-talos
+            version: v0.6.6
+      target:
+        kind: BootstrapProvider
+        name: talos # https://github.com/siderolabs/cluster-api-bootstrap-provider-talos
+    - patch: |
+        - op: add
+          path: /spec
+          value:
+            # renovate: siderolabs/cluster-api-control-plane-provider-talos
+            version: v0.5.7
+      target:
+        kind: ControlPlaneProvider
+        name: talos # https://github.com/siderolabs/cluster-api-control-plane-provider-talos
+    - patch: |
+        - op: add
+          path: /spec
+          value:
+            # renovate: kubernetes-sigs/cluster-api
+            version: v1.8.3
+      target:
+        kind: CoreProvider
+        name: cluster-api # https://github.com/kubernetes-sigs/cluster-api
+    - patch: |
+        - op: add
+          path: /spec/version
+          # renovate: ionos-cloud/cluster-api-provider-proxmox
+          value: v0.6.2
+      target:
+        kind: InfrastructureProvider
+        name: proxmox # https://github.com/ionos-cloud/cluster-api-provider-proxmox

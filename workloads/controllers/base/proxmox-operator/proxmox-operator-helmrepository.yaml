@@ -1,8 +1,0 @@
-kind: HelmRepository
-apiVersion: source.toolkit.fluxcd.io/v1
-metadata:
-  name: proxmox-operator
-  namespace: proxmox-operator
-spec:
-  interval: 1m0s
-  url: https://crash-tech.github.io/charts/

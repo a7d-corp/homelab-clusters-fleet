@@ -1,0 +1,477 @@
+#
+# create prereqs for cloud controller manager in remote cluster
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 50-remote-ccm-configs
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: 41-remote-cni
+      namespace: cluster-room101-a7d-mc
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/workloads/early-bootstrap/cloud-controller-manager/configs
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  kubeConfig:
+    secretRef:
+      name: room101-a7d-mc-kubeconfig
+  suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
+---
+#
+# install cloud controller manager in remote cluster
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 51-remote-ccm
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: 50-remote-ccm-configs
+      namespace: cluster-room101-a7d-mc
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/workloads/early-bootstrap/cloud-controller-manager
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+#  healthChecks:
+#    - apiVersion: apps/v1
+#      kind: Deployment
+#      name: proxmox-cloud-controller-manager
+#      namespace: kube-system
+#    - apiVersion: apps/v1
+#      kind: Deployment
+#      name: talos-cloud-controller-manager
+#      namespace: kube-system
+  suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
+  patches:
+    #
+    # kubelet-csr-approver
+    #
+    ## install helmrepo/helmrelease in the cluster namespace when bootstrapping
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: HelmRepository
+        name: kubelet-csr-approver
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: HelmRelease
+        name: kubelet-csr-approver
+    # install helmrelease in the correct remote namespace
+    - patch: |
+        - op: replace
+          path: /spec/targetNamespace
+          value: kube-system
+      target:
+        kind: HelmRelease
+        name: kubelet-csr-approver
+    # consume helmrepo from cluster namespace
+    - patch: |
+        - op: replace
+          path: /spec/chart/spec/sourceRef/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: HelmRelease
+        name: kubelet-csr-approver
+    # ensure helmrelease is reconciled locally against remote MC
+    - patch: |
+        - op: add
+          path: /spec/kubeConfig
+          value:
+            secretRef:
+              name: room101-a7d-mc-kubeconfig
+      target:
+        kind: HelmRelease
+        name: kubelet-csr-approver
+    - patch: |
+        - op: add
+          path: /spec/values/providerIpPrefixes
+          value:
+            - 172.25.100.0/27
+      target:
+        kind: HelmRelease
+        name: kubelet-csr-approver
+    - patch: |
+        - op: add
+          path: /spec/values/providerRegex
+          value: "^room101-[a-z0-9]+-mc-(workers|cp)-[a-z0-9]+-[a-z0-9]+$"
+      target:
+        kind: HelmRelease
+        name: kubelet-csr-approver
+    #
+    # proxmox-cloud-controller-manager
+    #
+    # install helmrepo/helmrelease in the cluster namespace when bootstrapping
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: HelmRepository
+        name: proxmox-cloud-controller-manager
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: HelmRelease
+        name: proxmox-cloud-controller-manager
+    # install helmrelease in the correct remote namespace
+    - patch: |
+        - op: replace
+          path: /spec/targetNamespace
+          value: kube-system
+      target:
+        kind: HelmRelease
+        name: proxmox-cloud-controller-manager
+    # consume helmrepo from cluster namespace
+    - patch: |
+        - op: replace
+          path: /spec/chart/spec/sourceRef/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: HelmRelease
+        name: proxmox-cloud-controller-manager
+    # ensure helmrelease is reconciled locally against remote MC
+    - patch: |
+        - op: add
+          path: /spec/kubeConfig
+          value:
+            secretRef:
+              name: room101-a7d-mc-kubeconfig
+      target:
+        kind: HelmRelease
+        name: proxmox-cloud-controller-manager
+    # install helmrepo/helmrelease in the cluster namespace when bootstrapping
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: HelmRepository
+        name: talos-cloud-controller-manager
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: HelmRelease
+        name: talos-cloud-controller-manager
+    # install helmrelease in the correct remote namespace
+    - patch: |
+        - op: replace
+          path: /spec/targetNamespace
+          value: kube-system
+      target:
+        kind: HelmRelease
+        name: talos-cloud-controller-manager
+    # consume helmrepo from cluster namespace
+    - patch: |
+        - op: replace
+          path: /spec/chart/spec/sourceRef/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: HelmRelease
+        name: talos-cloud-controller-manager
+    # ensure helmrelease is reconciled locally against remote MC
+    - patch: |
+        - op: add
+          path: /spec/kubeConfig
+          value:
+            secretRef:
+              name: room101-a7d-mc-kubeconfig
+      target:
+        kind: HelmRelease
+        name: talos-cloud-controller-manager
+---
+#
+# create flux configs in remote cluster
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 52-remote-flux-configs
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: 51-remote-ccm
+      namespace: cluster-room101-a7d-mc
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/clusters/room101-a7d-mc/flux-configs
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  kubeConfig:
+    secretRef:
+      name: room101-a7d-mc-kubeconfig
+  suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
+---
+#
+# install flux in remote cluster
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 53-remote-flux
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: 30-remote-prereqs
+      namespace: cluster-room101-a7d-mc
+    - name: 52-remote-flux-configs
+      namespace: cluster-room101-a7d-mc
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/workloads/early-bootstrap/flux
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  kubeConfig:
+    secretRef:
+      name: room101-a7d-mc-kubeconfig
+  suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
+---
+#
+# create gitrepo in remote cluster
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 54-remote-flux-gitrepo
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: 53-remote-flux
+      namespace: cluster-room101-a7d-mc
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/workloads/early-bootstrap/flux/gitrepo
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  kubeConfig:
+    secretRef:
+      name: room101-a7d-mc-kubeconfig
+  suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
+  patches:
+    - patch: |
+        - op: replace
+          path: /spec/ref/branch
+          value: main
+        - op: replace
+          path: /spec/secretRef/name
+          value: flux-github-auth
+        - op: replace
+          path: /spec/url
+          value: ssh://git@github.com/a7d-corp/homelab-clusters-fleet
+      target:
+        kind: GitRepository
+        name: flux-system
+    - patch: |
+        - op: replace
+          path: /spec/path
+          value: ./clusters/room101-a7d-mc
+      target:
+        kind: Kustomization
+        name: flux-system
+---
+#
+# install kyverno early in remote cluster (required for network proxy CPol)
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 55-remote-kyverno
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: 51-remote-ccm
+      namespace: cluster-room101-a7d-mc
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/workloads/addons/base/kyverno
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  #healthChecks:
+  #  - apiVersion: apps/v1
+  #    kind: Deployment
+  #    name: kyverno-admission-controller
+  #    namespace: kube-system
+  suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
+  patches:
+    # install helmrepo/helmrelease in the cluster namespace when bootstrapping
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: HelmRepository
+        name: kyverno
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: HelmRelease
+        name: kyverno
+    # install helmrelease in the correct remote namespace
+    - patch: |
+        - op: replace
+          path: /spec/targetNamespace
+          value: kyverno
+      target:
+        kind: HelmRelease
+        name: kyverno
+    # consume helmrepo from cluster namespace
+    - patch: |
+        - op: replace
+          path: /spec/chart/spec/sourceRef/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: HelmRelease
+        name: kyverno
+    # ensure helmrelease is reconciled locally against remote MC
+    - patch: |
+        - op: add
+          path: /spec/kubeConfig
+          value:
+            secretRef:
+              name: room101-a7d-mc-kubeconfig
+      target:
+        kind: HelmRelease
+        name: kyverno
+    - patch: |
+        - op: add
+          path: /spec/values
+          value:
+            admissionController:
+              tolerations:
+                - effect: NoSchedule
+                  key: node-role.kubernetes.io/control-plane
+                  operator: Exists
+                - effect: NoSchedule
+                  key: node.cloudprovider.kubernetes.io/uninitialized
+                  operator: Exists
+      target:
+        kind: HelmRelease
+        name: kyverno
+---
+#
+# create kyverno resources following kyverno installation
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 56-remote-configs
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: 55-remote-kyverno
+      namespace: cluster-room101-a7d-mc
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/workloads/addons/config/post
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  kubeConfig:
+    secretRef:
+      name: room101-a7d-mc-kubeconfig
+  suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false

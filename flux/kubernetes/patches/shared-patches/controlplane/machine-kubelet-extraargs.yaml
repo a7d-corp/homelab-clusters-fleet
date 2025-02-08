@@ -1,0 +1,8 @@
+- op: add
+  path: /spec/controlPlaneConfig/controlplane/configPatches/0
+  value:
+    op: replace
+    path: /machine/kubelet/extraArgs
+    value:
+      cloud-provider: external
+      rotate-server-certificates: true

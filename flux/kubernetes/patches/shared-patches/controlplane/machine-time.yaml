@@ -1,0 +1,10 @@
+- op: add
+  path: /spec/controlPlaneConfig/controlplane/configPatches/0
+  value:
+    op: replace
+    path: /machine/time
+    value:
+      servers:
+        - ${TIMESERVER_1}
+        - ${TIMESERVER_2}
+      bootTimeout: 1m0s

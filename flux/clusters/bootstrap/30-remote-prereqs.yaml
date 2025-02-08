@@ -1,0 +1,32 @@
+#
+# install early cluster prereqs in remote cluster
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 30-remote-prereqs
+  namespace: cluster-room101-a7d-mc
+spec:
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/clusters/room101-a7d-mc/cluster-prereqs
+  prune: true
+  wait: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
+  kubeConfig:
+    secretRef:
+      name: room101-a7d-mc-kubeconfig

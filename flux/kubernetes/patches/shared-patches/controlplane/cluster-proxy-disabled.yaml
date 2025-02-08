@@ -1,0 +1,6 @@
+- op: add
+  path: /spec/controlPlaneConfig/controlplane/configPatches/0
+  value:
+    op: add
+    path: /cluster/proxy/disabled
+    value: true

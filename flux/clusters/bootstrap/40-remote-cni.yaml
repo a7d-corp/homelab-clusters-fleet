@@ -1,0 +1,90 @@
+#
+# create CNI prereqs in remote cluster
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 40-remote-cni-prereqs
+  namespace: cluster-room101-a7d-mc
+spec:
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/workloads/cni/prereqs
+  prune: true
+  wait: true
+  suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
+  kubeConfig:
+    secretRef:
+      name: room101-a7d-mc-kubeconfig
+---
+#
+# install CNI in remote cluster
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 41-remote-cni
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: 40-remote-cni-prereqs
+      namespace: cluster-room101-a7d-mc
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/workloads/cni
+  prune: true
+  wait: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
+  patches:
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+      target:
+        kind: HelmRepository
+        name: cilium
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-mc
+        - op: add
+          path: /spec/storageNamespace
+          value: cilium
+        - op: add
+          path: /spec/targetNamespace
+          value: cilium
+        - op: add
+          path: /spec/kubeConfig
+          value:
+            secretRef: {}
+        - op: add
+          path: /spec/kubeConfig/secretRef
+          value:
+            name: room101-a7d-mc-kubeconfig
+      target:
+        kind: HelmRelease
+        name: cilium

@@ -1,0 +1,72 @@
+- op: add
+  path: /spec/controlPlaneConfig/controlplane/configPatches/0
+  value:
+    op: add
+    path: /machine/pods
+    value:
+      - apiVersion: v1
+        kind: Pod
+        metadata:
+          creationTimestamp: null
+          name: kube-vip-k8s-api
+          namespace: kube-system
+        spec:
+          containers:
+          - args:
+            - manager
+            env:
+            - name: vip_arp
+              value: "false"
+            - name: port
+              value: "6443"
+            - name: vip_nodename
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: vip_interface
+              value: "lo"
+            - name: vip_cidr
+              value: "32"
+            - name: dns_mode
+              value: "first"
+            - name: cp_enable
+              value: "true"
+            - name: cp_namespace
+              value: "kube-system"
+            - name: bgp_enable
+              value: "true"
+            - name: bgp_routerid
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: bgp_as
+              value: ${quote}${BGP_CLUSTER_AS}${quote}
+            - name: bgp_peers
+              value: "${KUBE_VIP_BGP_PEERS}"
+            - name: address
+              value: "${APISERVER_VIP}"
+            - name: prometheus_server
+              value: ":2112"
+            # renovate: kube-vip/kube-vip
+            image: ghcr.io/kube-vip/kube-vip:v0.8.9
+            imagePullPolicy: IfNotPresent
+            name: kube-vip
+            resources: {}
+            securityContext:
+              capabilities:
+                add:
+                - NET_ADMIN
+                - NET_RAW
+            volumeMounts:
+            - mountPath: /etc/kubernetes/admin.conf
+              name: kubeconfig
+          hostAliases:
+          - hostnames:
+            - kubernetes
+            ip: 127.0.0.1
+          hostNetwork: true
+          volumes:
+          - hostPath:
+              path: /var/kube-vip.kubeconfig
+            name: kubeconfig
+        status: {}

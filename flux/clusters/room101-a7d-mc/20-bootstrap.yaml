@@ -1,0 +1,169 @@
+#
+# apply flux prereqs
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 20-flux-configs
+  namespace: cluster-room101-a7d-mc
+spec:
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/clusters/room101-a7d-mc/flux-configs
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: true
+---
+#
+# install flux
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 21-flux
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: 01-cluster-prereqs
+      namespace: cluster-room101-a7d-mc
+    - name: 20-flux-configs
+      namespace: cluster-room101-a7d-mc
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/workloads/early-bootstrap/flux
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: true
+---
+#
+# apply gitrepo
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 22-flux-gitrepo
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: 21-flux
+      namespace: cluster-room101-a7d-mc
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/workloads/early-bootstrap/flux/gitrepo
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: true
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
+  patches:
+    - patch: |
+        - op: replace
+          path: /spec/ref/branch
+          value: main
+        - op: replace
+          path: /spec/secretRef/name
+          value: flux-github-auth
+        - op: replace
+          path: /spec/url
+          value: ssh://git@github.com/a7d-corp/homelab-clusters-fleet
+      target:
+        kind: GitRepository
+        name: flux-system
+    - patch: |
+        - op: replace
+          path: /spec/path
+          value: ./clusters/room101-a7d-mc
+      target:
+        kind: Kustomization
+        name: flux-system
+---
+#
+# create prereqs for cloud controller manager
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 23-ccm-configs
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: 22-flux-gitrepo
+      namespace: cluster-room101-a7d-mc
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/workloads/early-bootstrap/cloud-controller-manager/configs
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: true
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
+---
+#
+# install cloud controller manager
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 24-ccm
+  namespace: cluster-room101-a7d-mc
+spec:
+  dependsOn:
+    - name: 23-ccm-configs
+      namespace: cluster-room101-a7d-mc
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/workloads/early-bootstrap/cloud-controller-manager
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: true
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: falses

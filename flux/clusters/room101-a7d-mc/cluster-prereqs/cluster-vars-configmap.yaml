@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-vars
+  namespace: cluster-room101-a7d-mc
+data:
+  # cluster vars
+  CLUSTER: room101-a7d-mc
+  CLUSTER_NAMESPACE: cluster-room101-a7d-mc
+  WORKER_COUNT: "2"
+  CONTROLPLANE_COUNT: "3"
+
+  # infra versions
+  # renovate: kubernetes/kubernetes
+  K8S_VERSION: v1.29.3
+  # renovate: siderolabs/talos
+  TALOS_VERSION: v1.7.6
+
+  # node config
+  FACTORY_SCHEMATIC_ID: "6f4f1561bdd96a21fc713838db289cce7c5dde02af6575b66b04b008e6516144"
+  CP_TEMPLATE_UNIQUE_HASH: "7dc85922f0"
+  WORKER_TEMPLATE_UNIQUE_HASH: "ed155637ea"
+
+  # proxmox vars
+  PVE_CLUSTER_NAME: virt-lab
+  PVE_TEMPLATE_SOURCE_NODE: stor-01
+  PVE_STORAGE_POOL: nfs-vm-images
+  PVE_TEMPLATE_ID: "901"
+
+  # CP SPECs
+  CP_MEMORY: "3072"
+  CP_DISK_SIZE: "15"
+  CP_NUM_CORES: "1"
+  CP_NUM_SOCKETS: "2"
+  CP_VM_ID_RANGE_START: "401"
+  CP_VM_ID_RANGE_END: "410"
+
+  # worker specs
+  WORKER_MEMORY: "3072"
+  WORKER_DISK_SIZE: "15"
+  WORKER_NUM_CORES: "1"
+  WORKER_NUM_SOCKETS: "2"
+  WORKER_VM_ID_RANGE_START: "411"
+  WORKER_VM_ID_RANGE_END: "420"
+
+  # network config
+  CLUSTER_FQDN: room101-a7d-mc.lab.a7d.dev
+  APISERVER_VIP: 172.27.0.61
+  APISERVER_SUBDOMAIN: k8s
+  APISERVER_PORT: "6443"
+  NGINX_SVC_IP: 172.27.0.62
+
+  CLUSTER_NODE_NET_RANGE: "172.25.100.10-172.25.100.30"
+  CLUSTER_NODE_NET_GATEWAY: 172.25.100.1
+  CLUSTER_NODE_SUBNET_CIDR: "27"
+  CLUSTER_NODE_NET_VLAN: "1100"
+  NAMESERVER_1: 10.101.0.2
+  NAMESERVER_2: 10.101.0.3
+  TIMESERVER_1: 10.101.0.2
+  TIMESERVER_2: 10.101.0.3
+
+  BGP_PEER_AS: "65401"
+  BGP_CLUSTER_AS: "65502"
+  KUBE_VIP_BGP_PEERS: "172.25.0.1:65401::false"
+  CILIUM_BGP_PEER: 172.25.0.1
+
+  # apiserver OIDC config
+  DEX_SUBDOMAIN: dex
+  DEX_CLIENT_ID: 9aba9b32-e761-4507-8445-cea11a6b15da
+
+  # flux hack (see https://fluxcd.io/flux/components/kustomize/kustomizations/#post-build-substitution-of-numbers-and-booleans)
+  quote: '"' # double quote var
