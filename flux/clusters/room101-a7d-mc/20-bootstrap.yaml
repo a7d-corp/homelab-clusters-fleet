@@ -166,4 +166,4 @@ spec:
     substituteFrom:
       - kind: ConfigMap
         name: cluster-vars
-        optional: falses
+        optional: false
