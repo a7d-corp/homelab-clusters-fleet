@@ -70,6 +70,7 @@ spec:
           value: cilium
         - op: replace
           path: /spec/values/k8sServiceHost
+          value: ${SERVER_SUBDOMAIN}.${CLUSTER_FQDN}
           value: k8s.room101-a7d-mc.lab.a7d.dev
       target:
         kind: HelmRelease

@@ -41,14 +41,6 @@ spec:
         name: ingress-nginx
     - patch: |
         - op: add
-          path: /spec/values/providerIpPrefixes
-          value:
-            - 172.25.100.0/27
-      target:
-        kind: HelmRelease
-        name: kubelet-csr-approver
-    - patch: |
-        - op: add
           path: /spec/values/txtOwnerId
           value: "room101a7dmc"
         - op: add
