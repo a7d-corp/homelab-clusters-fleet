@@ -342,7 +342,7 @@ spec:
     - patch: |
         - op: replace
           path: /spec/path
-          value: ./clusters/room101-a7d-mc
+          value: ./flux/clusters/room101-a7d-mc
       target:
         kind: Kustomization
         name: flux-system
