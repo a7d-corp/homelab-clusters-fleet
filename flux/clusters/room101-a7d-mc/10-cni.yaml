@@ -17,7 +17,7 @@ spec:
   path: ./flux/workloads/cni/prereqs
   prune: true
   wait: true
-  suspend: true
+  suspend: false
   postBuild:
     substituteFrom:
       - kind: ConfigMap
@@ -50,6 +50,12 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
   patches:
     - patch: |
         - op: replace
@@ -75,12 +81,6 @@ spec:
       target:
         kind: HelmRelease
         name: cilium
-  suspend: true
-  postBuild:
-    substituteFrom:
-      - kind: ConfigMap
-        name: cluster-vars
-        optional: false
 ---
 #
 # apply CNI configs (BGP etc)
@@ -104,7 +104,7 @@ spec:
   path: ./flux/clusters/room101-a7d-mc/cilium-configs
   prune: true
   wait: true
-  suspend: true
+  suspend: false
   postBuild:
     substituteFrom:
       - kind: ConfigMap
