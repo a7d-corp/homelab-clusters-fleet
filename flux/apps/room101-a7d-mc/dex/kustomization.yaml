@@ -3,8 +3,11 @@ kind: Kustomization
 resources:
 - ../../base/dex
 patches:
-- path: dex-k8s-authenticator-values.yaml
 - path: dex-secret-dex-config.yaml
 - path: dex-secret-dex-github-secret.yaml
 - path: dex-secret-dex-k8s-authenticator-credentials.yaml
-- path: dex-values.yaml
+- path: patches/dex-k8s-authenticator-k8s-ca.yaml
+  target:
+    group: helm.toolkit.fluxcd.io
+    kind: HelmRelease
+    name: dex-k8s-authenticator

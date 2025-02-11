@@ -11,10 +11,20 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: sagikazarmark
+      version: ">=0.0.2 <0.1.0"
   install:
     disableWait: true
-  interval: 1m0s
   values:
+    config:
+      clusters:
+        - name: ${CLUSTER}
+          short_description: ${CLUSTER}
+          description: "${DEX_AUTHENTICATOR_DESCRIPTION}"
+          issuer: https://${DEX_SUBDOMAIN}.${CLUSTER_FQDN}
+          client_id: ${STATIC_CLIENT_ID}
+          client_secret: ${STATIC_CLIENT_SECRET}
+          redirect_uri: https://${DEX_AUTHENTICATOR_SUBDOMAIN}.${CLUSTER_FQDN}/callback
+          k8s_master_uri: https://${APISERVER_SUBDOMAIN}.${CLUSTER_FQDN}:${APISERVER_PORT}
     envFrom:
       - secretRef:
           name: dex-k8s-authenticator-credentials
@@ -25,3 +35,12 @@ spec:
         cert-manager.io/cluster-issuer: letsencrypt
         kubernetes.io/tls-acme: "true"
         nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      hosts:
+        - host: ${DEX_AUTHENTICATOR_SUBDOMAIN}.${CLUSTER_FQDN}
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
+      tls:
+        - secretName: dex-k8s-authenticator-tls
+          hosts:
+            - ${DEX_AUTHENTICATOR_SUBDOMAIN}.${CLUSTER_FQDN}

@@ -4,17 +4,42 @@ metadata:
   name: dex
   namespace: dex
 spec:
+  releaseName: dex
   chart:
     spec:
       chart: dex
       sourceRef:
         kind: HelmRepository
         name: dex
-  interval: 10m0s
+      version: ">=0.14.0 <1.0.0"
   values:
+    configSecret:
+      create: false
+      name: dex-config
+    envVars:
+      - name: GITHUB_CLIENT_ID
+        valueFrom:
+          secretKeyRef:
+            name: dex-github-secret
+            key: clientID
+      - name: GITHUB_CLIENT_SECRET
+        valueFrom:
+          secretKeyRef:
+            name: dex-github-secret
+            key: clientSecret
     ingress:
+      enabled: true
       className: nginx
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt
         kubernetes.io/tls-acme: "true"
         nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      hosts:
+        - host: ${DEX_SUBDOMAIN}.${CLUSTER_FQDN}
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
+      tls:
+        - secretName: dex-tls
+          hosts:
+            - ${DEX_SUBDOMAIN}.${CLUSTER_FQDN}
