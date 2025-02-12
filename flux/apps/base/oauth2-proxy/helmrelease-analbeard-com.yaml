@@ -25,4 +25,4 @@ spec:
       cookie-domain: ${OAUTH2_PROXY_ANALBEARD_COOKIE_DOMAIN}
       github-org: ${OAUTH2_PROXY_ANALBEARD_GITHUB_ORG}
       provider: ${OAUTH2_PROXY_ANALBEARD_PROVIDER}
-      redirect-url: "https://${OAUTH2_PROXY_SUBDOMAIN}.${OAUTH2_PROXY_ANALBEARD_DOMAIN/oauth2/callback"
+      redirect-url: "https://${OAUTH2_PROXY_SUBDOMAIN}.${OAUTH2_PROXY_ANALBEARD_DOMAIN}/oauth2/callback"
