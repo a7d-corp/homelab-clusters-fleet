@@ -11,9 +11,18 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: oauth2-proxy
+      version: ">=6.0.0 <7.0.0"
   interval: 5m0s
   values:
     metrics:
       servicemonitor:
         enabled: false
     replicaCount: 2
+    config:
+      cookieName: ${OAUTH2_PROXY_A7D_COOKIE_NAME}
+      existingSecret: oauth2-proxy-a7d-dev-credentials
+    extraArgs:
+      cookie-domain: ${OAUTH2_PROXY_A7D_COOKIE_DOMAIN}
+      github-org: ${OAUTH2_PROXY_A7D_GITHUB_ORG}
+      provider: ${OAUTH2_PROXY_A7D_PROVIDER}
+      redirect-url: "https://${OAUTH2_PROXY_SUBDOMAIN}.${OAUTH2_PROXY_A7D_DOMAIN}/oauth2/callback"
