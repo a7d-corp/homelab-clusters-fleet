@@ -64,9 +64,22 @@ data:
   KUBE_VIP_BGP_PEERS: "172.25.0.1:65401::false"
   CILIUM_BGP_PEER: 172.25.0.1
 
-  # apiserver OIDC config
+  # OIDC config
   DEX_SUBDOMAIN: dex
   DEX_CLIENT_ID: 9aba9b32-e761-4507-8445-cea11a6b15da
+  DEX_AUTHENTICATOR_SUBDOMAIN: login
+  DEX_AUTHENTICATOR_DESCRIPTION: "Room 101 K8S MC"
+  OAUTH2_PROXY_SUBDOMAIN: "oauth2-proxy"
+  OAUTH2_PROXY_A7D_DOMAIN: "room101-a7d-mc.lab.a7d.dev"
+  OAUTH2_PROXY_ANALBEARD_DOMAIN: "room101-a7d-mc.lab.analbeard.com"
+  OAUTH2_PROXY_A7D_COOKIE_NAME: "_oauth2_a7d_dev_room101_a7d_mc"
+  OAUTH2_PROXY_A7D_COOKIE_DOMAIN: ".a7d.dev"
+  OAUTH2_PROXY_A7D_GITHUB_ORG: "a7d-corp"
+  OAUTH2_PROXY_A7D_PROVIDER: "github"
+  OAUTH2_PROXY_ANALBEARD_COOKIE_NAME: "_oauth2_analbeard_com_room101_a7d_mc"
+  OAUTH2_PROXY_ANALBEARD_COOKIE_DOMAIN: ".analbeard.com"
+  OAUTH2_PROXY_ANALBEARD_GITHUB_ORG: "simonweald"
+  OAUTH2_PROXY_ANALBEARD_PROVIDER: "github"
 
   # flux hack (see https://fluxcd.io/flux/components/kustomize/kustomizations/#post-build-substitution-of-numbers-and-booleans)
   quote: '"' # double quote var

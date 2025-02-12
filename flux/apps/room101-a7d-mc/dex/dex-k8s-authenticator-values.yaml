@@ -4,21 +4,10 @@ metadata:
   name: dex-k8s-authenticator
   namespace: dex
 spec:
-  releaseName: dex-k8s-authenticator
-  chart:
-    spec:
-      version: ">=0.0.2 <0.1.0"
   values:
     config:
       clusters:
         - name: room101-a7d-mc
-          short_description: "room101-a7d-mc"
-          description: "Room 101 K8S MC"
-          issuer: https://dex.room101-a7d-mc.lab.a7d.dev
-          client_id: ${STATIC_CLIENT_ID}
-          client_secret: ${STATIC_CLIENT_SECRET}
-          redirect_uri: https://login.room101-a7d-mc.lab.a7d.dev/callback
-          k8s_master_uri: https://k8s.room101-a7d-mc.lab.a7d.dev:443
           k8s_ca_pem: |
             -----BEGIN CERTIFICATE-----
             MIIBizCCATCgAwIBAgIRAKxQFe9XATS7RuUgLDncm0gwCgYIKoZIzj0EAwIwFTET
@@ -31,16 +20,4 @@ spec:
             gmJ9/jlTTsp/+zn7aouZL9ZqZdd3faPuQ/ayfgIhAO6X8D8hvp6zs+2bZfZqSvFI
             VPLJUj/tSKwS+rmQ3Zd4
             -----END CERTIFICATE-----
-    envFrom:
-      - secretRef:
-          name: dex-k8s-authenticator-credentials
-    ingress:
-      hosts:
-        - host: login.room101-a7d-mc.lab.a7d.dev
-          paths:
-            - path: /
-              pathType: ImplementationSpecific
-      tls:
-        - secretName: dex-k8s-authenticator-tls
-          hosts:
-            - login.room101-a7d-mc.lab.a7d.dev
+
