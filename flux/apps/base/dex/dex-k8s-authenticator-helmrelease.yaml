@@ -12,6 +12,7 @@ spec:
         kind: HelmRepository
         name: sagikazarmark
       version: ">=0.0.2 <0.1.0"
+  interval: 10m0s
   install:
     disableWait: true
   values:

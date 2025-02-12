@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: oauth2-proxy
       version: ">=6.0.0 <7.0.0"
-  interval: 5m0s
+  interval: 10m0s
   values:
     metrics:
       servicemonitor:
