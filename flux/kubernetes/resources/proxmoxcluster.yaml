@@ -8,7 +8,7 @@ metadata:
 spec:
   allowedNodes: []
   controlPlaneEndpoint:
-    host: ${APISERVER_SUBDOMAIN}-${CLUSTER_FQDN}
+    host: ${APISERVER_SUBDOMAIN}.${CLUSTER_FQDN}
     port: ${APISERVER_PORT}
   dnsServers:
     - ${NAMESERVER_1}
