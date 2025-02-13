@@ -14,6 +14,9 @@ spec:
       version: ">=2.0.0 <3.0.0"
   interval: 10m0s
   values:
+    global:
+      imagePullSecrets:
+        - docker-io-credentials
     concierge:
       enabled: false
     supervisor:
