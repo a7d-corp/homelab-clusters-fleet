@@ -49,6 +49,8 @@ data:
   APISERVER_SUBDOMAIN: k8s
   APISERVER_PORT: "6443"
   NGINX_SVC_IP: 172.27.0.62
+  # DNS A record which externaldns uses when creating CNAMEs
+  EXTERNAL_DNS_EXTERNAL_TARGET: lab.a7d.dev
 
   CLUSTER_NODE_NET_RANGE: "172.25.100.10-172.25.100.30"
   CLUSTER_NODE_NET_GATEWAY: 172.25.100.1
@@ -80,6 +82,9 @@ data:
   OAUTH2_PROXY_ANALBEARD_COOKIE_DOMAIN: ".analbeard.com"
   OAUTH2_PROXY_ANALBEARD_GITHUB_ORG: "simonweald"
   OAUTH2_PROXY_ANALBEARD_PROVIDER: "github"
+
+  # Pinniped config
+  PINNIPED_SUPERVISOR_SUBDOMAIN: supervisor
 
   # flux hack (see https://fluxcd.io/flux/components/kustomize/kustomizations/#post-build-substitution-of-numbers-and-booleans)
   quote: '"' # double quote var

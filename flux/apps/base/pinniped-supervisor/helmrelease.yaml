@@ -1,0 +1,34 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: pinniped-supervisor
+  namespace: pinniped-system
+spec:
+  releaseName: pinniped-supervisor
+  chart:
+    spec:
+      chart: pinniped
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami-pinniped
+      version: ">=2.0.0 <3.0.0"
+  interval: 10m0s
+  values:
+    concierge:
+      enabled: false
+    supervisor:
+      resourcesPreset: micro
+      service:
+        public:
+          type: Cluster
+      ingress:
+        enabled: true
+        ingressClassName: nginx
+        hostname: ${PINNIPED_SUPERVISOR_SUBDOMAIN}.${CLUSTER_FQDN}
+        tls: true
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt"
+          kubernetes.io/tls-acme: "true"
+          external-dns.alpha.kubernetes.io/hostname: ${PINNIPED_SUPERVISOR_SUBDOMAIN}.${CLUSTER_FQDN}
+          external-dns.alpha.kubernetes.io/target: ${EXTERNAL_DNS_EXTERNAL_TARGET}
+          nginx.ingress.kubernetes.io/ssl-redirect: "true"
