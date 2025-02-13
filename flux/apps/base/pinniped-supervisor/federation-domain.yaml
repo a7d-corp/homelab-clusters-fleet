@@ -1,0 +1,7 @@
+apiVersion: config.supervisor.pinniped.dev/v1alpha1
+kind: FederationDomain
+metadata:
+  name: ${PINNIPED_FEDERATION_DOMAIN}
+  namespace: pinniped-system
+spec:
+  issuer: "https://${PINNIPED_SUPERVISOR_SUBDOMAIN}.${CLUSTER_FQDN}/$PINNIPED_FEDERATION_DOMAIN}"
