@@ -23,7 +23,7 @@ spec:
       resourcesPreset: micro
       service:
         public:
-          type: Cluster
+          type: ClusterIP
       ingress:
         enabled: true
         ingressClassName: nginx
