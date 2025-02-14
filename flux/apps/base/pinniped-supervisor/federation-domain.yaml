@@ -5,3 +5,9 @@ metadata:
   namespace: pinniped-system
 spec:
   issuer: "https://${PINNIPED_SUPERVISOR_SUBDOMAIN}.${CLUSTER_FQDN}/${PINNIPED_FEDERATION_DOMAIN}"
+  identityProviders:
+    - displayName: Github
+      objectRef:
+        apiGroup: idp.supervisor.pinniped.dev
+        kind: GitHubIdentityProvider
+        name: github
