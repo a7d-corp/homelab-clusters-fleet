@@ -3,6 +3,8 @@ kind: Kustomization
 resources:
 - docker-pull-secret.yaml
 - federation-domain.yaml
+- github-credentials-secret.yaml
+- github-identity-provider.yaml
 - helmrelease.yaml
 - helmrepository.yaml
 - namespace.yaml
