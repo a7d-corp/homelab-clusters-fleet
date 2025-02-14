@@ -86,6 +86,8 @@ data:
   # Pinniped config
   PINNIPED_SUPERVISOR_SUBDOMAIN: supervisor
   PINNIPED_FEDERATION_DOMAIN: room101
+  # generate with `openssl rand -hex 8`
+  PINNIPED_AUDIENCE_SUFFIX: 4042620466dea7cf
 
   # flux hack (see https://fluxcd.io/flux/components/kustomize/kustomizations/#post-build-substitution-of-numbers-and-booleans)
   quote: '"' # double quote var

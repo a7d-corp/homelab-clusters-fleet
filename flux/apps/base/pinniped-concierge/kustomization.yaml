@@ -4,4 +4,5 @@ resources:
 - docker-pull-secret.yaml
 - helmrelease.yaml
 - helmrepository.yaml
+- jwt-authenticator.yaml
 - namespace.yaml
