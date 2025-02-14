@@ -12,9 +12,9 @@ data:
 
   # infra versions
   # renovate: kubernetes/kubernetes
-  K8S_VERSION: v1.29.3
+  K8S_VERSION: v1.30.10
   # renovate: siderolabs/talos
-  TALOS_VERSION: v1.7.6
+  TALOS_VERSION: v1.9.3
 
   # node config
   FACTORY_SCHEMATIC_ID: "6f4f1561bdd96a21fc713838db289cce7c5dde02af6575b66b04b008e6516144"
@@ -28,7 +28,7 @@ data:
   PVE_TEMPLATE_ID: "901"
 
   # CP SPECs
-  CP_MEMORY: "3072"
+  CP_MEMORY: "2048"
   CP_DISK_SIZE: "15"
   CP_NUM_CORES: "1"
   CP_NUM_SOCKETS: "2"
@@ -36,7 +36,7 @@ data:
   CP_VM_ID_RANGE_END: "410"
 
   # worker specs
-  WORKER_MEMORY: "3072"
+  WORKER_MEMORY: "2048"
   WORKER_DISK_SIZE: "15"
   WORKER_NUM_CORES: "1"
   WORKER_NUM_SOCKETS: "2"
