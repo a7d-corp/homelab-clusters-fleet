@@ -11,3 +11,5 @@ spec:
         apiGroup: idp.supervisor.pinniped.dev
         kind: GitHubIdentityProvider
         name: github
+  tls:
+    secretName: ${PINNIPED_SUPERVISOR_SUBDOMAIN}.${CLUSTER_FQDN}-tls
