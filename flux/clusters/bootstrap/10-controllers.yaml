@@ -163,7 +163,7 @@ spec:
           path: /spec
           value:
             # renovate: kubernetes-sigs/cluster-api
-            version: v1.8.3
+            version: v1.9.5
       target:
         kind: CoreProvider
         name: cluster-api # https://github.com/kubernetes-sigs/cluster-api
