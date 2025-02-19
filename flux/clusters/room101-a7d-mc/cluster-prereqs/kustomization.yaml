@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - cluster-vars-configmap.yaml
   - cluster-vars-secret.yaml
+  - configmap-cluster-values.yaml
   - namespace-cluster-room101-a7d-mc.yaml
   - namespace-flux-system.yaml
   - namespace-proxmox-system.yaml
