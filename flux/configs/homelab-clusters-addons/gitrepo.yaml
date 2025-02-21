@@ -1,0 +1,13 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: homelab-clusters-addons
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  ref:
+    branch: main
+  secretRef:
+    name: homelab-clusters-addons-github-auth # see flux/clusters/$cluster/cluster-prereqs
+  timeout: 60s
+  url: ssh://git@github.com/a7d-corp/homelab-clusters-addons

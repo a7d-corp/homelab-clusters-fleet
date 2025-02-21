@@ -1,0 +1,40 @@
+#
+# adds gitrepo and kustomization to reconcile
+# a7d-corp/homelab-clusters-addons
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 80-homelab-clusters-addons
+  namespace: cluster-room101-a7d-mc
+spec:
+  interval: 10m0s
+  dependsOn:
+    - name: 70-apps
+      namespace: cluster-room101-a7d-mc
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/configs/homelab-clusters-addons
+  prune: true
+  wait: true
+  timeout: 5m0s
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
+  patches:
+    - patch: |
+        - op: add
+          path: /spec/path
+          value: ./flux/clusters/room101-a7d-mc
+      target:
+        kind: Kustomization
+        name: homelab-clusters-addons

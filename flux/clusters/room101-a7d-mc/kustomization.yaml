@@ -9,3 +9,4 @@ resources:
   - 50-talos-cluster.yaml
   - 60-cluster-configs.yaml
   - 70-apps.yaml
+  - 80-homelab-clusters-addons.yaml
