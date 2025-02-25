@@ -22,8 +22,9 @@ spec:
     concierge:
       enabled: true
       resourcesPreset: micro
-      impersonationProxy:
-        externalEndpoint: concierge.room101-a7d-mc.lab.a7d.dev
-        mode: enabled
-        service:
-          type: ClusterIP
+      credentialIssuerConfig:
+        impersonationProxy:
+          externalEndpoint: concierge.${CLUSTER_FQDN}
+          mode: enabled
+          service:
+            type: ClusterIP
