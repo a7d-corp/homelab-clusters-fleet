@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  name: pinniped-concierge-impersonation-proxy-ingress
+  namespace: pinniped-concierge
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: concierge.${CLUSTER_FQDN}
+    http:
+      paths:
+      - backend:
+          service:
+            name: pinniped-concierge-concierge-impersonation-proxy-cluster-ip
+            port:
+              number: 443
+        path: /
+        pathType: Prefix

@@ -4,4 +4,5 @@ resources:
 - docker-pull-secret.yaml
 - helmrelease.yaml
 - helmrepository.yaml
+- ingress-impersonation-proxy.yaml
 - namespace.yaml
