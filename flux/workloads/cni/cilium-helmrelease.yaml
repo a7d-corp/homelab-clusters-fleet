@@ -21,8 +21,6 @@ spec:
       hostLegacyRouting: true
     cni:
       uninstall: false
-    containerRuntime:
-      integration: auto
     ipam:
       mode: kubernetes
     kubeProxyReplacement: true
