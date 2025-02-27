@@ -13,8 +13,6 @@ data:
   # infra versions
   # renovate: kubernetes/kubernetes
   K8S_VERSION: v1.32.2
-  # renovate: siderolabs/talos
-  TALOS_VERSION: v1.9.4
 
   # node config
   FACTORY_SCHEMATIC_ID: "6f4f1561bdd96a21fc713838db289cce7c5dde02af6575b66b04b008e6516144"
