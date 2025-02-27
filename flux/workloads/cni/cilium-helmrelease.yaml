@@ -11,11 +11,14 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: cilium
-      version: "1.15.7"
+      version: "1.16.7"
   interval: 10m0s
   values:
     bgpControlPlane:
       enabled: true
+    # see https://docs.cilium.io/en/v1.16/installation/k8s-install-helm/
+    bpf:
+      hostLegacyRouting: true
     cni:
       uninstall: false
     containerRuntime:
