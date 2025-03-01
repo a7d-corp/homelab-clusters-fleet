@@ -8,5 +8,5 @@ customization:
     - console=ttys0
   systemExtensions:
     officialExtensions:
-      - siderolabs/gvisor
+      - siderolabs/iscsi-tools
       - siderolabs/qemu-guest-agent
