@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+set -x
 REPO_BASE="$(git rev-parse --show-toplevel)"
 source "${REPO_BASE}/hack/_credentials.sh"
 
@@ -20,7 +20,7 @@ fi
 
 _host=$(curl -k -s -b "PVEAuthCookie=${_ticket}" \
   -H "CSRFPreventionToken: ${_csrftoken}" \
-  -X GET "${PROXMOX_API_URL/cluster/resources?type=vm" \
+  -X GET "${PROXMOX_API_URL}/cluster/resources?type=vm" \
   | jq -r --argjson vmid "$_vmid" '.data[] | select(.vmid==$vmid) | .node')
 
 echo -en "\nDefinitely delete VM ${_vmid} on host ${_host}? [y/N]: "
