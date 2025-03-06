@@ -2,7 +2,7 @@
 apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
 kind: ProxmoxMachineTemplate
 metadata:
-  name: ${CLUSTER}-cp-${CP_TEMPLATE_UNIQUE_HASH}
+  name: ${CLUSTER}-cp
   namespace: ${CLUSTER_NAMESPACE}
 spec:
   template:
@@ -34,7 +34,7 @@ spec:
 apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
 kind: ProxmoxMachineTemplate
 metadata:
-  name: ${CLUSTER}-workers-${WORKER_TEMPLATE_UNIQUE_HASH}
+  name: ${CLUSTER}-workers
   namespace: ${CLUSTER_NAMESPACE}
 spec:
   template:
