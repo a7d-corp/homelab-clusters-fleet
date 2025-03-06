@@ -117,6 +117,7 @@ recreate_cluster() {
     set -x
     export _kubectl="kubectl --kubeconfig=$(git rev-parse --show-toplevel)/tmp/bootstrap.kubeconfig"
     export _flux="flux --kubeconfig=$(git rev-parse --show-toplevel)/tmp/bootstrap.kubeconfig"
+    export _remote_talosctl="talosctl/talosctl-1.7.0-alpha.1"
 
     # ensure the cluster is accessible first
     if ! ${_kubectl} get no > /dev/null 2>&1 ; then
@@ -126,18 +127,18 @@ recreate_cluster() {
     fi
     if [ "$POD_COUNT" -gt "11" ] ; then
         ssh 172.25.100.2 \
-        "talosctl cluster destroy --name sidero-bootstrap \
+        "${_remote_talosctl} cluster destroy --name sidero-bootstrap \
         ; rm ~/.talos/config \
-        ; talosctl cluster create \
+        ; ${_remote_talosctl} cluster create \
             --name sidero-bootstrap \
-            -p 69:69/udp,8081:8081/tcp,51821:51821/udp \
+            -p 51821:51821/udp \
             --workers 0 \
-            --config-patch '[{\"op\": \"add\", \"path\": \"/cluster/allowSchedulingOnMasters\", \"value\": true}]' \
+            --config-patch '[{\"op\": \"add\", \"path\": \"/cluster/allowSchedulingOnControlPlanes\", \"value\": true}]' \
             --nameservers 10.101.0.2,10.101.0.3 \
             --docker-host-ip 172.25.100.2 \
             --endpoint 172.25.100.2 \
             --memory 6144 \
-        ; talosctl config node 172.25.100.2"
+        ; ${_remote_talosctl} config node 172.25.100.2"
 
         cd $(git rev-parse --show-toplevel)
         rm ~/.talos/config
