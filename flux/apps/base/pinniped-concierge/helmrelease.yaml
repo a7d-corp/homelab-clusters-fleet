@@ -21,6 +21,7 @@ spec:
       enabled: false
     concierge:
       enabled: true
+      replicaCount: 2
       resourcesPreset: micro
       credentialIssuerConfig:
         impersonationProxy:

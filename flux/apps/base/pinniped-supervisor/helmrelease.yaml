@@ -20,6 +20,7 @@ spec:
     concierge:
       enabled: false
     supervisor:
+      replicaCount: 2
       resourcesPreset: micro
       service:
         public:
