@@ -5,4 +5,5 @@ metadata:
   namespace: external-dns
 spec:
   interval: 1m0s
+  type: default
   url: https://charts.bitnami.com/bitnami
