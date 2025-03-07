@@ -114,10 +114,9 @@ kill_cluster() {
 }
 
 recreate_cluster() {
-    set -x
+
     export _kubectl="kubectl --kubeconfig=$(git rev-parse --show-toplevel)/tmp/bootstrap.kubeconfig"
     export _flux="flux --kubeconfig=$(git rev-parse --show-toplevel)/tmp/bootstrap.kubeconfig"
-    export _remote_talosctl="talosctl/talosctl-1.7.0-alpha.1"
 
     # ensure the cluster is accessible first
     if ! ${_kubectl} get no > /dev/null 2>&1 ; then
@@ -126,25 +125,17 @@ recreate_cluster() {
         POD_COUNT=$(kubectl get po -A -o custom-columns=NAME:.metadata.name --no-headers=true | wc -l)
     fi
     if [ "$POD_COUNT" -gt "11" ] ; then
+        scp $(git rev-parse --show-toplevel)/hack/kind-bootstrap.yaml 172.25.100.2:/tmp/
         ssh 172.25.100.2 \
-        "${_remote_talosctl} cluster destroy --name sidero-bootstrap \
-        ; rm ~/.talos/config \
-        ; ${_remote_talosctl} cluster create \
-            --name sidero-bootstrap \
-            -p 51821:51821/udp \
-            --workers 0 \
-            --config-patch '[{\"op\": \"add\", \"path\": \"/cluster/allowSchedulingOnControlPlanes\", \"value\": true}]' \
-            --nameservers 10.101.0.2,10.101.0.3 \
-            --docker-host-ip 172.25.100.2 \
-            --endpoint 172.25.100.2 \
-            --memory 6144 \
-        ; ${_remote_talosctl} config node 172.25.100.2"
+        "kind delete clusters --all \
+        ; rm /tmp/bootstrap.kubeconfig \
+        ; kind create cluster --name bootstrap \
+            --kubeconfig /tmp/bootstrap.kubeconfig \
+            --wait 5m \
+            --config /tmp/kind-bootstrap.yaml"
 
         cd $(git rev-parse --show-toplevel)
-        rm ~/.talos/config
-        ssh 172.25.100.2 'cat .talos/config' > ~/.talos/config
-        talosctl kubeconfig $(git rev-parse --show-toplevel)/tmp/bootstrap.kubeconfig --force --talosconfig ~/.talos/config
-        sed -i 's/https.*/https:\/\/172.25.100.2:6443/g' $(git rev-parse --show-toplevel)/tmp/bootstrap.kubeconfig
+        ssh 172.25.100.2 'cat /tmp/bootstrap.kubeconfig' > $(git rev-parse --show-toplevel)/tmp/bootstrap.kubeconfig
 
         sed -zi 's/suspend: false/suspend: true/2' $(git rev-parse --show-toplevel)/flux/clusters/bootstrap/20-talos-cluster.yaml \
             && git add $(git rev-parse --show-toplevel)/flux/clusters/bootstrap/20-talos-cluster.yaml \
