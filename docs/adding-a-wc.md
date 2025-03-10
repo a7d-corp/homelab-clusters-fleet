@@ -11,6 +11,10 @@
 - Add relevant DNS records to static mapping in blocky (temporarily)
 - Add proxied domains to Haproxy config (if necessary)
 
+### Certificates
+
+- Generate K8S and Talos certificates (see [/hack/pki](/hack/pki))
+
 ### Github
 
 - Pinniped requires an [app](https://pinniped.dev/docs/howto/supervisor/configure-supervisor-with-github/)

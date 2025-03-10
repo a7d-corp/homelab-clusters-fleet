@@ -58,4 +58,3 @@ Contains various supporting scripts and information used to create clusters (not
 - Certificate authorities for Kubernetes and Talos are generated ahead of cluster creation (see [/hack/pki/](/hack/pki/README.md) for more info).
 - Networking has some specific configuration for each cluster (see [networking.md](networking.md)).
 - Clusters can create `Loadbalancer` services. This is handled by Cilium which advertises the IP via BGP to Opnsense (see [this configmap](/clusters/room101-a7d-mc/cilium-configs/bgp-config-cm.yaml) as an example)
-- Node creation is handled externally by Terraform and [this repo](https://github.com/a7d-corp/homelab-k8s-cluster-room101-a7d-mc/). Therefore, in order to scale a cluster the VMs must first be created with Terraform.
