@@ -2,7 +2,11 @@
 
 ## Kubernetes API
 
-`k8s.<cluster id>.lab.a7d.dev` > 
+`k8s.<cluster id>.lab.a7d.dev` >
+
+## Kubernetes API via Pinniped
+
+`concierge.<cluster id>.lab.a7d.dev`
 
 ## Dex
 
