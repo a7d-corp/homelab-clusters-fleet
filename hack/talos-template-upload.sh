@@ -28,7 +28,7 @@ if [ -z $PVE_SERVER ]; then
     exit 1
 fi
 
-source _utils.sh
+source hack/_utils.sh
 
 SCHEMATIC_ID=$(curl -s --data-binary "@${REPO_BASE}/flux/clusters/${CLUSTER_NAME}/factory.talos.dev/schematic.yaml" https://factory.talos.dev/schematics | jq -r .id)
 
@@ -49,6 +49,7 @@ ssh ${PVE_SERVER} \
         --agent enabled=1 \
         --onboot=1 \
         --description \"Talos v${TALOS_VERSION} (schematic ID ${SCHEMATIC_ID})\" \
+        --tags \"talos_version_${TALOS_VERSION},schematic_id_${SCHEMATIC_ID}\" \
     && sudo qm importdisk ${VM_ID} /tmp/talos-${TALOS_VERSION}.raw nfs-vm-images -format raw \
     && sudo qm set ${VM_ID} --scsihw virtio-scsi-pci --scsi0 nfs-vm-images:${VM_ID}/vm-${VM_ID}-disk-0.raw \
     && sudo qm template ${VM_ID} \
