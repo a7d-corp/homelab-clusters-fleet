@@ -13,7 +13,6 @@ data:
   # infra versions
   # renovate: kubernetes/kubernetes
   K8S_VERSION: v1.32.2
-  # renovate: siderolabs/talos
   TALOS_VERSION: v1.9.4
 
   # node config
