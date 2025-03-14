@@ -24,9 +24,11 @@ spec:
       numCores: ${CP_NUM_CORES}
       numSockets: ${CP_NUM_SOCKETS}
       pool: ${CLUSTER}
-      sourceNode: ${PVE_TEMPLATE_SOURCE_NODE}
       storage: ${PVE_STORAGE_POOL}
-      templateID: ${PVE_TEMPLATE_ID}
+      templateSelector:
+        matchTags:
+          - "schematic_id_${FACTORY_SCHEMATIC_ID}"
+          - "talos_version_${TALOS_VERSION}"
       vmIDRange:
         end: ${CP_VM_ID_RANGE_END}
         start: ${CP_VM_ID_RANGE_START}
@@ -56,9 +58,11 @@ spec:
       numCores: ${WORKER_NUM_CORES}
       numSockets: ${WORKER_NUM_SOCKETS}
       pool: ${CLUSTER}
-      sourceNode: ${PVE_TEMPLATE_SOURCE_NODE}
       storage: ${PVE_STORAGE_POOL}
-      templateID: ${PVE_TEMPLATE_ID}
+      templateSelector:
+        matchTags:
+          - "schematic_id_${FACTORY_SCHEMATIC_ID}"
+          - "talos_version_${TALOS_VERSION}"
       vmIDRange:
         end: ${WORKER_VM_ID_RANGE_END}
         start: ${WORKER_VM_ID_RANGE_START}

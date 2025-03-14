@@ -49,7 +49,7 @@ ssh ${PVE_SERVER} \
         --agent enabled=1 \
         --onboot=1 \
         --description \"Talos v${TALOS_VERSION} (schematic ID ${SCHEMATIC_ID})\" \
-        --tags \"talos_version_${TALOS_VERSION},schematic_id_${SCHEMATIC_ID}\" \
+        --tags \"talos_version_v${TALOS_VERSION},schematic_id_${SCHEMATIC_ID}\" \
     && sudo qm importdisk ${VM_ID} /tmp/talos-${TALOS_VERSION}.raw nfs-vm-images -format raw \
     && sudo qm set ${VM_ID} --scsihw virtio-scsi-pci --scsi0 nfs-vm-images:${VM_ID}/vm-${VM_ID}-disk-0.raw \
     && sudo qm template ${VM_ID} \
