@@ -10,4 +10,3 @@ spec:
     spec:
       configPatches: []
       generateType: join
-      talosVersion: ${TALOS_VERSION}
