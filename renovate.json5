@@ -9,6 +9,15 @@
         "(helmrelease|helmrepository)\\.yaml$"
     ]
   },
+  "packageRules": [
+    {
+      "matchDepNames": ["*"],
+      "matchManagers": ["regex"],
+      "additionalBranchPrefix": "{{parentDir}}-",
+      "groupName": "{{parentDir}}",
+      "commitMessageTopic": "{{parentDir}}"
+    }
+  ],
   "customManagers": [
     {
       // Supports various formats where a comment with `renovate: ${REPO_NAME}` is on the line
