@@ -15,7 +15,7 @@
       "matchManagers": ["regex"],
       "additionalBranchPrefix": "{{parentDir}}-",
       "groupName": "{{parentDir}}",
-      "commitMessageTopic": "{{parentDir}}"
+      "commitMessageTopic": "{{parentDir}}/{{depName}}",
     }
   ],
   "customManagers": [
