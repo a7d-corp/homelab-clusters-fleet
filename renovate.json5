@@ -11,11 +11,11 @@
   },
   "packageRules": [
     {
-      "matchDepNames": ["*"],
+      "matchPackageNames": ["*"],
       "matchManagers": ["regex"],
-      "additionalBranchPrefix": "{{parentDir}}-",
-      "groupName": "{{parentDir}}",
-      "commitMessageTopic": "{{parentDir}}"
+      "additionalBranchPrefix": "{{baseDir}}-",
+      "groupName": "{{baseDir}}",
+      "commitMessageTopic": "{{depName}}",
     }
   ],
   "customManagers": [
