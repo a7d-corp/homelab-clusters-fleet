@@ -16,7 +16,7 @@
             - manager
             env:
             - name: vip_arp
-              value: "false"
+              value: "true"
             - name: port
               value: "6443"
             - name: vip_nodename
@@ -34,15 +34,17 @@
             - name: cp_namespace
               value: "kube-system"
             - name: bgp_enable
+              value: "false"
+            - name: vip_leaderelection
               value: "true"
-            - name: bgp_routerid
-              valueFrom:
-                fieldRef:
-                  fieldPath: status.podIP
-            - name: bgp_as
-              value: ${quote}${BGP_CLUSTER_AS}${quote}
-            - name: bgp_peers
-              value: "${KUBE_VIP_BGP_PEERS}"
+            - name: vip_leasename
+              value: plndr-cp-lock
+            - name: vip_leaseduration
+              value: "5"
+            - name: vip_renewdeadline
+              value: "3"
+            - name: vip_retryperiod
+              value: "1"
             - name: address
               value: "${APISERVER_VIP}"
             - name: prometheus_server
