@@ -13,7 +13,7 @@ spec:
   infrastructureTemplate:
     apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
     kind: ProxmoxMachineTemplate
-    name: ${CLUSTER}-cp
+    name: ${CLUSTER}-cp-${CP_MACHINE_SALT}
     namespace: ${CLUSTER_NAMESPACE}
   replicas: ${CONTROLPLANE_COUNT}
   version: ${K8S_VERSION}
