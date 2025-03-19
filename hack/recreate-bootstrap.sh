@@ -145,6 +145,15 @@ recreate_cluster() {
         # get root vault token from Bitwarden
         export VAULT_TOKEN=$(rbw get "Vault token")
 
+        # check if Vault is sealed
+        echo -e "\nChecking Vault status"
+
+        vault status > /dev/null 2>&1
+        if [ "$?" -ne 0 ]; then
+          echo -e "\nVault is sealed; hit enter to continue once Vault has been unsealed"
+          read -r answer
+        fi
+
         ${_kubectl} create ns cluster-room101-a7d-mc
         ${_kubectl} create ns flux-system
         ${_kubectl} create ns proxmox-system
