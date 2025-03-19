@@ -40,10 +40,13 @@ qm create ${VM_ID} --name talos-${TALOS_VERSION} \
     --scsihw virtio-scsi-pci \
     --cpu "custom-talos-kvm64" \
     --ostype l26 \
-    --agent enabled=1
+    --agent enabled=1 \
+    --onboot=1 \
+    --description "Talos v${TALOS_VERSION} (schematic ID ${SCHEMATIC_ID})" \
+    --tags "talos_version_v${TALOS_VERSION},schematic_id_${SCHEMATIC_ID}"
 qm importdisk ${VM_ID} /tmp/talos-${TALOS_VERSION}.raw nfs-vm-images -format raw
 qm set ${VM_ID} --scsihw virtio-scsi-pci --scsi0 nfs-vm-images:${VM_ID}/vm-${VM_ID}-disk-0.raw
 qm template ${VM_ID}
-
-rm /tmp/talos-${TALOS_VERSION}.raw*
 ```
+
+See [template upload script](/hack/talos-template-upload.sh)
