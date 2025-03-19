@@ -2,12 +2,17 @@
 
 Deploy MC fully up to (but not including) the kustomization (in the MC) which manages CAPI resources (Cluster etc). All bootstrap cluster kustomizations should be fully reconciled.
 
-Pause reconciliation of CAPI resources and main flux kustomization in bootstrap cluster
-
-Get owner ref of a CAPI-created secret (e.g. `room101-a7d-mc-kubeconfig`) & apply ownerRef to Talos cert bundle secret to ensure it is pivoted correctly (`room101-a7d-mc-talos`):
+Pause reconciliation of CAPI resources and main flux kustomization in bootstrap cluster:
 
 ```
-OWNER_REFERENCE=$(kubectl get secret room101-a7d-mc-kubesconfig -n cluster-room101-a7d-mc -o jsonpath='{.metadata.ownerReferences}')
+flux suspend ks 20-talos-cluster-resources -n cluster-room101-a7d-mc
+flux suspend ks flux-system -n flux-system
+```
+
+Get ownerRef of a CAPI-created secret (e.g. `room101-a7d-mc-talosconfig`) & apply ownerRef to Talos cert bundle secret (`room101-a7d-mc-talos`) to ensure it is pivoted correctly:
+
+```
+OWNER_REFERENCE=$(kubectl get secret room101-a7d-mc-talosconfig -n cluster-room101-a7d-mc -o jsonpath='{.metadata.ownerReferences}')
 kubectl patch secret room101-a7d-mc-talos -n cluster-room101-a7d-mc --type=json -p="[{'op': 'add', 'path': '/metadata/ownerReferences', 'value': $OWNER_REFERENCE}]"
 ```
 
@@ -100,4 +105,8 @@ Actually pivot:
 clusterctl move --kubeconfig tmp/bootstrap.kubeconfig --to-kubeconfig tmp/room101-a7d-mc.kubeconfig -n cluster-room101-a7d-mc -v 10
 ```
 
-Resume reconciliation of CAPI resources in MC
+Resume reconciliation of CAPI resources in MC:
+
+```
+flux resume ks 50-talos-cluster-resources -n cluster-room101-a7d-mc
+```
