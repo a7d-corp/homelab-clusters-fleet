@@ -1,0 +1,8 @@
+kind: HelmRepository
+apiVersion: source.toolkit.fluxcd.io/v1
+metadata:
+  name: democratic-csi
+  namespace: democratic-csi
+spec:
+  interval: 10m0s
+  url: https://democratic-csi.github.io/charts/

@@ -157,6 +157,7 @@ recreate_cluster() {
         ${_kubectl} create ns cluster-room101-a7d-mc
         ${_kubectl} create ns flux-system
         ${_kubectl} create ns proxmox-system
+        ${_kubectl} create ns democratic-csi
         vault kv get -mount=cluster-room101-a7d-mc -field=data sops-age \
             | base64 -d | ${_kubectl} apply -n flux-system -f -
         vault kv get -mount=cluster-room101-a7d-mc -field=data sops-age \

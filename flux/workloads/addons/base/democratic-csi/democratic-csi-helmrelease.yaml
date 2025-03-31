@@ -1,0 +1,70 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: democratic-csi-iscsi
+  namespace: democratic-csi
+spec:
+  releaseName: democratic-csi-iscsi
+  chart:
+    spec:
+      chart: democratic-csi
+      sourceRef:
+        kind: HelmRepository
+        name: democratic-csi
+        namespace: democratic-csi
+      version: ">=v0.15.0 < v1.0.0"
+  interval: 60m
+  install:
+    remediation:
+      retries: 3
+  valuesFrom:
+    - kind: ConfigMap
+      name: democratic-csi-iscsi-values
+      optional: false
+      valuesKey: values.yaml
+    - kind: Secret
+      name: democratic-csi-iscsi-values
+      optional: false
+      valuesKey: values.yaml
+  values:
+    csiDriver:
+      name: "iscsi"
+    node:
+      hostPID: true
+      driver:
+        extraEnv:
+          - name: ISCSIADM_HOST_STRATEGY
+            value: nsenter
+          - name: ISCSIADM_HOST_PATH
+            value: /usr/local/sbin/iscsiadm
+        iscsiDirHostPath: /usr/local/etc/iscsi
+        iscsiDirHostPathType: ""
+    storageClasses:
+    - name: truenas-iscsi
+      defaultClass: true
+      reclaimPolicy: Delete
+      volumeBindingMode: Immediate
+      allowVolumeExpansion: true
+      parameters:
+        fsType: ext4
+        detachedVolumesFromSnapshots: "false"
+      mountOptions: []
+      secrets:
+        provisioner-secret:
+        controller-publish-secret:
+        node-stage-secret:
+        node-publish-secret:
+        controller-expand-secret:
+    driver:
+      config:
+        driver: freenas-iscsi
+        httpConnection:
+          protocol: http
+          port: 80
+        sshConnection:
+          port: 22
+        iscsi:
+          namePrefix: csi-
+        zfs:
+          cli:
+            sudoEnabled: true
