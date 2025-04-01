@@ -1,0 +1,19 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: snapshot-controller
+  namespace: democratic-csi
+spec:
+  releaseName: snapshot-controller
+  chart:
+    spec:
+      chart: snapshot-controller
+      sourceRef:
+        kind: HelmRepository
+        name: democratic-csi
+        namespace: democratic-csi
+      version: ">=v0.3.0 < v1.0.0"
+  interval: 60m
+  install:
+    remediation:
+      retries: 3

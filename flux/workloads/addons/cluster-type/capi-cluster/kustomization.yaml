@@ -6,3 +6,4 @@ resources:
   - ../../base/external-dns
   - ../../base/ingress-nginx
   - ../../base/kyverno
+  - ../../base/snapshot-controller
