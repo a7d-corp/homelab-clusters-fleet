@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: democratic-csi-nfs-values
+  namespace: democratic-csi
+data:
+  values.yaml: |
+    driver:
+      config:
+        instance_id: storage-k8s-mc-nfs
+        httpConnection:
+          host: 172.25.100.3
+          username: root
+        sshConnection:
+          host: 172.25.100.3
+        zfs:
+          datasetParentName: storage/k8s/mc/nfs/vols
+          detachedSnapshotsDatasetParentName: storage/k8s/mc/nfs/snaps
+        nfs:
+          shareHost: 172.25.100.3

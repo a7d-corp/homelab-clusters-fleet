@@ -1,10 +1,10 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: democratic-csi-iscsi
+  name: democratic-csi-nfs
   namespace: democratic-csi
 spec:
-  releaseName: democratic-csi-iscsi
+  releaseName: democratic-csi-nfs
   chart:
     spec:
       chart: democratic-csi
@@ -19,36 +19,27 @@ spec:
       retries: 3
   valuesFrom:
     - kind: ConfigMap
-      name: democratic-csi-iscsi-values
+      name: democratic-csi-nfs-values
       optional: false
       valuesKey: values.yaml
     - kind: Secret
-      name: democratic-csi-iscsi-values
+      name: democratic-csi-nfs-values
       optional: false
       valuesKey: values.yaml
   values:
     csiDriver:
-      name: "iscsi"
-    node:
-      hostPID: true
-      driver:
-        extraEnv:
-          - name: ISCSIADM_HOST_STRATEGY
-            value: nsenter
-          - name: ISCSIADM_HOST_PATH
-            value: /usr/local/sbin/iscsiadm
-        iscsiDirHostPath: /usr/local/etc/iscsi
-        iscsiDirHostPathType: ""
+      name: "org.democratic-csi.nfs"
     storageClasses:
-    - name: truenas-iscsi
+    - name: truenas-nfs
       defaultClass: true
       reclaimPolicy: Delete
       volumeBindingMode: Immediate
       allowVolumeExpansion: true
       parameters:
-        fsType: ext4
-        detachedVolumesFromSnapshots: "false"
-      mountOptions: []
+        fsType: nfs
+      mountOptions:
+      - noatime
+      - nfsvers=4
       secrets:
         provisioner-secret:
         controller-publish-secret:
@@ -57,14 +48,27 @@ spec:
         controller-expand-secret:
     driver:
       config:
-        driver: freenas-iscsi
+        driver: freenas-nfs
         httpConnection:
           protocol: http
           port: 80
+          allowInsecure: true
+          apiVersion: 2
         sshConnection:
           port: 22
-        iscsi:
-          namePrefix: csi-
         zfs:
+          datasetEnableQuotas: true
+          datasetEnableReservation: false
+          datasetPermissionsMode: "0777"
+          datasetPermissionsUser: 0 # root
+          datasetPermissionsGroup: 0 # wheel
           cli:
             sudoEnabled: true
+        nfs:
+          shareAlldirs: false
+          shareAllowedHosts: []
+          shareAllowedNetworks: []
+          shareMaprootUser: root
+          shareMaprootGroup: wheel
+          shareMapallUser: ""
+          shareMapallGroup: ""

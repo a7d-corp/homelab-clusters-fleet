@@ -4,11 +4,11 @@ resources:
   - cluster-vars-configmap.yaml
   - cluster-vars-secret.yaml
   - configmap-cluster-values.yaml
-  - configmap-democratic-csi-iscsi-values.yaml
+  - configmap-democratic-csi-nfs-values.yaml
   - namespace-cluster-room101-a7d-mc.yaml
   - namespace-flux-system.yaml
   - namespace-proxmox-system.yaml
-  - secret-democratic-csi-iscsi-values.yaml
+  - secret-democratic-csi-nfs-values.yaml
   - secret-homelab-clusters-addons-github-auth.yaml
   - secret-proxmox-provider-auth.yaml
   - sops-age-secret.yaml
