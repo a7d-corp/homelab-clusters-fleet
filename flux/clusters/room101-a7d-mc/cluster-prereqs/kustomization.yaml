@@ -12,3 +12,4 @@ resources:
   - secret-homelab-clusters-addons-github-auth.yaml
   - secret-proxmox-provider-auth.yaml
   - sops-age-secret.yaml
+  - sops-age-addons-secret.yaml
