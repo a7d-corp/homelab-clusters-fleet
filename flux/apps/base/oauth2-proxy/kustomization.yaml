@@ -6,6 +6,6 @@ resources:
 - helmrelease-analbeard-com.yaml
 - helmrepository.yaml
 - ingress-a7d-dev.yaml
-#- ingress-analbeard-com.yaml
+- ingress-analbeard-com.yaml
 - namespace.yaml
 - secrets.yaml
