@@ -3,4 +3,3 @@ kind: Kustomization
 resources:
 - democratic-csi-helmrelease.yaml
 - democratic-csi-helmrepository.yaml
-- namespace.yaml

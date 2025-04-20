@@ -6,6 +6,7 @@ resources:
   - configmap-cluster-values.yaml
   - configmap-democratic-csi-nfs-values.yaml
   - namespace-cluster-room101-a7d-mc.yaml
+  - namespace-democratic-csi.yaml
   - namespace-flux-system.yaml
   - namespace-proxmox-system.yaml
   - secret-democratic-csi-nfs-values.yaml
