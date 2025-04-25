@@ -247,7 +247,7 @@ spec:
   kubeConfig:
     secretRef:
       name: room101-a7d-mc-kubeconfig
-  suspend: false
+  suspend: true
   postBuild:
     substituteFrom:
       - kind: ConfigMap
