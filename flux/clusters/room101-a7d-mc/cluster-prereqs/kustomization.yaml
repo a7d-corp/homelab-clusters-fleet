@@ -5,6 +5,7 @@ resources:
   - cluster-vars-secret.yaml
   - configmap-cluster-values.yaml
   - configmap-democratic-csi-nfs-values.yaml
+  - docker-io-credentials-secret.yaml
   - namespace-cluster-room101-a7d-mc.yaml
   - namespace-democratic-csi.yaml
   - namespace-flux-system.yaml
