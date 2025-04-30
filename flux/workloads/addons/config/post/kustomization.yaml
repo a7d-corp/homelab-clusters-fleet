@@ -9,5 +9,7 @@ sortOptions:
     - ClusterPolicy
 
 resources:
+- clusterpolicy-add-imagepullsecret-docker-io.yaml
 - configmap-proxy-env-vars.yaml
 - clusterpolicy-proxy-env-vars.yaml
+- clusterpolicy-sync-imagepullsecret-docker-io.yaml
