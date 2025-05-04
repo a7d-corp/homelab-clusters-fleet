@@ -1,8 +1,0 @@
-kind: HelmRepository
-apiVersion: source.toolkit.fluxcd.io/v1
-metadata:
-  name: sagikazarmark
-  namespace: dex
-spec:
-  interval: 60m0s
-  url: https://charts.sagikazarmark.dev
