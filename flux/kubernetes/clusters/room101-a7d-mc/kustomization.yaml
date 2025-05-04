@@ -37,11 +37,6 @@ patches:
       group: controlplane.cluster.x-k8s.io
       kind: TalosControlPlane
       labelSelector: "flux-target=taloscontrolplane"
-  - path: ../../patches/shared-patches/controlplane/cluster-apiserver-extraargs.yaml
-    target:
-      group: controlplane.cluster.x-k8s.io
-      kind: TalosControlPlane
-      labelSelector: "flux-target=taloscontrolplane"
   - path: ../../patches/shared-patches/controlplane/cluster-clustername.yaml
     target:
       group: controlplane.cluster.x-k8s.io
