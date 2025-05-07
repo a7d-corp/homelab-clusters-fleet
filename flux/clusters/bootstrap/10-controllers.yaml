@@ -154,7 +154,7 @@ spec:
           path: /spec
           value:
             # renovate: siderolabs/cluster-api-control-plane-provider-talos
-            version: v0.5.8
+            version: v0.5.10
       target:
         kind: ControlPlaneProvider
         name: talos # https://github.com/siderolabs/cluster-api-control-plane-provider-talos
