@@ -13,8 +13,7 @@
     {
       "matchPackageNames": ["*"],
       "matchManagers": ["regex"],
-      "additionalBranchPrefix": "{{baseDir}}-",
-      "groupName": "{{baseDir}}",
+      "additionalBranchPrefix": "{{baseDir}}-{{packageFile}}",
       "commitMessageTopic": "{{depName}}",
     }
   ],
