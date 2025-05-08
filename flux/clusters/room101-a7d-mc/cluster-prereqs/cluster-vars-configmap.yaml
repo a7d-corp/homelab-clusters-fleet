@@ -13,6 +13,7 @@ data:
   # infra versions
   # renovate: kubernetes/kubernetes
   K8S_VERSION: v1.32.3
+  # renovate: siderolabs/talos
   TALOS_VERSION: v1.9.4
 
   # salts to enable manual node rolling
