@@ -14,4 +14,8 @@ resources:
   - secret-homelab-clusters-addons-github-auth.yaml
   - secret-proxmox-provider-auth.yaml
   - sops-age-secret.yaml
+  # cluster-room101-a7d-mc addons
   - sops-age-addons-secret.yaml
+  # cluster-room101-a7d-mc
+  - namespace-cluster-room101-a7d-prod1.yaml
+  - sops-age-secret-cluster-room101-a7d-prod1.yaml

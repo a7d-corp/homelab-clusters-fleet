@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - 01-cluster-prereqs.yaml
+#  - 10-cni.yaml
+#  - 20-bootstrap.yaml
+#  - 30-addons.yaml
+#  - 40-controllers.yaml
+#  - 50-talos-cluster.yaml
+#  - 60-cluster-configs.yaml
+#  - 70-apps.yaml
+#  - 80-homelab-clusters-addons.yaml
