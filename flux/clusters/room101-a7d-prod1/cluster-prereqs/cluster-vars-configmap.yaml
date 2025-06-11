@@ -1,0 +1,95 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-vars
+  namespace: cluster-room101-a7d-prod1
+data:
+  # cluster vars
+  CLUSTER: room101-a7d-prod1
+  CLUSTER_NAMESPACE: cluster-room101-a7d-prod1
+  WORKER_COUNT: "2"
+  CONTROLPLANE_COUNT: "3"
+
+  # infra versions
+  # renovate: kubernetes/kubernetes
+  K8S_VERSION: v1.32.2
+  # renovate: siderolabs/talos
+  TALOS_VERSION: v1.10.3
+
+  # salts to enable manual node rolling
+  # generate with `openssl rand -hex 3`
+  CP_MACHINE_SALT: 68e9b5
+  WORKER_MACHINE_SALT: 0dc458
+  WORKER_TCT_SALT: a5da9b
+
+  # node config
+  FACTORY_SCHEMATIC_ID: "6f4f1561bdd96a21fc713838db289cce7c5dde02af6575b66b04b008e6516144"
+
+  # proxmox vars
+  PVE_CLUSTER_NAME: virt-lab
+  PVE_STORAGE_POOL: nfs-vm-images
+
+  # CP SPECs
+  CP_MEMORY: "3072"
+  CP_DISK_SIZE: "15"
+  CP_NUM_CORES: "1"
+  CP_NUM_SOCKETS: "2"
+  CP_VM_ID_RANGE_START: "431"
+  CP_VM_ID_RANGE_END: "440"
+
+  # worker specs
+  WORKER_MEMORY: "2048"
+  WORKER_DISK_SIZE: "15"
+  WORKER_NUM_CORES: "1"
+  WORKER_NUM_SOCKETS: "2"
+  WORKER_VM_ID_RANGE_START: "441"
+  WORKER_VM_ID_RANGE_END: "450"
+
+  # network config
+  CLUSTER_FQDN: room101-a7d-prod1.lab.a7d.dev
+  APISERVER_VIP: 172.27.0.61
+  APISERVER_SUBDOMAIN: k8s
+  APISERVER_PORT: "6443"
+  NGINX_SVC_IP: 172.27.0.62
+  # DNS A record which externaldns uses when creating CNAMEs
+  EXTERNAL_DNS_EXTERNAL_TARGET: lab.a7d.dev
+
+  CLUSTER_NODE_NET_RANGE: "172.25.101.10-172.25.101.30"
+  CLUSTER_NODE_NET_GATEWAY: 172.25.101.1
+  CLUSTER_NODE_SUBNET_CIDR: "27"
+  CLUSTER_NODE_NET_VLAN: "1101"
+  NAMESERVER_1: 10.101.0.2
+  NAMESERVER_2: 10.101.0.3
+  TIMESERVER_1: 10.101.0.2
+  TIMESERVER_2: 10.101.0.3
+
+  BGP_PEER_AS: "65401"
+  BGP_CLUSTER_AS: "65503"
+  KUBE_VIP_BGP_PEERS: "172.25.0.1:65401::false"
+  CILIUM_BGP_PEER: 172.25.0.1
+
+  # OIDC config
+  DEX_SUBDOMAIN: dex
+  DEX_CLIENT_ID: 9aba9b32-e761-4507-8445-cea11a6b15da
+  DEX_AUTHENTICATOR_SUBDOMAIN: login
+  DEX_AUTHENTICATOR_DESCRIPTION: "Room 101 K8S Prod1"
+  OAUTH2_PROXY_SUBDOMAIN: "oauth2-proxy"
+  OAUTH2_PROXY_A7D_DOMAIN: "room101-a7d-prod1.lab.a7d.dev"
+  OAUTH2_PROXY_ANALBEARD_DOMAIN: "room101-a7d-prod1.lab.analbeard.com"
+  OAUTH2_PROXY_A7D_COOKIE_NAME: "_oauth2_a7d_dev_room101_a7d_prod1"
+  OAUTH2_PROXY_A7D_COOKIE_DOMAIN: ".a7d.dev"
+  OAUTH2_PROXY_A7D_GITHUB_ORG: "a7d-corp"
+  OAUTH2_PROXY_A7D_PROVIDER: "github"
+  OAUTH2_PROXY_ANALBEARD_COOKIE_NAME: "_oauth2_analbeard_com_room101_a7d_prod1"
+  OAUTH2_PROXY_ANALBEARD_COOKIE_DOMAIN: ".analbeard.com"
+  OAUTH2_PROXY_ANALBEARD_GITHUB_ORG: "simonweald"
+  OAUTH2_PROXY_ANALBEARD_PROVIDER: "github"
+
+  # Pinniped config
+  PINNIPED_SUPERVISOR_SUBDOMAIN: supervisor
+  PINNIPED_FEDERATION_DOMAIN: room101
+  # generate with `openssl rand -hex 8`
+  PINNIPED_AUDIENCE_SUFFIX: 6c7986ddf94f83c5
+
+  # flux hack (see https://fluxcd.io/flux/components/kustomize/kustomizations/#post-build-substitution-of-numbers-and-booleans)
+  quote: '"' # double quote var

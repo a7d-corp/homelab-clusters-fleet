@@ -9,4 +9,7 @@ resources:
   - 50-talos-cluster.yaml
   - 60-cluster-configs.yaml
   - 70-apps.yaml
+  # enable reconciliation of addons repo config
   - 80-homelab-clusters-addons.yaml
+  # enable reconciliation of prod1 flux dir
+  - 95-cluster-room101-a7d-prod1.yaml
