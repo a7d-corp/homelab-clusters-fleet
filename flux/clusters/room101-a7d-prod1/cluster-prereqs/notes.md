@@ -1,0 +1,2 @@
+- update kubeconfig in cluster-info configmap
+- generate kubeconfig for kube-vip
