@@ -1,0 +1,11 @@
+- op: add
+  path: /spec/controlPlaneConfig/controlplane/configPatches/0
+  value:
+    op: add
+    path: /machine/files
+    value:
+      - content: >
+          ${KUBE_VIP_STATICPOD_KUBECONFIG}
+        permissions: 384
+        path: /var/kube-vip.kubeconfig
+        op: create
