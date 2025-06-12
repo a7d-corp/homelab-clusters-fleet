@@ -27,12 +27,12 @@ patches:
       group: controlplane.cluster.x-k8s.io
       kind: TalosControlPlane
       labelSelector: "flux-target=taloscontrolplane"
-  - path: ../../patches/shared-patches/controlplane/cluster-apiserver-extraargs.yaml
+  - path: ../../patches/shared-patches/controlplane/cluster-clustername.yaml
     target:
       group: controlplane.cluster.x-k8s.io
       kind: TalosControlPlane
       labelSelector: "flux-target=taloscontrolplane"
-  - path: ../../patches/shared-patches/controlplane/cluster-clustername.yaml
+  - path: ../../patches/shared-patches/controlplane/cluster-controllermanager-extraargs.yaml
     target:
       group: controlplane.cluster.x-k8s.io
       kind: TalosControlPlane
@@ -48,6 +48,11 @@ patches:
       kind: TalosControlPlane
       labelSelector: "flux-target=taloscontrolplane"
   - path: ../../patches/shared-patches/controlplane/cluster-proxy-disabled.yaml
+    target:
+      group: controlplane.cluster.x-k8s.io
+      kind: TalosControlPlane
+      labelSelector: "flux-target=taloscontrolplane"
+  - path: ../../patches/shared-patches/controlplane/cluster-scheduler-extraargs.yaml
     target:
       group: controlplane.cluster.x-k8s.io
       kind: TalosControlPlane
