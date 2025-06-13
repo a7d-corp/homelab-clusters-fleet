@@ -23,7 +23,7 @@ data:
   WORKER_TCT_SALT: a5da9b
 
   # node config
-  FACTORY_SCHEMATIC_ID: "6f4f1561bdd96a21fc713838db289cce7c5dde02af6575b66b04b008e6516144"
+  FACTORY_SCHEMATIC_ID: "ab6d7d206d804d1e21141b7d3bba5842fe539e74da9d54856eb6c11d6d059ba9"
 
   # proxmox vars
   PVE_CLUSTER_NAME: virt-lab
