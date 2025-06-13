@@ -1,0 +1,12 @@
+# after updating this file, remember to generate a new schematic ID and
+# set it in the cluster vars file.
+customization:
+  extraKernelArgs:
+    - -console
+    - console=tty0
+    - -console
+    - console=ttys0
+  systemExtensions:
+    officialExtensions:
+      - siderolabs/iscsi-tools
+      - siderolabs/qemu-guest-agent
