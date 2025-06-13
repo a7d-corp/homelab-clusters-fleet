@@ -47,10 +47,10 @@ data:
 
   # network config
   CLUSTER_FQDN: room101-a7d-prod1.lab.a7d.dev
-  APISERVER_VIP: 172.27.0.61
+  APISERVER_VIP: 172.27.0.93
   APISERVER_SUBDOMAIN: k8s
   APISERVER_PORT: "6443"
-  NGINX_SVC_IP: 172.27.0.62
+  NGINX_SVC_IP: 172.27.0.94
   # DNS A record which externaldns uses when creating CNAMEs
   EXTERNAL_DNS_EXTERNAL_TARGET: lab.a7d.dev
 
