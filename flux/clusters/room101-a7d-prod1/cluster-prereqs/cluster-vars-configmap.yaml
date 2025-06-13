@@ -12,9 +12,9 @@ data:
 
   # infra versions
   # renovate: kubernetes/kubernetes
-  K8S_VERSION: v1.32.2
+  K8S_VERSION: v1.33.1
   # renovate: siderolabs/talos
-  TALOS_VERSION: v1.10.3
+  TALOS_VERSION: v1.10.4
 
   # salts to enable manual node rolling
   # generate with `openssl rand -hex 3`
@@ -71,8 +71,6 @@ data:
   # OIDC config
   DEX_SUBDOMAIN: dex
   DEX_CLIENT_ID: 9aba9b32-e761-4507-8445-cea11a6b15da
-  DEX_AUTHENTICATOR_SUBDOMAIN: login
-  DEX_AUTHENTICATOR_DESCRIPTION: "Room 101 K8S Prod1"
   OAUTH2_PROXY_SUBDOMAIN: "oauth2-proxy"
   OAUTH2_PROXY_A7D_DOMAIN: "room101-a7d-prod1.lab.a7d.dev"
   OAUTH2_PROXY_ANALBEARD_DOMAIN: "room101-a7d-prod1.lab.analbeard.com"
