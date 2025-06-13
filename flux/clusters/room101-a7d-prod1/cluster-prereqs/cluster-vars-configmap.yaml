@@ -28,10 +28,6 @@ data:
   # proxmox vars
   PVE_CLUSTER_NAME: virt-lab
   PVE_STORAGE_POOL: nfs-vm-images
-  PVE_ALLOWED_NODES: |
-    - host-01
-    - host-02
-    - host-03
 
   # CP SPECs
   CP_MEMORY: "3072"
