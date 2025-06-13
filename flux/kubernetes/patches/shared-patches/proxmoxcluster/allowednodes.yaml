@@ -1,3 +1,4 @@
 - op: add
   path: /spec/allowedNodes
-  value: [${PVE_ALLOWED_NODES}]
+  value:
+    ${PVE_ALLOWED_NODES}
