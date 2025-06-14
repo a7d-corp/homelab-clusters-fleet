@@ -4,3 +4,4 @@ resources:
   - cluster-vars-configmap.yaml
   - cluster-vars-secret.yaml
   - configmap-cluster-info.yaml
+  - secret-room101-a7d-prod1-kubeconfig.yaml
