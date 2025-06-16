@@ -11,9 +11,20 @@
 - Add relevant DNS records to static mapping in blocky (temporarily)
 - Add proxied domains to Haproxy config (if necessary)
 
+#### Firewall rules
+
+- 179/TCP from node subnet to firewall (BGP)
+- 53/UDP from node subnet to internal DNS servers
+- 123/UDP from node subnet to internal NTP servers
+- 3128/TCP from node subnet to `austin` (squid proxy)
+- 50000/TCP from LAN subnet to node subnet (Talos API)
+- 6443/TCP from MC subnet to node subnet (K8S API)
+- 8006/TCP from node subnet to proxmoxHosts alias (Proxmox API)
+
 ### Certificates
 
-- Generate K8S and Talos certificates (see [/hack/pki](/hack/pki))
+- Generate K8S and Talos certificates (see [/hack/pki](/hack/pki)) and ensure they are created as secrets in the MC's cluster namespace.
+- Convert kube-vip kubeconfig to JSON and remove all whitespace: `yq -o json kubeconfig | jq . -c`
 
 ### Github
 
@@ -34,3 +45,9 @@
 - Create credentials for CAPI operator
 - Create credentials for CCM
 - Create credentials for CSI
+- Add a new pool to Proxmox for the new WC: `pvesh create /pools -poolid ${CLUSTER_NAME} -comment "Resource pool for cluster-api ${CLUSTER} Workload Cluster"`
+- Update `capmox` user to allow it to access the new pool: `pveum aclmod /pool/${CLUSTER_NAME} -user capmox-room101-a7d-mc@pve -role PVEVMAdmin --propagate 0`
+
+### Storage
+
+Create pools and credentials in Truenas
