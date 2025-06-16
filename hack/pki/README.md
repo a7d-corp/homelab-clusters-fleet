@@ -8,6 +8,7 @@ The following commands can be used to generate client certificates for `kubeconf
 
 ```
 export CLUSTER=room101-a7d-mc
+export SOPS_AGE_KEY=AGE-SE....
 BASE_DIR=$(git rev-parse --show-toplevel)
 SECRETS_FILE=${BASE_DIR}/flux/kubernetes/clusters/${CLUSTER}/talos-secrets.yaml
 
@@ -15,7 +16,7 @@ sops -i -d ${SECRETS_FILE}
 
 yq .data.bundle -r $SECRETS_FILE \
     | base64 -d \
-    | yq .certs.k8s.crt -r
+    | yq .certs.k8s.crt -r \
     | base64 -d > ${BASE_DIR}/hack/pki/k8s/tmp/k8s-ca.crt
 yq .data.bundle -r $SECRETS_FILE \
     | base64 -d \
@@ -30,7 +31,7 @@ git checkout -- ${SECRETS_FILE}
 ```
 cd ${BASE_DIR}/hack/pki/k8s
 
-cfssl genkey k8s-admin-client.csr.json \
+cfssl genkey k8s-admin-client-csr.json \
     | cfssljson -bare tmp/k8s-admin-client
 
 cfssl gencert -ca tmp/k8s-ca.crt \
@@ -47,7 +48,7 @@ cd ${BASE_DIR}/hack/pki/k8s
 export CA_B64=$(cat tmp/k8s-ca.crt | base64 -w0)
 export CRT_B64=$(cat tmp/k8s-admin-client.pem | base64 -w0)
 export KEY_B64=$(cat tmp/k8s-admin-client-key.pem | base64 -w0)
-export API_URI="k8s.room101-a7d-mc.lab.a7d.dev"
+export API_URI="k8s.${CLUSTER}.lab.a7d.dev"
 export API_PORT=6443
 envsubst < kubeconfig.template > $CLUSTER.kubeconfig
 ```
@@ -64,6 +65,7 @@ rm tmp/*
 
 ```
 export CLUSTER=room101-a7d-mc
+export SOPS_AGE_KEY=AGE-SE....
 BASE_DIR=$(git rev-parse --show-toplevel)
 SECRETS_FILE=${BASE_DIR}/flux/kubernetes/clusters/${CLUSTER}/talos-secrets.yaml
 
