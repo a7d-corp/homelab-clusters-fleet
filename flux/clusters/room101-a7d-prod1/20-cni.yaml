@@ -116,7 +116,7 @@ spec:
   path: ./flux/workloads/cni/configs
   prune: true
   wait: true
-  suspend: true
+  suspend: false
   kubeConfig:
     secretRef:
       name: room101-a7d-prod1-kubeconfig
