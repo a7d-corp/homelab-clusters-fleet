@@ -1,0 +1,127 @@
+#
+# apply CNI prereqs
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 20-cni-prereqs
+  namespace: cluster-room101-a7d-prod1
+spec:
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/workloads/cni/prereqs
+  prune: true
+  wait: true
+  suspend: false
+  kubeConfig:
+    secretRef:
+      name: room101-a7d-prod1-kubeconfig
+---
+#
+# install CNI
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 21-cni
+  namespace: cluster-room101-a7d-prod1
+spec:
+  dependsOn:
+    - name: 20-cni-prereqs
+      namespace: cluster-room101-a7d-prod1
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/workloads/cni
+  prune: true
+  wait: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: true
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
+  patches:
+    # ensure helmreleases are reconciled locally against remote MC
+    - patch: |-
+        apiVersion: helm.toolkit.fluxcd.io/v2
+        kind: HelmRelease
+        metadata:
+          name: "*"
+        spec:
+          kubeConfig:
+            secretRef:
+              name: room101-a7d-prod1-kubeconfig
+      target:
+        kind: HelmRelease
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-prod1
+      target:
+        kind: HelmRepository
+        name: cilium
+    - patch: |
+        - op: replace
+          path: /metadata/name
+          value: cilium-cluster-room101-a7d-prod1
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-prod1
+        - op: replace
+          path: /spec/releaseName
+          value: cilium-cluster-room101-a7d-prod1
+        - op: add
+          path: /spec/storageNamespace
+          value: cilium
+        - op: add
+          path: /spec/targetNamespace
+          value: cilium
+      target:
+        kind: HelmRelease
+        name: cilium
+---
+#
+# apply CNI configs (BGP etc)
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 22-cni-configs
+  namespace: cluster-room101-a7d-prod1
+spec:
+  dependsOn:
+    - name: 21-cni
+      namespace: cluster-room101-a7d-prod1
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/workloads/cni/configs
+  prune: true
+  wait: true
+  suspend: true
+  kubeConfig:
+    secretRef:
+      name: room101-a7d-prod1-kubeconfig
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
