@@ -14,6 +14,10 @@ Using the management cluster as an example:
 - Kubernetes API VIP: `172.27.0.61`
 - Nginx ingress VIP: `172.27.0.62`
 
+## Kubernetes API VIP
+
+- `kube-vip` is deployed via static pods on the control plane nodes in order to advertise the VIP via BGP.
+
 ## Loadbalancer services
 
 - Each cluster is allocated a `/27` service subnet (e.g. `172.27.0.0/27`).
