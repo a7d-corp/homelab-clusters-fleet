@@ -1,0 +1,92 @@
+#
+# create prereqs for cloud controller manager
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 30-ccm-configs
+  namespace: cluster-room101-a7d-prod1
+spec:
+  dependsOn:
+    - name: 21-cni
+      namespace: cluster-room101-a7d-prod1
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/workloads/early-bootstrap/cloud-controller-manager/configs/room101-a7d-mc
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: false
+  kubeConfig:
+    secretRef:
+      name: room101-a7d-prod1-kubeconfig
+---
+#
+# install cloud controller manager
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 31-ccm
+  namespace: cluster-room101-a7d-prod1
+spec:
+  dependsOn:
+    - name: 30-ccm-configs
+      namespace: cluster-room101-a7d-prod1
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/workloads/early-bootstrap/cloud-controller-manager
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
+  patches:
+    # ensure helmreleases are reconciled locally against remote MC
+    - patch: |-
+        apiVersion: helm.toolkit.fluxcd.io/v2
+        kind: HelmRelease
+        metadata:
+          name: "*"
+        spec:
+          kubeConfig:
+            secretRef:
+              name: room101-a7d-prod1-kubeconfig
+      target:
+        kind: HelmRelease
+    #
+    # kubelet-csr-approver
+    #
+    - patch: |
+        - op: add
+          path: /spec/values/providerIpPrefixes
+          value:
+            - 172.25.101.0/27
+      target:
+        kind: HelmRelease
+        name: kubelet-csr-approver
+    - patch: |
+        - op: add
+          path: /spec/values/providerRegex
+          value: "^room101-[a-z0-9]+-prod1-(workers|cp)-[a-z0-9]+-[a-z0-9]+$"
+      target:
+        kind: HelmRelease
+        name: kubelet-csr-approver
