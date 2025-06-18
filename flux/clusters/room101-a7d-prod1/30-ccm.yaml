@@ -60,32 +60,38 @@ spec:
         name: cluster-vars
         optional: false
   patches:
-    - path: patches/helmrelease-remote-install.yaml
+    # ensure helmreleases are reconciled locally against remote MC
+    - patch: |-
+        apiVersion: helm.toolkit.fluxcd.io/v2
+        kind: HelmRelease
+        metadata:
+          name: "*"
+        spec:
+          kubeConfig:
+            secretRef:
+              name: room101-a7d-prod1-kubeconfig
+          chart:
+            spec:
+              sourceRef:
+                namespace: cluster-room101-a7d-prod1
       target:
         kind: HelmRelease
-    - path: patches/helmrepository-cluster-namespace.yaml
-      target:
-        kind: HelmRepository
     - patch: |
         - op: replace
-          path: /metadata/name
-          value: proxmox-cloud-controller-manager-room101-a7d-prod1
-        - op: replace
-          path: /spec/releaseName
-          value: proxmox-cloud-controller-manager-room101-a7d-prod1
+          path: /metadata/namespace
+          value: cluster-room101-a7d-prod1
       target:
         kind: HelmRelease
-        name: proxmox-cloud-controller-manager
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-prod1
+      target:
+        kind: HelmRepository
     #
     # kubelet-csr-approver
     #
     - patch: |
-        - op: replace
-          path: /metadata/name
-          value: kubelet-csr-approver-room101-a7d-prod1
-        - op: replace
-          path: /spec/releaseName
-          value: kubelet-csr-approver-room101-a7d-prod1
         - op: add
           path: /spec/values/providerIpPrefixes
           value:
