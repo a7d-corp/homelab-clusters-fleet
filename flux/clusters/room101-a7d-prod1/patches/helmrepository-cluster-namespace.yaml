@@ -1,0 +1,5 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRepository
+metadata:
+  name: "*"
+  namespace: cluster-room101-a7d-prod1

@@ -60,18 +60,12 @@ spec:
         name: cluster-vars
         optional: false
   patches:
-    # ensure helmreleases are reconciled locally against remote MC
-    - patch: |-
-        apiVersion: helm.toolkit.fluxcd.io/v2
-        kind: HelmRelease
-        metadata:
-          name: "*"
-        spec:
-          kubeConfig:
-            secretRef:
-              name: room101-a7d-prod1-kubeconfig
+    - path: patches/helmrelease-remote-install.yaml
       target:
         kind: HelmRelease
+    - path: patches/helmrepository-cluster-namespace.yaml
+      target:
+        kind: HelmRepository
     - patch: |
         - op: replace
           path: /metadata/name

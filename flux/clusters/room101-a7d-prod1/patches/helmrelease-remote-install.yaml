@@ -1,0 +1,9 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: "*"
+  namespace: cluster-room101-a7d-prod1
+spec:
+  kubeConfig:
+    secretRef:
+      name: room101-a7d-prod1-kubeconfig
