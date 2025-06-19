@@ -12,3 +12,5 @@ resources:
 - clusterpolicy-add-imagepullsecret-docker-io.yaml
 - configmap-proxy-env-vars.yaml
 - clusterpolicy-proxy-env-vars.yaml
+- clusterpolicy-label-all-namespaces.yaml
+- clusterrole-kyverno-background-controller-label-namespaces.yaml
