@@ -4,4 +4,5 @@ namespace: dex
 resources:
   - dex-helmrelease.yaml
   - dex-helmrepository.yaml
+  - namespace.yaml
   - secrets.yaml

@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
 - ingress-nginx-helmrelease.yaml
 - ingress-nginx-helmrepository.yaml
+- ingress-nginx-namespace.yaml

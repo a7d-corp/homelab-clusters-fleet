@@ -15,7 +15,6 @@ spec:
       version: ">=v1.0.0 < v2.0.0"
   interval: 60m
   install:
-    createNamespace: true
     remediation:
       retries: 3
   values:
