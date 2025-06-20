@@ -1,6 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
+  - clusterrole-kyverno-background-controller-label-namespaces.yaml
   - kyverno-helmrelease.yaml
   - kyverno-helmrepository.yaml
   - namespace-kyverno.yaml
