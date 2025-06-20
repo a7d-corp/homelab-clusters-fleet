@@ -3,6 +3,4 @@ kind: Namespace
 metadata:
   labels:
     pod-security.kubernetes.io/enforce: privileged
-    goldilocks.fairwinds.com/enabled: "true"
-    prometheus.io/scrape: "true"
   name: democratic-csi

@@ -5,4 +5,3 @@ resources:
 - github-credentials-secret.yaml
 - helmrelease.yaml
 - helmrepository.yaml
-- namespace.yaml

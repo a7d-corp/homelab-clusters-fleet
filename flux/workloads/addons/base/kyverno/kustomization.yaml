@@ -4,4 +4,3 @@ resources:
   - clusterrole-kyverno-background-controller-label-namespaces.yaml
   - kyverno-helmrelease.yaml
   - kyverno-helmrepository.yaml
-  - namespace-kyverno.yaml

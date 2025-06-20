@@ -12,7 +12,11 @@ spec:
         kind: HelmRepository
         name: bitnami-pinniped
       version: ">=2.0.0 <3.0.0"
-  interval: 10m0s
+  interval: 60m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
   values:
     global:
       imagePullSecrets:

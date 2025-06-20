@@ -3,5 +3,4 @@ kind: Kustomization
 resources:
   - external-dns-helmrelease.yaml
   - external-dns-helmrepository.yaml
-  - namespace.yaml
   - secrets.yaml

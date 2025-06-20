@@ -5,7 +5,6 @@ resources:
 - https://github.com/fluxcd/flux2/releases/download/v2.6.1/install.yaml
 
 patches:
-- path: patches/add-namespace-labels.yaml
 - path: patches/delete-image-automation-controller-deployment.yaml
 - path: patches/delete-image-automation-controller-serviceaccount.yaml
 - path: patches/delete-image-reflector-controller-deployment.yaml
