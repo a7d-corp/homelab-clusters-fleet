@@ -4,4 +4,3 @@ resources:
 - cert-manager-cloudflare-secret.yaml
 - cert-manager-helmrelease.yaml
 - cert-manager-helmrepository.yaml
-- cert-manager-namespace.yaml

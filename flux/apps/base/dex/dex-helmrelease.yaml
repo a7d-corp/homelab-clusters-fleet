@@ -12,7 +12,11 @@ spec:
         kind: HelmRepository
         name: dex
       version: ">=0.14.0 <1.0.0"
-  interval: 10m0s
+  interval: 60m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
   values:
     configSecret:
       create: false

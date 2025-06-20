@@ -12,7 +12,11 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: bitnami
-  interval: 1m0s
+  interval: 60m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
   values:
     annotationFilter: "external-dns.alpha.kubernetes.io/exclude notin (true)"
     cloudflare:
