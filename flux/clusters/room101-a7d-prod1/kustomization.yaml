@@ -5,8 +5,7 @@ resources:
   - 10-talos-cluster.yaml
   - 20-cni.yaml
   - 30-ccm.yaml
-#  - 20-bootstrap.yaml
-#  - 30-addons.yaml
+  - 40-addons.yaml
 #  - 40-controllers.yaml
 #  - 60-cluster-configs.yaml
 #  - 70-apps.yaml

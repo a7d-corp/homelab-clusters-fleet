@@ -1,0 +1,174 @@
+---
+#
+# install addons
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 40-addons-pre-setup
+  namespace: cluster-room101-a7d-prod1
+spec:
+  dependsOn:
+    - name: 31-ccm
+      namespace: cluster-room101-a7d-prod1
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/workloads/addons/cluster-type/capi-cluster/pre-setup
+  prune: true
+  wait: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
+  kubeConfig:
+    secretRef:
+      name: room101-a7d-prod1-kubeconfig
+---
+#
+# install MC addons
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 41-addons
+  namespace: cluster-room101-a7d-prod1
+spec:
+  dependsOn:
+    - name: 40-addons-pre-setup
+      namespace: cluster-room101-a7d-prod1
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/workloads/addons/cluster-type/capi-cluster
+  prune: true
+  wait: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
+  patches:
+    # ensure helmreleases are reconciled locally against remote MC
+    - patch: |-
+        apiVersion: helm.toolkit.fluxcd.io/v2
+        kind: HelmRelease
+        metadata:
+          name: "*"
+        spec:
+          kubeConfig:
+            secretRef:
+              name: room101-a7d-prod1-kubeconfig
+          chart:
+            spec:
+              sourceRef:
+                namespace: cluster-room101-a7d-prod1
+      target:
+        kind: HelmRelease
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-prod1
+      target:
+        kind: HelmRelease
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-prod1
+      target:
+        kind: HelmRepository
+    #
+    # nginx
+    #
+    - patch: |
+        - op: add
+          path: /spec/values/controller/service/loadBalancerIP
+          value: "${NGINX_SVC_IP}"
+      target:
+        kind: HelmRelease
+        name: ingress-nginx
+    #
+    # external-dns
+    #
+    - patch: |
+        - op: add
+          path: /spec/values/txtOwnerId
+          value: "room101a7prod1"
+        - op: add
+          path: /spec/values/sources
+          value:
+            - crd
+            - ingress
+        - op: add
+          path: /spec/values/crd
+          value:
+            create: true
+            apiversion: "externaldns.k8s.io/v1alpha1" # CHECKME
+            kind: "DNSEndpoint"
+      target:
+        kind: HelmRelease
+        name: external-dns
+---
+#
+# create configs which depend on controllers which were installed by the prior kustomization
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 42-addons-post-setup
+  namespace: cluster-room101-a7d-prod1
+spec:
+  dependsOn:
+    - name: 41-addons
+      namespace: cluster-room101-a7d-prod1
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/workloads/addons/config/post
+  prune: true
+  wait: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: kyverno
+      namespace: kyverno-admission-controller
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: kyverno
+      namespace: kyverno-background-controller
+  suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
+  kubeConfig:
+    secretRef:
+      name: room101-a7d-prod1-kubeconfig
