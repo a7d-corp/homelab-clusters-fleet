@@ -31,6 +31,9 @@ spec:
       - kind: ConfigMap
         name: cluster-vars
         optional: false
+      - kind: Secret
+        name: cluster-vars-secret
+        optional: false
   kubeConfig:
     secretRef:
       name: room101-a7d-prod1-kubeconfig
@@ -66,6 +69,9 @@ spec:
     substituteFrom:
       - kind: ConfigMap
         name: cluster-vars
+        optional: false
+      - kind: Secret
+        name: cluster-vars-secret
         optional: false
   patches:
     # ensure helmreleases are reconciled locally against remote MC

@@ -31,6 +31,9 @@ spec:
       - kind: ConfigMap
         name: cluster-vars
         optional: false
+      - kind: Secret
+        name: cluster-vars-secret
+        optional: false
   patches:
     - patch: |
         - op: add
