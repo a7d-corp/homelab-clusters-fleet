@@ -14,6 +14,8 @@ spec:
         namespace: democratic-csi
       version: ">=v0.3.0 < v1.0.0"
   interval: 60m
+  storageNamespace: democratic-csi
+  targetNamespace: democratic-csi
   install:
     remediation:
       retries: 3

@@ -17,6 +17,8 @@ spec:
   install:
     remediation:
       retries: 3
+  storageNamespace: cert-manager
+  targetNamespace: cert-manager
   values:
     extraArgs:
       - --dns01-recursive-nameservers-only

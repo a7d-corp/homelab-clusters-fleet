@@ -17,6 +17,8 @@ spec:
   install:
     remediation:
       retries: 3
+  storageNamespace: democratic-csi
+  targetNamespace: democratic-csi
   valuesFrom:
     - kind: ConfigMap
       name: democratic-csi-nfs-values

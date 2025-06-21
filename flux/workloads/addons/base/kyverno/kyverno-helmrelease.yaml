@@ -14,6 +14,8 @@ spec:
         namespace: kyverno
       version: ">=v3.0.0 < v4.0.0"
   interval: 60m
+  storageNamespace: kyverno
+  targetNamespace: kyverno
   install:
     remediation:
       retries: 3
