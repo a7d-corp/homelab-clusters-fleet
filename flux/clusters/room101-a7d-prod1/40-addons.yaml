@@ -113,6 +113,28 @@ spec:
         kind: HelmRelease
         name: ingress-nginx
     #
+    # democratic-csi
+    #
+    # ensure correct value substitutions for prod1
+    - patch: |-
+        apiVersion: helm.toolkit.fluxcd.io/v2
+        kind: HelmRelease
+        metadata:
+          name: democratic-csi-nfs
+        spec:
+          valuesFrom:
+            - kind: ConfigMap
+              name: democratic-csi-prod1-nfs-values
+              optional: false
+              valuesKey: values.yaml
+            - kind: Secret
+              name: democratic-csi-prod1-nfs-values
+              optional: false
+              valuesKey: values.yaml
+      target:
+        kind: HelmRelease
+        name: democratic-csi-nfs
+    #
     # external-dns
     #
     - patch: |

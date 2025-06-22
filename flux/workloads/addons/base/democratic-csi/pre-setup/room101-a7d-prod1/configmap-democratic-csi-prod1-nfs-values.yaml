@@ -1,0 +1,22 @@
+apiVersion: v1
+data:
+  values.yaml: |
+    driver:
+      config:
+        instance_id: storage-k8s-prod1-nfs
+        httpConnection:
+          host: 172.25.101.3
+          username: root
+        sshConnection:
+          host: 172.25.101.3
+        zfs:
+          datasetParentName: storage/k8s/prod1/nfs/vols
+          detachedSnapshotsDatasetParentName: storage/k8s/prod1/nfs/snaps
+        nfs:
+          shareHost: 172.25.101.3
+kind: ConfigMap
+metadata:
+  labels:
+    flux-patch-target: helmrelease-values-from
+  name: democratic-csi-prod1-nfs-values
+  namespace: cluster-room101-a7d-prod1
