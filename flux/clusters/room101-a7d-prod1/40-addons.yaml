@@ -39,16 +39,46 @@ spec:
       name: room101-a7d-prod1-kubeconfig
 ---
 #
+# pre-setup config per cluster
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 41-addons-pre-setup-config
+  namespace: cluster-room101-a7d-prod1
+spec:
+  dependsOn:
+    - name: 31-ccm
+      namespace: cluster-room101-a7d-prod1
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/workloads/addons/clusters/room101-a7d-prod1
+  prune: true
+  wait: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: false
+---
+#
 # install MC addons
 #
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 41-addons
+  name: 42-addons
   namespace: cluster-room101-a7d-prod1
 spec:
   dependsOn:
     - name: 40-addons-pre-setup
+      namespace: cluster-room101-a7d-prod1
+    - name: 41-addons-pre-setup-config
       namespace: cluster-room101-a7d-prod1
   interval: 1h
   retryInterval: 1m
@@ -162,11 +192,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 42-addons-post-setup
+  name: 43-addons-post-setup
   namespace: cluster-room101-a7d-prod1
 spec:
   dependsOn:
-    - name: 41-addons
+    - name: 42-addons
       namespace: cluster-room101-a7d-prod1
   interval: 1h
   retryInterval: 1m
