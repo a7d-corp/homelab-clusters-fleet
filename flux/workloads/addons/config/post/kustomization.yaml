@@ -13,3 +13,4 @@ resources:
 - configmap-proxy-env-vars.yaml
 - clusterpolicy-proxy-env-vars.yaml
 - clusterpolicy-label-all-namespaces.yaml
+- clusterrole-kyverno-background-controller-namespaces.yaml
