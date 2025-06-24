@@ -1,0 +1,29 @@
+#
+# apply cluster-wide configs
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 50-cluster-configs
+  namespace: cluster-room101-a7d-prod1
+spec:
+  dependsOn:
+    - name: 42-addons
+      namespace: cluster-room101-a7d-prod1
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/configs/room101-a7d-prod1
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: false
+  kubeConfig:
+    secretRef:
+      name: room101-a7d-prod1-kubeconfig

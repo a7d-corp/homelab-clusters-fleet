@@ -6,7 +6,6 @@ resources:
   - 20-cni.yaml
   - 30-ccm.yaml
   - 40-addons.yaml
-#  - 40-controllers.yaml
-#  - 60-cluster-configs.yaml
+  - 50-cluster-configs.yaml
 #  - 70-apps.yaml
 #  - 80-homelab-clusters-addons.yaml
