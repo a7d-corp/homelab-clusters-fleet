@@ -17,7 +17,7 @@ spec:
     name: flux-system
     namespace: flux-system
   path: ./flux/configs/homelab-clusters-addons
-  prune: true
+  prune: false
   wait: true
   timeout: 5m0s
   decryption:

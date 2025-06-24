@@ -18,7 +18,7 @@ spec:
     name: flux-system
     namespace: flux-system
   path: ./flux/workloads/controllers/cluster-role/management-cluster
-  prune: true
+  prune: false
   wait: true
   decryption:
     provider: sops
@@ -51,7 +51,7 @@ spec:
     name: flux-system
     namespace: flux-system
   path: ./flux/workloads/controllers/base/cluster-api-operator/capi-providers
-  prune: true
+  prune: false
   wait: true
   decryption:
     provider: sops

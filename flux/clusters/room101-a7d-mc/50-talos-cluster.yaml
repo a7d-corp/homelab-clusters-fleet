@@ -18,7 +18,7 @@ spec:
     name: flux-system
     namespace: flux-system
   path: ./flux/kubernetes/clusters/room101-a7d-mc
-  prune: true
+  prune: false
   decryption:
     provider: sops
     secretRef:

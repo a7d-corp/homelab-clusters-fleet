@@ -19,7 +19,7 @@ spec:
     name: flux-system
     namespace: flux-system
   path: ./flux/workloads/addons/cluster-type/capi-cluster
-  prune: true
+  prune: false
   wait: true
   decryption:
     provider: sops
@@ -81,7 +81,7 @@ spec:
     name: flux-system
     namespace: flux-system
   path: ./flux/workloads/addons/config/post
-  prune: true
+  prune: false
   wait: true
   decryption:
     provider: sops

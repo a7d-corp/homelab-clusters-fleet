@@ -16,7 +16,7 @@ spec:
     name: flux-system
     namespace: flux-system
   path: ./flux/apps/room101-a7d-mc
-  prune: true
+  prune: false
   wait: true
   timeout: 5m0s
   decryption:
@@ -48,7 +48,7 @@ spec:
     name: flux-system
     namespace: flux-system
   path: ./flux/apps/room101-a7d-mc/post-setup
-  prune: true
+  prune: false
   wait: true
   timeout: 5m0s
   decryption:
