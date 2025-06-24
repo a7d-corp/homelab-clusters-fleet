@@ -1,0 +1,130 @@
+#
+# pre-setup for addons
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 60-apps-pre-setup
+  namespace: cluster-room101-a7d-prod1
+spec:
+  interval: 10m0s
+  dependsOn:
+    - name: 50-cluster-configs
+      namespace: cluster-room101-a7d-prod1
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/apps/room101-a7d-prod1/pre-setup
+  prune: true
+  wait: true
+  timeout: 5m0s
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
+  kubeConfig:
+    secretRef:
+      name: room101-a7d-prod1-kubeconfig
+---
+#
+# install addons
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 61-apps
+  namespace: cluster-room101-a7d-prod1
+spec:
+  interval: 10m0s
+  dependsOn:
+    - name: 60-apps-pre-setup
+      namespace: cluster-room101-a7d-prod1
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/apps/room101-a7d-prod1
+  prune: true
+  wait: true
+  timeout: 5m0s
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
+  patches:
+    # ensure helmreleases are reconciled locally against remote MC
+    - patch: |-
+        apiVersion: helm.toolkit.fluxcd.io/v2
+        kind: HelmRelease
+        metadata:
+          name: "*"
+        spec:
+          kubeConfig:
+            secretRef:
+              name: room101-a7d-prod1-kubeconfig
+          chart:
+            spec:
+              sourceRef:
+                namespace: cluster-room101-a7d-prod1
+      target:
+        kind: HelmRelease
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-prod1
+      target:
+        kind: HelmRelease
+    - patch: |
+        - op: replace
+          path: /metadata/namespace
+          value: cluster-room101-a7d-prod1
+      target:
+        kind: HelmRepository
+---
+#
+# post-setup for addons
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 62-apps-post-setup
+  namespace: cluster-room101-a7d-prod1
+spec:
+  interval: 10m0s
+  dependsOn:
+    - name: 61-apps
+      namespace: cluster-room101-a7d-prod1
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/apps/room101-a7d-prod1/post-setup
+  prune: true
+  wait: true
+  timeout: 5m0s
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
+  kubeConfig:
+    secretRef:
+      name: room101-a7d-prod1-kubeconfig

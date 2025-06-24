@@ -7,5 +7,5 @@ resources:
   - 30-ccm.yaml
   - 40-addons.yaml
   - 50-cluster-configs.yaml
-#  - 70-apps.yaml
+  - 60-apps.yaml
 #  - 80-homelab-clusters-addons.yaml
