@@ -10,7 +10,7 @@ metadata:
 spec:
   interval: 10m0s
   dependsOn:
-    - name: 70-apps
+    - name: 71-apps
       namespace: cluster-room101-a7d-mc
   sourceRef:
     kind: GitRepository
