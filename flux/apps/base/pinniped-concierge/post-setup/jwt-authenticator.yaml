@@ -3,5 +3,5 @@ kind: JWTAuthenticator
 metadata:
   name: roon101-supervisor-jwt-authenticator
 spec:
-  issuer: "https://${PINNIPED_SUPERVISOR_SUBDOMAIN}.${CLUSTER_FQDN}/${PINNIPED_FEDERATION_DOMAIN}"
+  issuer: "https://${PINNIPED_SUPERVISOR_SUBDOMAIN}.${SUPERVISOR_CLUSTER_FQDN}/${PINNIPED_FEDERATION_DOMAIN}"
   audience: ${CLUSTER}-${PINNIPED_AUDIENCE_SUFFIX}

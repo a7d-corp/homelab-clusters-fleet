@@ -85,6 +85,7 @@ data:
 
   # Pinniped config
   PINNIPED_SUPERVISOR_SUBDOMAIN: supervisor
+  SUPERVISOR_CLUSTER_FQDN: room101-a7d-mc.lab.a7d.dev
   PINNIPED_FEDERATION_DOMAIN: room101
   # generate with `openssl rand -hex 8`
   PINNIPED_AUDIENCE_SUFFIX: 4042620466dea7cf
