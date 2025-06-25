@@ -1,15 +1,47 @@
 #
-# apply all addons
+# pre-setup for addons
 #
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 70-apps
+  name: 70-apps-pre-setup
   namespace: cluster-room101-a7d-mc
 spec:
   interval: 10m0s
   dependsOn:
     - name: 60-cluster-configs
+      namespace: cluster-room101-a7d-mc
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/apps/room101-a7d-mc/pre-setup
+  prune: false
+  wait: true
+  timeout: 5m0s
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
+---
+#
+# install addons
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 71-apps
+  namespace: cluster-room101-a7d-mc
+spec:
+  interval: 10m0s
+  dependsOn:
+    - name: 70-apps-pre-setup
       namespace: cluster-room101-a7d-mc
   sourceRef:
     kind: GitRepository
@@ -31,17 +63,17 @@ spec:
         optional: false
 ---
 #
-# apply config for addons
+# post-setup for addons
 #
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 71-apps-configs
+  name: 72-apps-post-setup
   namespace: cluster-room101-a7d-mc
 spec:
   interval: 10m0s
   dependsOn:
-    - name: 70-apps
+    - name: 71-apps
       namespace: cluster-room101-a7d-mc
   sourceRef:
     kind: GitRepository
