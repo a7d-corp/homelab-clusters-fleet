@@ -3,5 +3,4 @@ kind: Kustomization
 resources:
 - ../base/pinniped-concierge
 - ../base/pinniped-supervisor
-- dex
-- oauth2-proxy
+- ../base/oauth2-proxy
