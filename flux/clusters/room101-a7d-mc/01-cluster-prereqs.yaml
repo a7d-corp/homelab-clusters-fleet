@@ -15,7 +15,7 @@ spec:
     name: flux-system
     namespace: flux-system
   path: ./flux/clusters/room101-a7d-mc/cluster-prereqs
-  prune: false
+  prune: true
   wait: true
   decryption:
     provider: sops

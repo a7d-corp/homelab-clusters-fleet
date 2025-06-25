@@ -18,7 +18,7 @@ spec:
     name: flux-system
     namespace: flux-system
   path: ./flux/configs/room101-a7d-mc
-  prune: false
+  prune: true
   decryption:
     provider: sops
     secretRef:

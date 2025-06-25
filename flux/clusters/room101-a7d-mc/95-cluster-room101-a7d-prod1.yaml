@@ -7,7 +7,7 @@ spec:
   force: false
   interval: 10m0s
   path: ./flux/clusters/room101-a7d-prod1
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
