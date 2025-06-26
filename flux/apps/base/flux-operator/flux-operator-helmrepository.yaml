@@ -1,0 +1,9 @@
+kind: HelmRepository
+apiVersion: source.toolkit.fluxcd.io/v1
+metadata:
+  name: flux-operator
+  namespace: flux-operator
+spec:
+  interval: 10m0s
+  type: oci
+  url: oci://ghcr.io/controlplaneio-fluxcd/charts
