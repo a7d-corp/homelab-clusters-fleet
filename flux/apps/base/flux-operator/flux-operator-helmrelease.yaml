@@ -2,7 +2,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: flux-operator
-  namespace: flux-operator
+  namespace: flux-system
 spec:
   releaseName: flux-operator
   chart:
@@ -13,5 +13,5 @@ spec:
         name: flux-operator
       version: "0.23.0"
   interval: 10m0s
-  storageNamespace: flux-operator
-  targetNamespace: flux-operator
+  storageNamespace: flux-system
+  targetNamespace: flux-system
