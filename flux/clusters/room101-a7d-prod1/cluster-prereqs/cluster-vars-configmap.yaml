@@ -91,5 +91,7 @@ data:
   # generate with `openssl rand -hex 8`
   PINNIPED_AUDIENCE_SUFFIX: 6c7986ddf94f83c5
 
+  FLUX_OPERATOR_ADDONS_PATH: "flux/clusters/room101-a7d-prod1"
+
   # flux hack (see https://fluxcd.io/flux/components/kustomize/kustomizations/#post-build-substitution-of-numbers-and-booleans)
   quote: '"' # double quote var
