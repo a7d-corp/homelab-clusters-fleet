@@ -70,8 +70,6 @@ data:
   CILIUM_LB_IP_POOL: "172.27.0.64/27"
 
   # OIDC config
-  DEX_SUBDOMAIN: dex
-  DEX_CLIENT_ID: 9aba9b32-e761-4507-8445-cea11a6b15da
   OAUTH2_PROXY_SUBDOMAIN: "oauth2-proxy"
   OAUTH2_PROXY_A7D_DOMAIN: "room101-a7d-prod1.lab.a7d.dev"
   OAUTH2_PROXY_ANALBEARD_DOMAIN: "room101-a7d-prod1.lab.analbeard.com"
