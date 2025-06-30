@@ -10,14 +10,6 @@
 
 `concierge.<cluster id>.lab.a7d.dev` > `ingress IP`
 
-### Dex
-
-`dex.<cluster id>.lab.a7d.dev` > `ingress IP`
-
-### Dex k8s authenticator
-
-`login.<cluster id>.lab.a7d.dev` > `ingress IP`
-
 ### Oauth2 proxy
 
 `oauth2-proxy.<cluster id>.lab.a7d.dev` > `ingress IP`
