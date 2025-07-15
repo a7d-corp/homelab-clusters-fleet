@@ -42,12 +42,18 @@
 
 ### Proxmox
 
-- Create credentials for CAPI operator
 - Create credentials for CCM
-- Create credentials for CSI
+
+```
+pveum role add proxmox-cloud-controller-manager -privs "VM.Audit"
+pveum user add ccm-room101-a7d-prod1@pve
+pveum aclmod / -user ccm-room101-a7d-prod1@pve -role proxmox-cloud-controller-manager
+pveum user token add ccm-room101-a7d-prod1@pve ccm -privsep 0
+```
+
 - Add a new pool to Proxmox for the new WC: `pvesh create /pools -poolid ${CLUSTER_NAME} -comment "Resource pool for cluster-api ${CLUSTER} Workload Cluster"`
 - Update `capmox` user to allow it to access the new pool: `pveum aclmod /pool/${CLUSTER_NAME} -user capmox-room101-a7d-mc@pve -role PVEVMAdmin --propagate 0`
 
 ### Storage
 
-Create pools and credentials in Truenas
+Create pools and credentials in Truenas (see [this](https://www.lisenet.com/2021/moving-to-truenas-and-democratic-csi-for-kubernetes-persistent-storage/))
