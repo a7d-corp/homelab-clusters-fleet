@@ -4,3 +4,4 @@ resources:
 - ../../base/pinniped-concierge/post-setup
 - ../../base/flux-operator/post-setup
 - secret-homelab-clusters-addons-github-auth.yaml
+- secret-sops-age-addons.yaml
