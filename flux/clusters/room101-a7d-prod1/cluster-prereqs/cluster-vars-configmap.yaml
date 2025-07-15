@@ -18,7 +18,7 @@ data:
 
   # salts to enable manual node rolling
   # generate with `openssl rand -hex 3`
-CP_MACHINE_SALT: a03b00
+  CP_MACHINE_SALT: a03b00
   WORKER_MACHINE_SALT: 8b49ab
   WORKER_TCT_SALT: 44f7d7
 
