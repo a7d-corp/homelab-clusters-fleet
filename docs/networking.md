@@ -24,3 +24,10 @@ Using the management cluster as an example:
 - BGP is used to advertise IPs which are allocated by Cilium to Loadbalancer services.
 - IPs in service subnets are not routed unless allocated to a Loadbalancer.
 - As any node in the cluster's subnet can advertise a route to service IPs, Opnsense must be configured to allow any IP in the cluster's subnet to announce. This is handled by the [opsense-add-bgp-neighbours.sh](hack/opsense-add-bgp-neighbours.sh) script.
+
+## Networks
+
+| Cluster           | subnet          | vlan ID | service subnet | k8s IP      | service IP  |
+| ----------------- | --------------- | ------- | -------------- | ----------- | ----------- |
+| room101-a7d-mc    | 172.25.100.1/27 | 1100    | 172.27.0.32/27 | 172.27.0.61 | 172.27.0.62 |
+| room101-a7d-prod1 | 172.25.101.1/27 | 1101    | 172.27.0.64/27 | 172.27.0.93 | 172.27.0.94 |
