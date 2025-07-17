@@ -74,6 +74,10 @@ spec:
         - op: add
           path: /spec/targetNamespace
           value: cilium
+        - op: replace
+          path: /spec/chart/spec/version
+          # renovate: cilium/cilium
+          value: 1.17.5
       target:
         kind: HelmRelease
         name: cilium
