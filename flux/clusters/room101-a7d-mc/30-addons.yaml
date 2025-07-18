@@ -36,12 +36,21 @@ spec:
         optional: false
   patches:
     - patch: |
-        - op: add
-          path: /spec/values/controller/service/loadBalancerIP
-          value: "${NGINX_SVC_IP}"
+        - op: replace
+          path: /spec/chart/spec/version
+          # renovate: cert-manager/cert-manager
+          value: 1.18.2
       target:
         kind: HelmRelease
-        name: ingress-nginx
+        name: cert-manager
+    - patch: |
+        - op: replace
+          path: /spec/chart/spec/version
+          # renovate: democratic-csi/democratic-csi
+          value: 0.15.0
+      target:
+        kind: HelmRelease
+        name: democratic-csi-nfs
     - patch: |
         - op: add
           path: /spec/values/txtOwnerId
@@ -57,9 +66,32 @@ spec:
             create: true
             apiversion: "externaldns.k8s.io/v1alpha1" # CHECKME
             kind: "DNSEndpoint"
+        - op: replace
+          path: /spec/chart/spec/version
+          # renovate: kubernetes-sigs/external-dns
+          value: 8.9.2
       target:
         kind: HelmRelease
         name: external-dns
+    - patch: |
+        - op: add
+          path: /spec/values/controller/service/loadBalancerIP
+          value: "${NGINX_SVC_IP}"
+        - op: replace
+          path: /spec/chart/spec/version
+          # renovate: kubernetes/ingress-nginx
+          value: 4.13.0
+      target:
+        kind: HelmRelease
+        name: ingress-nginx
+    - patch: |
+        - op: replace
+          path: /spec/chart/spec/version
+          # renovate: kyverno/kyverno
+          value: 3.4.4
+      target:
+        kind: HelmRelease
+        name: kyverno
 ---
 #
 # create configs which depend on controllers which were installed by the prior kustomization
