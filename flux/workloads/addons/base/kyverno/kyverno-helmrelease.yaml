@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: kyverno
         namespace: kyverno
-      version: "0.0.0"
+      version: "0.0.1"
   interval: 60m
   storageNamespace: kyverno
   targetNamespace: kyverno
