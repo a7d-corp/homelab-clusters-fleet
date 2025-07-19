@@ -65,7 +65,9 @@ spec:
         name: cluster-vars
         optional: false
   patches:
+    #
     # ensure helmreleases are reconciled locally against remote MC
+    #
     - patch: |-
         apiVersion: helm.toolkit.fluxcd.io/v2
         kind: HelmRelease
@@ -93,6 +95,53 @@ spec:
           value: cluster-room101-a7d-prod1
       target:
         kind: HelmRepository
+    #
+    # pinnpied-concierge
+    #
+    - patch: |
+        - op: replace
+          path: /spec/chart/spec/version
+          # renovate: vmware/pinniped
+          value: 2.4.20
+      target:
+        kind: HelmRelease
+        name: pinniped-concierge
+    #
+    # pinniped-supervisor
+    #
+    - patch: |
+        - op: replace
+          path: /spec/chart/spec/version
+          # renovate: vmware/pinniped
+          value: 2.4.20
+      target:
+        kind: HelmRelease
+        name: pinniped-supervisor
+    #
+    # oauth2-proxy-a7d-dev
+    #
+    - patch: |
+        - op: replace
+          path: /spec/chart/spec/version
+          # renovate: oauth2-proxy/oauth2-proxy
+          value: 6.24.2
+      target:
+        kind: HelmRelease
+        name: oauth2-proxy-a7d-dev
+    #
+    # oauth2-proxy-analbeard-com
+    #
+    - patch: |
+        - op: replace
+          path: /spec/chart/spec/version
+          # renovate: oauth2-proxy/oauth2-proxy
+          value: 6.24.2
+      target:
+        kind: HelmRelease
+        name: oauth2-proxy-analbeard-com
+
+        
+        
 ---
 #
 # post-setup for addons

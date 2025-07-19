@@ -183,6 +183,21 @@ spec:
         - op: add
           path: /spec/values/providerRegex
           value: "^room101-[a-z0-9]+-mc-(workers|cp)-[a-z0-9]+-[a-z0-9]+$"
+        - op: replace
+          path: /spec/chart/spec/version
+          # renovate: postfinance/kubelet-csr-approver
+          value: 1.2.10
       target:
         kind: HelmRelease
         name: kubelet-csr-approver
+    #
+    # proxmox-cloud-controller-manager
+    #
+    - patch: |
+        - op: replace
+          path: /spec/chart/spec/version
+          # renovate: sergelogvinov/proxmox-cloud-controller-manager
+          value: 0.2.14
+      target:
+        kind: HelmRelease
+        name: proxmox-cloud-controller-manager
