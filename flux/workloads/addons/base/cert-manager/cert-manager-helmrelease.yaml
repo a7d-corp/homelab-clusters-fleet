@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: jetstack
         namespace: cert-manager
-      version: "0.0.0"
+      version: "v0.16.1"
   interval: 60m
   install:
     remediation:
