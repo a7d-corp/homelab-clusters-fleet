@@ -1,0 +1,6 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../shared/
+  - secret-cert-manager-cloudflare-token.yaml
+  - secret-external-dns-cloudflare-token.yaml
