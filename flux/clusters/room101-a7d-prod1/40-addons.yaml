@@ -243,7 +243,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./flux/workloads/addons/config/post
+  path: ./flux/workloads/addons/config/post/room101-a7d-prod1
   prune: true
   wait: true
   decryption:
