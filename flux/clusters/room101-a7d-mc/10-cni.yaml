@@ -77,7 +77,7 @@ spec:
         - op: replace
           path: /spec/chart/spec/version
           # renovate: cilium/cilium
-          value: 1.17.5
+          value: 1.18.0
       target:
         kind: HelmRelease
         name: cilium
