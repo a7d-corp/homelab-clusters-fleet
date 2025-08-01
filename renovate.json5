@@ -40,6 +40,19 @@
       ],
       "datasourceTemplate": "github-releases",
       "extractVersionTemplate": "^\"?v?(?<version>.*)\"?$"
+    },
+    {
+      customType: 'regex',
+      managerFilePatterns: [
+        '.*y[a]?ml$'
+      ],
+      matchStrings: [
+        // # renovate: datasource=helm
+        // # chartname=atlantis
+        // # url=https://runatlantis.github.io/helm-charts
+        // version: 5.18.0
+        'renovate:\\s+datasource=(?<datasource>\\w+)\\s*\\n\\W*chartname=(?<depName>\\S+)\\s*\\n\\W*url=(?<registryUrl>\\S+)\\s*\\n(\\s)*version:(\\s)*v?(?<currentValue>.*?)(\\s)*\\n'
+      ],
     }
   ]
 }
