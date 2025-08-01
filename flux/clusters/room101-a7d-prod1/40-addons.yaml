@@ -138,7 +138,9 @@ spec:
     - patch: |
         - op: replace
           path: /spec/chart/spec/version
-          # renovate: cert-manager/cert-manager
+          # renovate: datasource=helm
+          # chartname=cert-manager
+          # url=https://charts.jetstack.io
           value: 1.18.2
       target:
         kind: HelmRelease
@@ -168,7 +170,9 @@ spec:
     - patch: |
         - op: replace
           path: /spec/chart/spec/version
-          # renovate: democratic-csi/democratic-csi
+          # renovate: datasource=helm
+          # chartname=democratic-csi
+          # url=https://democratic-csi.github.io/charts/
           value: 0.15.0
       target:
         kind: HelmRelease
@@ -193,7 +197,9 @@ spec:
             kind: "DNSEndpoint"
         - op: replace
           path: /spec/chart/spec/version
-          # renovate: kubernetes-sigs/external-dns
+          # renovate: datasource=helm
+          # chartname=external-dns
+          # url=oci://registry-1.docker.io/bitnamicharts
           value: 8.9.2
       target:
         kind: HelmRelease
@@ -204,7 +210,9 @@ spec:
     - patch: |
         - op: replace
           path: /spec/chart/spec/version
-          # renovate: kyverno/kyverno
+          # renovate: datasource=helm
+          # chartname=kyverno
+          # url=https://kyverno.github.io/kyverno/
           value: 3.4.4
       target:
         kind: HelmRelease
@@ -218,7 +226,9 @@ spec:
           value: "${NGINX_SVC_IP}"
         - op: replace
           path: /spec/chart/spec/version
-          # renovate: kubernetes/ingress-nginx
+          # renovate: datasource=helm
+          # chartname=ingress-nginx
+          # url=https://kubernetes.github.io/ingress-nginx
           value: 4.13.0
       target:
         kind: HelmRelease

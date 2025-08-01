@@ -92,7 +92,9 @@ spec:
           value: cilium
         - op: replace
           path: /spec/chart/spec/version
-          # renovate: cilium/cilium
+          # renovate: datasource=helm
+          # chartname=cilium
+          # url=https://helm.cilium.io/
           value: 1.17.5
       target:
         kind: HelmRelease
