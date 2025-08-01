@@ -12,7 +12,6 @@ spec:
         kind: HelmRepository
         name: proxmox-cloud-controller-manager
         namespace: kube-system
-      version: "0.0.0"
   interval: 60m
   install:
     remediation:

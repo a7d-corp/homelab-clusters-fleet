@@ -12,7 +12,6 @@ spec:
         kind: HelmRepository
         name: democratic-csi
         namespace: democratic-csi
-      version: "0.0.0"
   interval: 60m
   install:
     remediation:

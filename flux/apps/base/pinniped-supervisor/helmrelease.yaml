@@ -11,7 +11,6 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: bitnami-pinniped
-      version: "0.0.0"
   interval: 10m0s
   values:
     global:

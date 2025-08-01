@@ -12,7 +12,6 @@ spec:
         kind: HelmRepository
         name: kubelet-csr-approver
         namespace: kube-system
-      version: "0.0.0"
   interval: 60m
   install:
     remediation:
