@@ -10,7 +10,6 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: ingress-nginx
-      version: "0.0.0"
   interval: 60m
   storageNamespace: ingress-nginx
   targetNamespace: ingress-nginx

@@ -11,7 +11,6 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: cilium
-      version: "1.17.5"
   interval: 10m0s
   values:
     bgpControlPlane:
