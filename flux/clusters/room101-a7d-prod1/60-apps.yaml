@@ -101,7 +101,9 @@ spec:
     - patch: |
         - op: replace
           path: /spec/chart/spec/version
-          # renovate: vmware/pinniped
+          # renovate: datasource=helm
+          # chartname=pinniped
+          # url=oci://registry-1.docker.io/bitnamicharts
           value: 2.4.20
       target:
         kind: HelmRelease
@@ -112,7 +114,9 @@ spec:
     - patch: |
         - op: replace
           path: /spec/chart/spec/version
-          # renovate: vmware/pinniped
+          # renovate: datasource=helm
+          # chartname=pinniped
+          # url=oci://registry-1.docker.io/bitnamicharts
           value: 2.4.20
       target:
         kind: HelmRelease
@@ -123,7 +127,9 @@ spec:
     - patch: |
         - op: replace
           path: /spec/chart/spec/version
-          # renovate: oauth2-proxy/oauth2-proxy
+          # renovate: datasource=helm
+          # chartname=oauth2-proxy
+          # url=https://oauth2-proxy.github.io/manifests
           value: 6.24.2
       target:
         kind: HelmRelease
@@ -134,7 +140,9 @@ spec:
     - patch: |
         - op: replace
           path: /spec/chart/spec/version
-          # renovate: oauth2-proxy/oauth2-proxy
+          # renovate: datasource=helm
+          # chartname=oauth2-proxy
+          # url=https://oauth2-proxy.github.io/manifests
           value: 6.24.2
       target:
         kind: HelmRelease

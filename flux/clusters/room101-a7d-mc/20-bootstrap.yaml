@@ -185,7 +185,9 @@ spec:
           value: "^room101-[a-z0-9]+-mc-(workers|cp)-[a-z0-9]+-[a-z0-9]+$"
         - op: replace
           path: /spec/chart/spec/version
-          # renovate: postfinance/kubelet-csr-approver
+          # renovate: datasource=helm
+          # chartname=kubelet-csr-approver
+          # url=https://postfinance.github.io/kubelet-csr-approver
           value: 1.2.10
       target:
         kind: HelmRelease
@@ -196,7 +198,9 @@ spec:
     - patch: |
         - op: replace
           path: /spec/chart/spec/version
-          # renovate: sergelogvinov/proxmox-cloud-controller-manager
+          # renovate: datasource=helm
+          # chartname=proxmox-cloud-controller-manager
+          # url=oci://ghcr.io/sergelogvinov/charts
           value: 0.2.14
       target:
         kind: HelmRelease
