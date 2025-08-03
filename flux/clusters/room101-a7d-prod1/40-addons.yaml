@@ -197,7 +197,7 @@ spec:
             kind: "DNSEndpoint"
         - op: replace
           path: /spec/chart/spec/version
-          # renovate: datasource=helm
+          # renovate: datasource=docker
           # chartname=external-dns
           # url=oci://registry-1.docker.io/bitnamicharts
           value: 8.9.2

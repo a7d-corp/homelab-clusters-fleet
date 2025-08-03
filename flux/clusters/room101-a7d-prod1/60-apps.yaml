@@ -101,7 +101,7 @@ spec:
     - patch: |
         - op: replace
           path: /spec/chart/spec/version
-          # renovate: datasource=helm
+          # renovate: datasource=docker
           # chartname=pinniped
           # url=oci://registry-1.docker.io/bitnamicharts
           value: 2.4.20
@@ -114,7 +114,7 @@ spec:
     - patch: |
         - op: replace
           path: /spec/chart/spec/version
-          # renovate: datasource=helm
+          # renovate: datasource=docker
           # chartname=pinniped
           # url=oci://registry-1.docker.io/bitnamicharts
           value: 2.4.20
@@ -147,9 +147,6 @@ spec:
       target:
         kind: HelmRelease
         name: oauth2-proxy-analbeard-com
-
-        
-        
 ---
 #
 # post-setup for addons

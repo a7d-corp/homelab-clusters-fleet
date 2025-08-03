@@ -68,7 +68,8 @@ spec:
         - op: add
           path: /spec
           value:
-            # renovate: siderolabs/cluster-api-bootstrap-provider-talos
+            # renovate: datasource=github-releases
+            # repo=siderolabs/cluster-api-bootstrap-provider-talos
             version: v0.6.9
       target:
         kind: BootstrapProvider
@@ -77,7 +78,8 @@ spec:
         - op: add
           path: /spec
           value:
-            # renovate: siderolabs/cluster-api-control-plane-provider-talos
+            # renovate: datasource=github-releases
+            # repo=siderolabs/cluster-api-control-plane-provider-talos
             version: v0.5.10
       target:
         kind: ControlPlaneProvider
@@ -86,7 +88,8 @@ spec:
         - op: add
           path: /spec
           value:
-            # renovate: kubernetes-sigs/cluster-api
+            # renovate: datasource=github-releases
+            # repo=kubernetes-sigs/cluster-api
             version: v1.10.4
       target:
         kind: CoreProvider
@@ -94,7 +97,8 @@ spec:
     - patch: |
         - op: add
           path: /spec/version
-          # renovate: ionos-cloud/cluster-api-provider-proxmox
+          # renovate: datasource=github-releases
+          # repo=ionos-cloud/cluster-api-provider-proxmox
           value: v0.7.3
       target:
         kind: InfrastructureProvider

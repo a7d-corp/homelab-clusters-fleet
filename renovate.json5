@@ -13,35 +13,28 @@
     {
       "matchPackageNames": ["*"],
       "matchManagers": ["regex"],
-      "additionalBranchPrefix": "{{baseDir}}-{{packageFile}}",
+      "additionalBranchPrefix": "{{baseDir}}/{{packageFile}}",
       "commitMessageTopic": "{{depName}}",
     }
   ],
   "customManagers": [
     {
-      // Supports various formats where a comment with `renovate: ${REPO_NAME}` is on the line
-      // before the version string line
+      // Update from github releases
       "customType": "regex",
       "fileMatch": [
         ".*y[a]?ml$",
       ],
       "matchStrings": [
-        "renovate: (?<depName>.*)\n(.+)\\?= v?(?<currentValue>\\S+)\n",
-        "renovate: (?<depName>.*)\n(.+)\\/releases\\/download\\/v?(?<currentValue>.+)\\/.*",
-        "renovate: (?<depName>.*)\n(.+)=v?(?<currentValue>\\S+)\n",
-        "renovate: (?<depName>.*)\n(.+)VERSION=v?(?<currentValue>.+)\\/.*",
-        "renovate: (?<depName>.*)\n(\\s)*version: v?(?<currentValue>.*?)\n",
-        "renovate: (?<depName>.*)\n(\\s)*version:(\\s)*v?(?<currentValue>.*?)(\\s)*\n",
-        "renovate: (?<depName>.*)\n(\\s*)default: \"?.+:v?(?<currentValue>.*?)(-debug)?\"?\n",
-        "renovate: (?<depName>.*)\n(\\s*)image: \"?.+:v?(?<currentValue>.*?)\"?\n",
-        "renovate: (?<depName>.*)\n(\\s)*([\\w|_]+)release:(\\s)*v?(?<currentValue>.*?)(\\s)*\n",
-        "renovate: (?<depName>.*)\n(.+)VERSION: v?(?<currentValue>.+)\n",
-        "renovate: (?<depName>.*)\n(.+): v?(?<currentValue>.+)\n",
+        // # renovate: datasource=github-releases
+        // # repo=siderolabs/cluster-api-bootstrap-provider-talos
+        // (version|value): v0.6.9
+        'renovate:\\s+datasource=(?<datasource>\\S+)\\s*\\n\\W*repo=(?<depName>\\S+)\\s*\\n\\W*version:(\\s)*v?(?<currentValue>.*?)(\\s)*\\n',
+        'renovate:\\s+datasource=(?<datasource>\\S+)\\s*\\n\\W*repo=(?<depName>\\S+)\\s*\\n\\W*value:(\\s)*v?(?<currentValue>.*?)(\\s)*\\n',
       ],
-      "datasourceTemplate": "github-releases",
       "extractVersionTemplate": "^\"?v?(?<version>.*)\"?$"
     },
     {
+      // Update Helm charts from HTTPS registries
       customType: 'regex',
       managerFilePatterns: [
         '.*y[a]?ml$'
@@ -50,9 +43,28 @@
         // # renovate: datasource=helm
         // # chartname=atlantis
         // # url=https://runatlantis.github.io/helm-charts
-        // version: 5.18.0
-        'renovate:\\s+datasource=(?<datasource>\\w+)\\s*\\n\\W*chartname=(?<depName>\\S+)\\s*\\n\\W*url=(?<registryUrl>\\S+)\\s*\\n(\\s)*version:(\\s)*v?(?<currentValue>.*?)(\\s)*\\n'
+        // (version|value): 5.18.0
+        'renovate:\\s+datasource=(?<datasource>\\w+)\\s*\\n\\W*chartname=(?<depName>\\S+)\\s*\\n\\W*url=(?<registryUrl>\\S+)\\s*\\n(\\s)*version:(\\s)*v?(?<currentValue>.*?)(\\s)*\\n',
+        'renovate:\\s+datasource=(?<datasource>\\w+)\\s*\\n\\W*chartname=(?<depName>\\S+)\\s*\\n\\W*url=(?<registryUrl>\\S+)\\s*\\n(\\s)*value:(\\s)*v?(?<currentValue>.*?)(\\s)*\\n'
       ],
+      "extractVersionTemplate": "^\"?v?(?<version>.*)\"?$",
+    },
+    {
+      // Update Helm charts from OCI registries
+      customType: 'regex',
+      fileMatch: [
+        '.*y[a]?ml$'
+      ],
+      matchStrings: [
+        // # renovate: datasource=docker
+        // # chartname=atlantis
+        // # url=oci://runatlantis.github.io/helm-charts
+        // (version|value): 5.18.0
+        'renovate:\\s+datasource=(?<datasource>\\w+)\\s*\\n\\W*chartname=(?<chartName>\\w+)\\s*\\n\\W*url=oci://(?<registry>\\S*)\\s*\\n\\s*version:\\s*v?(?<currentValue>.*?)\\s*\\n',
+        'renovate:\\s+datasource=(?<datasource>\\w+)\\s*\\n\\W*chartname=(?<chartName>\\w+)\\s*\\n\\W*url=oci://(?<registry>\\S*)\\s*\\n\\s*value:\\s*v?(?<currentValue>.*?)\\s*\\n'
+      ],
+      depNameTemplate: '{{ chartName }}',
+      packageNameTemplate: '{{ registry }}/{{ chartName }}',
     }
   ]
 }
