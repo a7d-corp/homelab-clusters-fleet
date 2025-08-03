@@ -3,4 +3,3 @@ kind: Kustomization
 resources:
 - kubelet-csr-approver
 - proxmox-cloud-controller-manager
-#- talos-cloud-controller-manager
