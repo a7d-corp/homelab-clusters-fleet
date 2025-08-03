@@ -11,9 +11,11 @@ data:
   CONTROLPLANE_COUNT: "3"
 
   # infra versions
-  # renovate: kubernetes/kubernetes
+  # renovate: datasource=github-releases
+  # repo=kubernetes/kubernetes
   K8S_VERSION: v1.33.2
-  # renovate: siderolabs/talos
+  # renovate: datasource=github-releases
+  # repo=siderolabs/talos
   TALOS_VERSION: v1.10.5
 
   # salts to enable manual node rolling
