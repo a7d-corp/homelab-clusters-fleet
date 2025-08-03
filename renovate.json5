@@ -33,7 +33,7 @@
         // # renovate: datasource=github-releases
         // # repo=siderolabs/cluster-api-bootstrap-provider-talos
         // (.*)VERSION: v0.6.9
-        'renovate:\s+datasource=(?<datasource>\S+)\s*\n\W*repo=(?<depName>\S+)\s*\n\W*(.+)VERSION:(\s)*v?(?<currentValue>.*?)(\s)*\n',
+        'renovate:\\s+datasource=(?<datasource>\\S+)\\s*\\n\\W*repo=(?<depName>\\S+)\\s*\\n\\W*(.+)VERSION:(\\s)*v?(?<currentValue>.*?)(\\s)*\\n',
       ],
       "extractVersionTemplate": "^\"?v?(?<version>.*)\"?$"
     },
