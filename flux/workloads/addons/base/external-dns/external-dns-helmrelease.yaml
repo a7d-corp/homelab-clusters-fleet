@@ -10,14 +10,26 @@ spec:
       chart: external-dns
       sourceRef:
         kind: HelmRepository
-        name: bitnami
+        name: external-dns
   interval: 60m
   storageNamespace: external-dns
   targetNamespace: external-dns
   values:
-    annotationFilter: "external-dns.alpha.kubernetes.io/exclude notin (true)"
-    cloudflare:
-      proxied: false
-      secretName: external-dns-cf-auth
+    extraArgs:
+      annotation-filter: "external-dns.alpha.kubernetes.io/exclude notin (true)"
+      cloudflare-dns-records-per-page: 100
+      cloudflare-record-comment: "provisioned by external-dns"
+      crd-source-apiversion: "externaldns.k8s.io/v1alpha1"
+      crd-source-kind: "DNSEndpoint"
+    env:
+      - name: CF_API_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: external-dns-cf-auth
+            key: cloudflare_api_token
     policy: sync
-    provider: cloudflare
+    provider:
+      name: cloudflare
+    sources:
+      - crd
+      - ingress
