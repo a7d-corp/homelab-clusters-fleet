@@ -20,9 +20,9 @@ data:
 
   # salts to enable manual node rolling
   # generate with `openssl rand -hex 3`
-  CP_MACHINE_SALT: "1929ad"
-  WORKER_MACHINE_SALT: "cb6726"
-  WORKER_TCT_SALT: "dcec84"
+  CP_MACHINE_SALT: "c71bd0"
+  WORKER_MACHINE_SALT: "1ad3de"
+  WORKER_TCT_SALT: "1172c4"
 
   # node config
   FACTORY_SCHEMATIC_ID: "ab6d7d206d804d1e21141b7d3bba5842fe539e74da9d54856eb6c11d6d059ba9"
