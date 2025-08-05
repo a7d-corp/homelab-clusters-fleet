@@ -59,23 +59,12 @@ spec:
         - op: add
           path: /spec/values/txtOwnerId
           value: "room101a7dmc"
-        - op: add
-          path: /spec/values/sources
-          value:
-            - crd
-            - ingress
-        - op: add
-          path: /spec/values/crd
-          value:
-            create: true
-            apiversion: "externaldns.k8s.io/v1alpha1" # CHECKME
-            kind: "DNSEndpoint"
         - op: replace
           path: /spec/chart/spec/version
-          # renovate: datasource=docker
+          # renovate: datasource=helm
           # chartname=external-dns
-          # url=oci://registry-1.docker.io/bitnamicharts
-          value: 8.9.2
+          # url=https://kubernetes-sigs.github.io/external-dns/
+          value: 1.18.0
       target:
         kind: HelmRelease
         name: external-dns
