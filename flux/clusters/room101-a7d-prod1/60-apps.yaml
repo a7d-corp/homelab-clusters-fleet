@@ -104,7 +104,7 @@ spec:
           # renovate: datasource=docker
           # chartname=pinniped
           # url=oci://registry-1.docker.io/bitnamicharts
-          value: 2.4.21
+          value: 2.4.22
       target:
         kind: HelmRelease
         name: pinniped-concierge
@@ -117,7 +117,7 @@ spec:
           # renovate: datasource=docker
           # chartname=pinniped
           # url=oci://registry-1.docker.io/bitnamicharts
-          value: 2.4.21
+          value: 2.4.22
       target:
         kind: HelmRelease
         name: pinniped-supervisor
