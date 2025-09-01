@@ -70,7 +70,7 @@ spec:
           value:
             # renovate: datasource=github-releases
             # repo=siderolabs/cluster-api-bootstrap-provider-talos
-            version: v0.6.9
+            version: v0.6.10
       target:
         kind: BootstrapProvider
         name: talos # https://github.com/siderolabs/cluster-api-bootstrap-provider-talos
