@@ -80,7 +80,7 @@ spec:
           value:
             # renovate: datasource=github-releases
             # repo=siderolabs/cluster-api-control-plane-provider-talos
-            version: v0.5.10
+            version: v0.5.11
       target:
         kind: ControlPlaneProvider
         name: talos # https://github.com/siderolabs/cluster-api-control-plane-provider-talos
