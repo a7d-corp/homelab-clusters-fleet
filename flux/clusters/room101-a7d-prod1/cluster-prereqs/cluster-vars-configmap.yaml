@@ -13,7 +13,7 @@ data:
   # infra versions
   # renovate: datasource=github-releases
   # repo=kubernetes/kubernetes
-  K8S_VERSION: v1.33.3
+  K8S_VERSION: v1.34.1
   # renovate: datasource=github-releases
   # repo=siderolabs/talos
   TALOS_VERSION: v1.10.6
