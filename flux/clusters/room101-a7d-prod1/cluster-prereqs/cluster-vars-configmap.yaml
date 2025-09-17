@@ -16,7 +16,7 @@ data:
   K8S_VERSION: v1.34.1
   # renovate: datasource=github-releases
   # repo=siderolabs/talos
-  TALOS_VERSION: v1.10.6
+  TALOS_VERSION: v1.11.1
 
   # salts to enable manual node rolling
   # generate with `openssl rand -hex 3`
