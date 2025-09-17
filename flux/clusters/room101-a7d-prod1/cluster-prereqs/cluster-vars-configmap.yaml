@@ -13,16 +13,16 @@ data:
   # infra versions
   # renovate: datasource=github-releases
   # repo=kubernetes/kubernetes
-  K8S_VERSION: v1.33.3
+  K8S_VERSION: v1.34.1
   # renovate: datasource=github-releases
   # repo=siderolabs/talos
   TALOS_VERSION: v1.11.1
 
   # salts to enable manual node rolling
   # generate with `openssl rand -hex 3`
-  CP_MACHINE_SALT: "7e6632"
-  WORKER_MACHINE_SALT: "f90598"
-  WORKER_TCT_SALT: "57dd9d"
+  CP_MACHINE_SALT: "8257c6"
+  WORKER_MACHINE_SALT: "0eadc5"
+  WORKER_TCT_SALT: "6c8239"
 
   # node config
   FACTORY_SCHEMATIC_ID: "ab6d7d206d804d1e21141b7d3bba5842fe539e74da9d54856eb6c11d6d059ba9"
