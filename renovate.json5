@@ -1,7 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
+    "github>a7d-corp/renovate-presets:default.json5"
   ],
   "labels": ["skip-verify-changelog"],
   "flux": {
