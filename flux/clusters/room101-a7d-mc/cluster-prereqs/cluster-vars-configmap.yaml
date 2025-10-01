@@ -16,13 +16,13 @@ data:
   K8S_VERSION: v1.33.3
   # renovate: datasource=github-releases
   # repo=siderolabs/talos
-  TALOS_VERSION: v1.10.6
+  TALOS_VERSION: v1.11.2
 
   # salts to enable manual node rolling
   # generate with `openssl rand -hex 3`
-  CP_MACHINE_SALT: "db8f2d"
-  WORKER_MACHINE_SALT: "e07784"
-  WORKER_TCT_SALT: "c3207c"
+  CP_MACHINE_SALT: "b7a492"
+  WORKER_MACHINE_SALT: "0e3283"
+  WORKER_TCT_SALT: "789106"
 
   # node config
   FACTORY_SCHEMATIC_ID: "ab6d7d206d804d1e21141b7d3bba5842fe539e74da9d54856eb6c11d6d059ba9"
