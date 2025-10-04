@@ -18,6 +18,12 @@ spec:
     global:
       imagePullSecrets:
         - docker-io-credentials
+      security:
+        allowInsecureImages: true
+    image:
+      registry: docker.io
+      repository: getpinniped/pinniped-server
+      tag: v0.40.0
     supervisor:
       enabled: false
     concierge:
