@@ -69,6 +69,20 @@
       ],
       depNameTemplate: '{{ chartName }}',
       packageNameTemplate: '{{ registry }}/{{ chartName }}',
+    },
+    {
+      // Match github release URLs
+      "customType": "regex",
+      "fileMatch": [
+        ".*y[a]?ml$",
+      ],
+      "matchStrings": [
+        // # renovate: fluxcd/flux2
+        // - https://github.com/fluxcd/flux2/releases/download/v2.6.4/install.yaml
+        "renovate: (?<depName>.*)\n(.+)\\/releases\\/download\\/v?(?<currentValue>.+)\\/.*",
+      ],
+      "datasourceTemplate": "github-releases",
+      "extractVersionTemplate": "^\"?v?(?<version>.*)\"?$",
     }
   ]
 }
