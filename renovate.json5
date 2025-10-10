@@ -1,88 +1,74 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "github>a7d-corp/renovate-presets:default.json5"
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'github>a7d-corp/renovate-presets:default.json5',
   ],
-  "labels": ["skip-verify-changelog"],
-  "flux": {
-    "fileMatch": [
-        "(helmrelease|helmrepository)\\.yaml$"
-    ]
+  labels: [
+    'skip-verify-changelog',
+  ],
+  flux: {
+    managerFilePatterns: [
+      '/(helmrelease|helmrepository)\\.yaml$/',
+    ],
   },
-  "packageRules": [
+  packageRules: [
     {
-      "matchPackageNames": ["*"],
-      "matchManagers": ["regex"],
-      "additionalBranchPrefix": "{{baseDir}}/{{packageFile}}",
-      "commitMessageTopic": "{{depName}}",
-    }
-  ],
-  "customManagers": [
-    {
-      // Update from github releases
-      "customType": "regex",
-      "fileMatch": [
-        ".*y[a]?ml$",
+      matchPackageNames: [
+        '*',
       ],
-      "matchStrings": [
-        // # renovate: datasource=github-releases
-        // # repo=siderolabs/cluster-api-bootstrap-provider-talos
-        // (version|value): v0.6.9
-        'renovate:\\s+datasource=(?<datasource>\\S+)\\s*\\n\\W*repo=(?<depName>\\S+)\\s*\\n\\W*version:(\\s)*v?(?<currentValue>.*?)(\\s)*\\n',
-        'renovate:\\s+datasource=(?<datasource>\\S+)\\s*\\n\\W*repo=(?<depName>\\S+)\\s*\\n\\W*value:(\\s)*v?(?<currentValue>.*?)(\\s)*\\n',
-        // # renovate: datasource=github-releases
-        // # repo=siderolabs/cluster-api-bootstrap-provider-talos
-        // (.*)VERSION: v0.6.9
-        'renovate:\\s+datasource=(?<datasource>\\S+)\\s*\\n\\W*repo=(?<depName>\\S+)\\s*\\n\\W*(.+)VERSION:(\\s)*v?(?<currentValue>.*?)(\\s)*\\n',
+      matchManagers: [
+        'custom.regex',
       ],
-      "extractVersionTemplate": "^\"?v?(?<version>.*)\"?$"
+      additionalBranchPrefix: '{{packageFileDir}}/{{packageFile}}',
+      commitMessageTopic: '{{depName}}',
     },
+  ],
+  customManagers: [
     {
-      // Update Helm charts from HTTPS registries
       customType: 'regex',
       managerFilePatterns: [
-        '.*y[a]?ml$'
+        '/.*y[a]?ml$/',
       ],
       matchStrings: [
-        // # renovate: datasource=helm
-        // # chartname=atlantis
-        // # url=https://runatlantis.github.io/helm-charts
-        // (version|value): 5.18.0
-        'renovate:\\s+datasource=(?<datasource>\\w+)\\s*\\n\\W*chartname=(?<depName>\\S+)\\s*\\n\\W*url=(?<registryUrl>\\S+)\\s*\\n(\\s)*version:(\\s)*v?(?<currentValue>.*?)(\\s)*\\n',
-        'renovate:\\s+datasource=(?<datasource>\\w+)\\s*\\n\\W*chartname=(?<depName>\\S+)\\s*\\n\\W*url=(?<registryUrl>\\S+)\\s*\\n(\\s)*value:(\\s)*v?(?<currentValue>.*?)(\\s)*\\n'
+        'renovate:\\s+datasource=(?<datasource>\\S+)\\s*\\n\\W*repo=(?<depName>\\S+)\\s*\\n\\W*version:(\\s)*v?(?<currentValue>.*?)(\\s)*\\n',
+        'renovate:\\s+datasource=(?<datasource>\\S+)\\s*\\n\\W*repo=(?<depName>\\S+)\\s*\\n\\W*value:(\\s)*v?(?<currentValue>.*?)(\\s)*\\n',
+        'renovate:\\s+datasource=(?<datasource>\\S+)\\s*\\n\\W*repo=(?<depName>\\S+)\\s*\\n\\W*(.+)VERSION:(\\s)*v?(?<currentValue>.*?)(\\s)*\\n',
       ],
-      "extractVersionTemplate": "^\"?v?(?<version>.*)\"?$",
+      extractVersionTemplate: '^"?v?(?<version>.*)"?$',
     },
     {
-      // Update Helm charts from OCI registries
       customType: 'regex',
-      fileMatch: [
-        '.*y[a]?ml$'
+      managerFilePatterns: [
+        '.*y[a]?ml$',
       ],
       matchStrings: [
-        // # renovate: datasource=docker
-        // # chartname=atlantis
-        // # url=oci://runatlantis.github.io/helm-charts
-        // (version|value): 5.18.0
+        'renovate:\\s+datasource=(?<datasource>\\w+)\\s*\\n\\W*chartname=(?<depName>\\S+)\\s*\\n\\W*url=(?<registryUrl>\\S+)\\s*\\n(\\s)*version:(\\s)*v?(?<currentValue>.*?)(\\s)*\\n',
+        'renovate:\\s+datasource=(?<datasource>\\w+)\\s*\\n\\W*chartname=(?<depName>\\S+)\\s*\\n\\W*url=(?<registryUrl>\\S+)\\s*\\n(\\s)*value:(\\s)*v?(?<currentValue>.*?)(\\s)*\\n',
+      ],
+      extractVersionTemplate: '^"?v?(?<version>.*)"?$',
+    },
+    {
+      customType: 'regex',
+      managerFilePatterns: [
+        '/.*y[a]?ml$/',
+      ],
+      matchStrings: [
         'renovate:\\s+datasource=(?<datasource>\\w+)\\s*\\n\\W*chartname=(?<chartName>\\w+)\\s*\\n\\W*url=oci://(?<registry>\\S*)\\s*\\n\\s*version:\\s*v?(?<currentValue>.*?)\\s*\\n',
-        'renovate:\\s+datasource=(?<datasource>\\w+)\\s*\\n\\W*chartname=(?<chartName>\\w+)\\s*\\n\\W*url=oci://(?<registry>\\S*)\\s*\\n\\s*value:\\s*v?(?<currentValue>.*?)\\s*\\n'
+        'renovate:\\s+datasource=(?<datasource>\\w+)\\s*\\n\\W*chartname=(?<chartName>\\w+)\\s*\\n\\W*url=oci://(?<registry>\\S*)\\s*\\n\\s*value:\\s*v?(?<currentValue>.*?)\\s*\\n',
       ],
       depNameTemplate: '{{ chartName }}',
       packageNameTemplate: '{{ registry }}/{{ chartName }}',
     },
     {
-      // Match github release URLs
-      "customType": "regex",
-      "fileMatch": [
-        ".*y[a]?ml$",
+      customType: 'regex',
+      managerFilePatterns: [
+        '/.*y[a]?ml$/',
       ],
-      "matchStrings": [
-        // # renovate: fluxcd/flux2
-        // - https://github.com/fluxcd/flux2/releases/download/v2.6.4/install.yaml
-        "renovate: (?<depName>.*)\n(.+)\\/releases\\/download\\/v?(?<currentValue>.+)\\/.*",
+      matchStrings: [
+        'renovate: (?<depName>.*)\n(.+)\\/releases\\/download\\/v?(?<currentValue>.+)\\/.*',
       ],
-      "datasourceTemplate": "github-releases",
-      "extractVersionTemplate": "^\"?v?(?<version>.*)\"?$",
-    }
-  ]
+      datasourceTemplate: 'github-releases',
+      extractVersionTemplate: '^"?v?(?<version>.*)"?$',
+    },
+  ],
 }
