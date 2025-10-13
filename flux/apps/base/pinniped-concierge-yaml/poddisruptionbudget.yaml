@@ -1,0 +1,12 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  labels:
+    app: pinniped-concierge
+  name: pinniped-concierge
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: pinniped-concierge
+

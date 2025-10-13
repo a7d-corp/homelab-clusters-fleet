@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: concierge.${CLUSTER_FQDN}
+    external-dns.alpha.kubernetes.io/target: ${EXTERNAL_DNS_EXTERNAL_TARGET}
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  name: pinniped-concierge-impersonation-proxy-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: concierge.${CLUSTER_FQDN}
+    http:
+      paths:
+      - backend:
+          service:
+            name: pinniped-concierge-concierge-impersonation-proxy-cluster-ip
+            port:
+              number: 443
+        path: /
+        pathType: Prefix
