@@ -50,7 +50,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./flux/apps/room101-a7d-prod1
+  path: ./flux/apps/room101-a7d-prod1/install/helm
   prune: true
   wait: true
   timeout: 5m0s
