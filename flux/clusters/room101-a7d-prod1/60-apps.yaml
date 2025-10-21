@@ -96,19 +96,6 @@ spec:
       target:
         kind: HelmRepository
     #
-    # pinnpied-concierge
-    #
-    - patch: |
-        - op: replace
-          path: /spec/chart/spec/version
-          # renovate: datasource=docker
-          # chartname=pinniped
-          # url=oci://registry-1.docker.io/bitnamicharts
-          value: 2.4.23
-      target:
-        kind: HelmRelease
-        name: pinniped-concierge
-    #
     # pinniped-supervisor
     #
     - patch: |
