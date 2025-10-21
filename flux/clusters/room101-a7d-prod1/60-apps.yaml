@@ -34,12 +34,12 @@ spec:
       name: room101-a7d-prod1-kubeconfig
 ---
 #
-# install addons
+# install addons via helmreleases
 #
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 61-apps
+  name: 61-apps-helm
   namespace: cluster-room101-a7d-prod1
 spec:
   interval: 10m0s
@@ -136,17 +136,54 @@ spec:
         name: oauth2-proxy-analbeard-com
 ---
 #
+# install addons via yaml manifests
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 62-apps-yaml
+  namespace: cluster-room101-a7d-prod1
+spec:
+  interval: 10m0s
+  dependsOn:
+    - name: 60-apps-pre-setup
+      namespace: cluster-room101-a7d-prod1
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/apps/room101-a7d-prod1/install/yaml
+  prune: true
+  wait: true
+  timeout: 5m0s
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
+  kubeConfig:
+    secretRef:
+      name: room101-a7d-prod1-kubeconfig
+---
+#
 # post-setup for addons
 #
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 62-apps-post-setup
+  name: 63-apps-post-setup
   namespace: cluster-room101-a7d-prod1
 spec:
   interval: 10m0s
   dependsOn:
-    - name: 61-apps
+    - name: 61-apps-helm
+      namespace: cluster-room101-a7d-prod1
+    - name: 62-apps-yaml
       namespace: cluster-room101-a7d-prod1
   sourceRef:
     kind: GitRepository
