@@ -6,4 +6,9 @@ kind: Kustomization
 resources:
   # renovate vmware/pinniped
   - https://github.com/vmware/pinniped/releases/download/v0.41.0/install-pinniped-concierge.yaml
-  - poddisruptionbudget.yaml
+
+patches:
+  - target:
+      kind: CredentialIssuer
+      name: pinniped-concierge-config
+    path: patches/delete-credentialissuer.yaml

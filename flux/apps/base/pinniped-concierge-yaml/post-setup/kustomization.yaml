@@ -4,5 +4,7 @@ kind: Kustomization
 namespace: pinniped-concierge
 
 resources:
+  - credentialissuer.yaml
   - ingress-impersonation-proxy.yaml
   - jwt-authenticator.yaml
+  - poddisruptionbudget.yaml
