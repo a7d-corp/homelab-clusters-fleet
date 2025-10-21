@@ -16,7 +16,7 @@ spec:
       paths:
       - backend:
           service:
-            name: pinniped-concierge-concierge-impersonation-proxy-cluster-ip
+            name: pinniped-concierge-impersonation-proxy-cluster-ip
             port:
               number: 443
         path: /
