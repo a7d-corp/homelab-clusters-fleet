@@ -4,6 +4,7 @@ metadata:
   labels:
     app: pinniped-supervisor
   name: pinniped-supervisor
+  namespace: pinniped-supervisor
 spec:
   maxUnavailable: 1
   selector:
