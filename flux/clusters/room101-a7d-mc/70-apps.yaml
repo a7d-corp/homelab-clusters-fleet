@@ -31,12 +31,12 @@ spec:
         optional: false
 ---
 #
-# install addons
+# install addons via helm
 #
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 71-apps
+  name: 71-apps-helm
   namespace: cluster-room101-a7d-mc
 spec:
   interval: 10m0s
@@ -47,7 +47,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./flux/apps/room101-a7d-mc
+  path: ./flux/apps/room101-a7d-mc/install/helm
   prune: true
   wait: true
   timeout: 5m0s
@@ -62,19 +62,6 @@ spec:
         name: cluster-vars
         optional: false
   patches:
-    #
-    # pinniped-concierge
-    #
-    - patch: |
-        - op: replace
-          path: /spec/chart/spec/version
-          # renovate: datasource=docker
-          # chartname=pinniped
-          # url=oci://registry-1.docker.io/bitnamicharts
-          value: 2.4.23
-      target:
-        kind: HelmRelease
-        name: pinniped-concierge
     #
     # pinniped-supervisor
     #
@@ -116,17 +103,51 @@ spec:
         name: oauth2-proxy-analbeard-com
 ---
 #
+# install addons via helm
+#
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 72-apps-yaml
+  namespace: cluster-room101-a7d-mc
+spec:
+  interval: 10m0s
+  dependsOn:
+    - name: 70-apps-pre-setup
+      namespace: cluster-room101-a7d-mc
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./flux/apps/room101-a7d-mc/install/yaml
+  prune: true
+  wait: true
+  timeout: 5m0s
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  suspend: false
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: false
+---
+#
 # post-setup for addons
 #
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: 72-apps-post-setup
+  name: 73-apps-post-setup
   namespace: cluster-room101-a7d-mc
 spec:
   interval: 10m0s
   dependsOn:
-    - name: 71-apps
+    - name: 71-apps-helm
+      namespace: cluster-room101-a7d-mc
+    - name: 72-apps-yaml
       namespace: cluster-room101-a7d-mc
   sourceRef:
     kind: GitRepository
