@@ -10,7 +10,9 @@ metadata:
 spec:
   interval: 10m0s
   dependsOn:
-    - name: 71-apps
+    - name: 71-apps-helm
+      namespace: cluster-room101-a7d-mc
+    - name: 72-apps-yaml
       namespace: cluster-room101-a7d-mc
   sourceRef:
     kind: GitRepository
