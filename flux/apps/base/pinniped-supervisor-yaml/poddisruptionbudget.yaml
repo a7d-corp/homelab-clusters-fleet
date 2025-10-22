@@ -1,0 +1,11 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  labels:
+    app: pinniped-supervisor
+  name: pinniped-supervisor
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: pinniped-supervisor

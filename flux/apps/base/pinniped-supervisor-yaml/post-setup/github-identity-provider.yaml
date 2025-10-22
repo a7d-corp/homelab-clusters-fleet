@@ -1,0 +1,17 @@
+apiVersion: idp.supervisor.pinniped.dev/v1alpha1
+kind: GitHubIdentityProvider
+metadata:
+  name: github
+spec:
+  githubAPI:
+    host: github.com
+  client:
+    secretName: github-client-credentials
+  allowAuthentication:
+    organizations:
+      policy: OnlyUsersFromAllowedOrganizations
+      allowed:
+      - a7d-corp
+  claims:
+    username: "login:id"
+    groups: slug

@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    external-dns.alpha.kubernetes.io/hostname: supervisor.${CLUSTER_FQDN}
+    external-dns.alpha.kubernetes.io/target: ${EXTERNAL_DNS_EXTERNAL_TARGET}
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  labels:
+    app: pinniped-supervisor
+  name: pinniped-supervisor
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: supervisor.${CLUSTER_FQDN}
+    http:
+      paths:
+      - backend:
+          service:
+            name: pinniped-supervisor-api
+            port:
+              number: 443
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - supervisor.${CLUSTER_FQDN}
+    secretName: supervisor.${CLUSTER_FQDN}-tls
