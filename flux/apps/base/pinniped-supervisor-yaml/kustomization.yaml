@@ -3,6 +3,6 @@ kind: Kustomization
 
 resources:
 # renovate: vmware/pinniped
-- https://github.com/vmware/pinniped/releases/download/v0.41.0/install-pinniped-supervisor.yaml
+- https://github.com/vmware/pinniped/releases/download/v0.42.0/install-pinniped-supervisor.yaml
 - ingress.yaml
 - poddisruptionbudget.yaml
