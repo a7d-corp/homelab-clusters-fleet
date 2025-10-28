@@ -23,7 +23,7 @@ spec:
     image:
       registry: docker.io
       repository: getpinniped/pinniped-server
-      tag: v0.41.0
+      tag: v0.42.0
     supervisor:
       enabled: false
     concierge:
